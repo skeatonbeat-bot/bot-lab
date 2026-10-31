@@ -1,0 +1,9 @@
+name = "edge-finder"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[vars]
+GITHUB_REPO = "skeatonbeat-bot/bot-lab"
+
+# CONNECTOR_KEY is a secret: set it in the Cloudflare dashboard
+# (Worker > Settings > Variables and Secrets), never in this file.

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+data/*.csv
+connector/node_modules/
+connector/.wrangler/
+.DS_Store

@@ -1,0 +1,6 @@
+,bot,final $,return %,worst drop %,trades,win rate %,fees $,retired
+1,Benchmark,75.04,-25.0,-54.0,0,,0.6,False
+2,Breakout,59.95,-40.1,-40.1,26,15.0,23.68,True
+3,Trend Rider,59.78,-40.2,-40.9,33,9.0,31.4,True
+4,Grid,59.46,-40.5,-41.0,30,3.0,36.56,True
+5,Dip Hunter,59.39,-40.6,-41.4,46,50.0,46.5,True

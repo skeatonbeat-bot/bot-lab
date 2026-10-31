@@ -1,0 +1,38 @@
+name: Bot tournament (paper money)
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # every 15 minutes (GitHub may run it a few minutes late)
+  workflow_dispatch: {}       # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tournament
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Slow League (4-hour candles)
+        run: python paper_live.py --candle 4h --once
+        continue-on-error: true
+      - name: Speed League (15-minute candles)
+        run: python paper_live.py --candle 15min --once
+        continue-on-error: true
+      - name: Save results
+        if: always()
+        run: |
+          git config user.name "tournament-bot"
+          git config user.email "tournament-bot@users.noreply.github.com"
+          git add live/
+          git diff --cached --quiet || (git commit -m "Tournament update $(date -u +%Y-%m-%dT%H:%MZ)" && git push)
