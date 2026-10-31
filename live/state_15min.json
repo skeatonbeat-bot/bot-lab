@@ -1,0 +1,80 @@
+{
+ "last": "2026-10-31 21:45:00+00:00",
+ "bots": [
+  {
+   "name": "Benchmark",
+   "start_cash": 100.0,
+   "cash": 100.0,
+   "units": 0.0,
+   "meta": {},
+   "fees_paid": 0.0,
+   "day": null,
+   "day_start_equity": 100.0,
+   "locked_day": null,
+   "retired": false,
+   "candles_seen": 10000,
+   "open_trip_equity": null,
+   "open_trip_opened": null
+  },
+  {
+   "name": "Trend Rider",
+   "start_cash": 100.0,
+   "cash": 100.0,
+   "units": 0.0,
+   "meta": {},
+   "fees_paid": 0.0,
+   "day": null,
+   "day_start_equity": 100.0,
+   "locked_day": null,
+   "retired": false,
+   "candles_seen": 10000,
+   "open_trip_equity": null,
+   "open_trip_opened": null
+  },
+  {
+   "name": "Breakout",
+   "start_cash": 100.0,
+   "cash": 100.0,
+   "units": 0.0,
+   "meta": {},
+   "fees_paid": 0.0,
+   "day": null,
+   "day_start_equity": 100.0,
+   "locked_day": null,
+   "retired": false,
+   "candles_seen": 10000,
+   "open_trip_equity": null,
+   "open_trip_opened": null
+  },
+  {
+   "name": "Dip Hunter",
+   "start_cash": 100.0,
+   "cash": 100.0,
+   "units": 0.0,
+   "meta": {},
+   "fees_paid": 0.0,
+   "day": null,
+   "day_start_equity": 100.0,
+   "locked_day": null,
+   "retired": false,
+   "candles_seen": 10000,
+   "open_trip_equity": null,
+   "open_trip_opened": null
+  },
+  {
+   "name": "Grid",
+   "start_cash": 100.0,
+   "cash": 100.0,
+   "units": 0.0,
+   "meta": {},
+   "fees_paid": 0.0,
+   "day": null,
+   "day_start_equity": 100.0,
+   "locked_day": null,
+   "retired": false,
+   "candles_seen": 10000,
+   "open_trip_equity": null,
+   "open_trip_opened": null
+  }
+ ]
+}
