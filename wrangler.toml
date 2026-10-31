@@ -1,0 +1,12 @@
+# Lets Cloudflare deploy the Edge Finder connector straight from the repo root
+# with its default settings (project name "bot-lab", no root directory).
+name = "bot-lab"
+main = "connector/src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[vars]
+GITHUB_REPO = "skeatonbeat-bot/bot-lab"
+
+# CONNECTOR_KEY is a secret: set it in the Cloudflare dashboard
+# (Worker > Settings > Variables and Secrets), never in this file.
