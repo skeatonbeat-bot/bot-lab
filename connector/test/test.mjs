@@ -95,11 +95,11 @@ const call = async (path, body, headers = {}) => {
 };
 
 // auth
-assert.equal((await call("/mcp", { jsonrpc: "2.0", id: 1, method: "ping" })).status, 401);
-assert.equal((await call("/mcp/wrong", { jsonrpc: "2.0", id: 1, method: "ping" })).status, 401);
+assert.equal((await call("/mcp", { jsonrpc: "2.0", id: 1, method: "ping" })).status, 404);
+assert.equal((await call("/mcp/wrong", { jsonrpc: "2.0", id: 1, method: "ping" })).status, 404);
 assert.equal((await call("/mcp", { jsonrpc: "2.0", id: 1, method: "ping" }, { Authorization: "Bearer secret123" })).status, 200);
 const openEnv = await worker.fetch(new Request("https://x/mcp/x", { method: "POST", body: "{}" }), {});
-assert.equal(openEnv.status, 401, "no key configured must refuse");
+assert.equal(openEnv.status, 404, "no key configured must refuse");
 
 // handshake
 const init = await call("/mcp/secret123", { jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "test", version: "1" } } });

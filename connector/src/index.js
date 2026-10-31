@@ -465,9 +465,16 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/" || url.pathname === "/health")
-      return new Response("edge-finder is running. Connect Claude to /mcp/<your key>.", { status: 200 });
+      return new Response(
+        env.CONNECTOR_KEY
+          ? "edge-finder is running. Key is set. Connect Claude to /mcp/<your key>."
+          : "edge-finder is running, but CONNECTOR_KEY is NOT set yet. Add it under Settings > Variables and Secrets.",
+        { status: 200 }
+      );
     if (!url.pathname.startsWith("/mcp")) return new Response("Not found", { status: 404 });
-    if (!authorized(request, env, url)) return new Response("Unauthorized", { status: 401 });
+    // Wrong or missing key: answer 404, not 401, so clients don't mistake it for an OAuth sign-in.
+    if (!authorized(request, env, url))
+      return new Response(env.CONNECTOR_KEY ? "Not found (check the key in your URL)" : "Not found (CONNECTOR_KEY not set)", { status: 404 });
     if (request.method === "GET") return new Response("This server answers POST requests only.", { status: 405, headers: { Allow: "POST" } });
     if (request.method === "DELETE") return new Response(null, { status: 204 });
     if (request.method !== "POST") return new Response("Method not allowed", { status: 405 });
