@@ -97,7 +97,7 @@ def main():
           "|---|---|---|---|---|---|---|---|---|---|"]
     for _, x in s.iterrows():
         md.append(f"| {x.check // 60}:{x.check % 60:02d} | {x.bucket} | {x.jumps:,} | {x.drifts:,} | {x.gap_jump * 100:+.1f} | "
-                  f"{x.gap_drift * 100:+.1f} | {x.diff * 100:+.1f} | {x.z:+.1f} | {x.roi_jump:+.1%} | {x.roi_drift:+.1%} |")
+                  f"{x.gap_drift * 100:+.1f} | {x["diff"] * 100:+.1f} | {x.z:+.1f} | {x.roi_jump:+.1%} | {x.roi_drift:+.1%} |")
     (OUT / "summary.md").write_text("\n".join(md))
     print("\n".join(md))
 
