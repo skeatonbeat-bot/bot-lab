@@ -1,0 +1,26 @@
+{
+ "last": 1793538000,
+ "prev_up": null,
+ "bots": {
+  "Coin Flip": {
+   "cash": 100.0,
+   "retired": false
+  },
+  "Momentum": {
+   "cash": 100.0,
+   "retired": false
+  },
+  "Late Favorite": {
+   "cash": 100.0,
+   "retired": false
+  },
+  "Model Edge": {
+   "cash": 100.0,
+   "retired": false
+  },
+  "BTC Leader": {
+   "cash": 100.0,
+   "retired": false
+  }
+ }
+}
