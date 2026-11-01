@@ -86,8 +86,7 @@ def main():
     s = pd.DataFrame(rows)
     s.to_csv(OUT / "table.csv", index=False)
     # pooled, weighting each cell by its jump count
-    w = s["jumps"]
-    pooled = (s["diff"] * w).sum() / w.sum() if len(s) else float("nan")
+    pooled = (s["diff"] * s["jumps"]).sum() / s["jumps"].sum() if len(s) else float("nan")
     md = ["# Jump vs drift: does a fast move add anything beyond the long-shot bias?", "",
           f"_Generated {pd.Timestamp.now(tz='UTC'):%Y-%m-%d %H:%M} UTC by research/jump_vs_drift.py on the spring 2026 "
           "Polymarket 5-minute order-book recording._ Leader = the side above 50c at the checkpoint. Gap = win rate minus price. "
