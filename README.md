@@ -25,6 +25,26 @@ Change the list with `COINS` in the workflow, or run one by hand with
 Every bot except the Benchmark pays a 0.6% fee per buy or sell, stops for the
 day after a 10% loss, and retires at $60.
 
+### The 5-minute league (Polymarket Up or Down)
+
+Polymarket opens a market every 5 minutes per coin: Up wins if the price ends the
+window at or above where it started. `poly5m_live.py` gives five bots $100 each and
+makes paper bets on every window, buying at Polymarket's price + 1¢ and paying the
+crypto taker fee (7% x p x (1-p) per share). Each bet risks 2% of the bot's money.
+
+| Bot | Rule |
+|---|---|
+| Coin Flip | Always Up at the open. The one to beat. |
+| Momentum | Bets the last window's direction again. |
+| Late Favorite | At 4 minutes in, buys whichever side costs 70-92¢. |
+| Model Edge | At 3 minutes in, prices the window from the move so far and 2-hour volatility; bets when that beats the price by 5¢ after fees. |
+| BTC Leader | For ETH/SOL/XRP/DOGE: at 2 minutes in, follows bitcoin's move when the coin's own price hasn't caught up. |
+
+It replays each finished window using only what was known at the decision time,
+so it runs fine on the 15-minute schedule. Files: `live/*5min*`.
+History and strategy tests: `research/poly5m.py` (run it from Actions:
+**Research (Polymarket 5-minute history)**), results in `results/poly5m/summary.md`.
+
 **It runs itself.** `.github/workflows/tournament.yml` runs all leagues every
 15 minutes on GitHub's servers and saves results to `live/`. Watch it under
 the repo's **Actions** tab; run it by hand with **Run workflow**.

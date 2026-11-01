@@ -369,17 +369,17 @@ const TOOLS = {
   },
 
   bot_leaderboard: {
-    description: "Latest standings of the paper-trading bot tournament (BTC, ETH, SOL, DOGE, XRP), read from the GitHub repo's live/ folder.",
+    description: "Latest standings of the paper-trading bot tournament (BTC, ETH, SOL, DOGE, XRP), read from the GitHub repo's live/ folder. Leagues 4h/1h/30min/15min trade the coin itself; the 5min league makes paper bets on Polymarket's 5-minute Up or Down markets (bots: Coin Flip, Momentum, Late Favorite, Model Edge, BTC Leader).",
     inputSchema: {
       type: "object",
       properties: {
-        league: { type: "string", description: "4h, 1h, 30min or 15min (default all)" },
+        league: { type: "string", description: "4h, 1h, 30min, 15min or 5min (default all)" },
         coin: { type: "string", description: "BTC, ETH, SOL, DOGE or XRP (default all)" },
       },
     },
     async run(a, env) {
       const repo = env.GITHUB_REPO || "skeatonbeat-bot/bot-lab";
-      const leagues = a.league ? [a.league] : ["4h", "1h", "30min", "15min"];
+      const leagues = a.league ? [a.league] : ["4h", "1h", "30min", "15min", "5min"];
       const coins = a.coin ? [a.coin.toUpperCase().replace(/-USD$/, "")] : ["BTC", "ETH", "SOL", "DOGE", "XRP"];
       const out = [];
       for (const lg of leagues) {
@@ -390,7 +390,7 @@ const TOOLS = {
             const lines = csv.trim().split("\n");
             const head = lines[0].split(","), last = lines[lines.length - 1].split(",");
             const bots = head.slice(2).map((name, i) => ({ name, eq: num(last[i + 2]) })).sort((x, y) => y.eq - x.eq);
-            out.push(`${lg} league, ${coin}, as of ${last[0]} (${coin} $${last[1]}), ${lines.length - 1} candles:`);
+            out.push(`${lg} league, ${coin}, as of ${last[0]} (${coin} $${last[1]}), ${lines.length - 1} ${lg === "5min" ? "windows" : "candles"}:`);
             bots.forEach((b, i) => out.push(`  ${i + 1}. ${b.name}: $${b.eq.toFixed(2)} (${(b.eq - 100).toFixed(1)}%)`));
           } catch (e) {
             out.push(`${lg} league, ${coin}: no data yet (${e.message})`);

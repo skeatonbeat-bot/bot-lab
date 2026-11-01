@@ -45,6 +45,9 @@ jobs:
         run: |
           for p in $COINS; do python paper_live.py --candle 15min --product $p --once || echo "::warning::15min $p failed"; done
         continue-on-error: true
+      - name: 5-Minute League (Polymarket Up or Down bets)
+        run: python poly5m_live.py || echo "::warning::5min league failed"
+        continue-on-error: true
       - name: Save results
         if: always()
         run: |

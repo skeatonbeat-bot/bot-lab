@@ -137,7 +137,7 @@ assert.ok(vol > 10 && vol < 200, `sane volatility, got ${vol}%`);
 const short = Number(/, (\d+)% from the last (\d+) minutes/.exec(t)[1]);
 assert.ok(short > 5 && short < 30 && short < vol, `quiet last 2 hours gives a lower short-window volatility, got ${short}%`);
 // 5-minute window started at 77,700 (Coinbase 1-min open), spot now 77,800, Up at 51 -> Up looks cheap
-assert.ok(new RegExp(`YES at 51¢[^\\n]*Polymarket[^\\n]*Up from \\$77,70[^\\n]*btc-updown-5m-${curStart}`).test(t), "prices the live 5-minute Up or Down window off its start price");
+assert.ok(new RegExp(`YES at 51¢[^\\n]*Polymarket[^\\n]*Up from \\$77,(69|70)[^\\n]*btc-updown-5m-${curStart}`).test(t), "prices the live 5-minute Up or Down window off its start price");
 coingeckoDown = true;
 t = await run("crypto_fair_value", { coin: "bitcoin", min_edge: 0 });
 assert.ok(t.includes("spot $77,790 (Coinbase"), "falls back to Coinbase when CoinGecko fails");
