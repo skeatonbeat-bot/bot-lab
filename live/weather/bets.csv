@@ -1,0 +1,2 @@
+time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode,local_hour,result,payout,settled
+2026-11-01T20:46+00:00,Late Closer,highest-temperature-in-ankara-on-november-1-2026,LTAC,2026-11-01,15°C,YES,0.001,0.0951,1904.8526,2.0,0.997,0.996,today,23,loss,0.0,2026-11-01T22:15+00:00
