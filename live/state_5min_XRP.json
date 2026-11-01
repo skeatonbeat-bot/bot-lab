@@ -1,24 +1,46 @@
 {
  "pending": [
   {
-   "start": 1793552100,
-   "slug": "xrp-updown-5m-1793552100",
+   "start": 1793552700,
+   "slug": "xrp-updown-5m-1793552700",
    "bot": "Coin Flip",
    "up": true,
    "sec": 5,
-   "ask": 0.42,
-   "stake": 1.8163676710388117,
-   "shares": 4.155953229910426,
-   "s0": 1.2482
+   "ask": 0.56,
+   "stake": 1.826832028795468,
+   "shares": 3.164726475960883,
+   "s0": 1.249
+  },
+  {
+   "start": 1793552700,
+   "slug": "xrp-updown-5m-1793552700",
+   "bot": "Follow Move 4m",
+   "up": false,
+   "sec": 241,
+   "ask": 0.98,
+   "stake": 1.9738890196413372,
+   "shares": 2.0113565698240192,
+   "s0": 1.249
+  },
+  {
+   "start": 1793553000,
+   "slug": "xrp-updown-5m-1793553000",
+   "bot": "Coin Flip",
+   "up": true,
+   "sec": 5,
+   "ask": 0.62,
+   "stake": 1.826832028795468,
+   "shares": 2.8701570935620055,
+   "s0": 1.2492
   }
  ],
  "bots": {
   "Coin Flip": {
-   "cash": 89.00201588090178,
+   "cash": 91.3416014397734,
    "retired": false
   },
   "Favorite 3m": {
-   "cash": 100.41386126947624,
+   "cash": 100.82422770155087,
    "retired": false
   },
   "Favorite 4m": {
