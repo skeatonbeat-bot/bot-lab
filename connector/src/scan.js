@@ -504,8 +504,11 @@ export function makeScanTools(h) {
           polyOpen(hours, 2).catch(() => []),
         ]);
         const rows = [];
+        let tooLate = 0;
         const push = (venue, ticker, label, hrs, spec, bid, ask, noAsk, fee) => {
-          if (hrs <= 0 || hrs > hours || bid === null || ask === null) return;
+          if (hrs > hours || bid === null || ask === null) return;
+          // the last 3 minutes are decided by a settlement average the market can already see; the model can't
+          if (hrs < 0.05) { tooLate++; return; }
           const p = modelProb(spec, sv.spot, sigmaFor(sv, hrs, a.vol), hrs);
           if (p === null) return;
           const pc = p * 100;
@@ -560,7 +563,9 @@ export function makeScanTools(h) {
             ? `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(a.vol * 100).toFixed(0)}% a year (your override).`
             : `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(sv.sigma * 100).toFixed(0)}% a year from ${sv.n} hourly moves over 7 days` +
               (sv.sigmaShort ? `, ${(sv.sigmaShort * 100).toFixed(0)}% from the last ${sv.nShort} minutes (used for markets within the hour, blended out to 6h).` : " (short-window volatility unavailable, weekly figure used for everything)."),
-          `Priced ${rows.length} markets settling within ${hours}h; ${shown.length} show an edge of ${a.min_edge ?? 4}¢ or more (Kalshi edges are after fees).`,
+          `Priced ${rows.length} markets settling within ${hours}h; ${shown.length} show an edge of ${a.min_edge ?? 4}¢ or more (Kalshi edges are after fees).` +
+            (tooLate ? ` Skipped ${tooLate} settling within 3 minutes (decided by a settlement average the market already sees).` : ""),
+          "Short windows: in Polymarket's 5-minute history this model LOST to the market (-6% to -20% per bet); there the late favorite (70-92¢) was the only edge. Treat Up/Down rows as a sanity check, not a signal.",
           table(shown, ["edge", "side", "model", "venue", "market", "ticker", "bid_ask", "settles_in"]),
           "Model = lognormal, no drift, recent volatility. Crypto has fat tails, so the model tends to underprice far-out strikes and overprice near ones; prefer edges that survive a ±25% change in vol (pass `vol`).",
           "Reach/dip markets are priced from now on: if the level was already hit earlier in their window, they're effectively settled, so check before trusting those rows.",

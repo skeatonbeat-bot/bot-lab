@@ -3,6 +3,10 @@ import assert from "node:assert/strict";
 import { TOOLS } from "../src/index.js";
 import { features } from "../src/scan.js";
 
+// pin the clock 60 seconds into a 5-minute window so the Up/Down checks don't depend on when tests run
+const realNow = Date.now;
+const pinned = Math.floor(realNow() / 300000) * 300000 + 60000;
+Date.now = () => pinned + (realNow() % 1000);
 const now = Date.now();
 const iso = (h) => new Date(now + h * 3.6e6).toISOString();
 
