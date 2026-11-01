@@ -2,15 +2,17 @@
 
     python paper_live.py --candle 4h          # the Slow League
     python paper_live.py --candle 15min       # the Speed League (run in a second window)
+    python paper_live.py --candle 4h --product SOL-USD   # same bots, on another coin
 
 It reads public Coinbase prices (no account or API key needed), lets every
 bot decide when a candle finishes, and pretends to fill at the latest price
 with fees and slippage. Nothing real is bought or sold.
 
 Everything is saved in the `live/` folder, one set of files per league:
-  state_<league>.json   each bot's cash, bitcoin and memory (so you can stop and restart)
+  state_<league>.json   each bot's cash, coins and memory (so you can stop and restart)
   fills_<league>.csv    every pretend buy and sell
   equity_<league>.csv   each bot's money after every candle
+Bitcoin leagues are named 4h / 15min; other coins add the coin, e.g. 4h_SOL.
 Stop it any time with Ctrl+C; start it again and it carries on.
 
 Test it without the internet by replaying saved prices:
@@ -31,7 +33,16 @@ from lab.engine import Bot, Costs
 from lab.strategies import roster
 
 API = "https://api.exchange.coinbase.com"
-PRODUCT = "BTC-USD"
+PRODUCT = "BTC-USD"  # set from --product in main()
+
+
+def coin():
+    return PRODUCT.split("-")[0]
+
+
+def league_name(candle, product):
+    """BTC keeps the original names (4h, 15min) so its history carries on."""
+    return candle if product == "BTC-USD" else f"{candle}_{product.split('-')[0]}"
 OUT = Path("live")
 
 
@@ -169,7 +180,7 @@ class League:
         with self.equity_path.open("a", newline="") as fh:
             w = csv.writer(fh)
             if write_head:
-                w.writerow(["time", "btc_price"] + [b.name for b in self.bots])
+                w.writerow(["time", f"{coin().lower()}_price"] + [b.name for b in self.bots])
             w.writerow([str(ts), round(price, 2)] + [round(b.equity(price), 2) for b in self.bots])
         for f in new_fills:
             print(f"  {f['bot']}: {f['side']} ${f['dollars']:.2f} at ${f['price']:,.2f} ({f['reason']})")
@@ -178,7 +189,7 @@ class League:
         rows = sorted(((b.equity(price), b) for b in self.bots), key=lambda x: -x[0])
         lines = []
         for i, (eq, b) in enumerate(rows, 1):
-            pos = "in BTC" if b.units > 0 else "cash"
+            pos = f"in {coin()}" if b.units > 0 else "cash"
             flag = " (retired)" if b.retired else ""
             lines.append(f"  {i}. {b.name:<12} ${eq:8.2f}  {eq / b.start_cash * 100 - 100:+6.1f}%  {pos}{flag}")
         return "\n".join(lines)
@@ -187,6 +198,7 @@ class League:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--candle", choices=list(SIZES), default="4h")
+    ap.add_argument("--product", default="BTC-USD", help="Coinbase pair, e.g. ETH-USD, SOL-USD, DOGE-USD")
     ap.add_argument("--fee", type=float, default=0.006)
     ap.add_argument("--cash", type=float, default=100.0)
     ap.add_argument("--poll", type=int, default=60, help="seconds between price checks")
@@ -195,7 +207,9 @@ def main():
     ap.add_argument("--once", action="store_true", help="check once and exit (for scheduled cloud runs)")
     args = ap.parse_args()
 
-    name = args.candle + ("_replay" if args.replay else "")
+    global PRODUCT
+    PRODUCT = args.product.upper()
+    name = league_name(args.candle, PRODUCT) + ("_replay" if args.replay else "")
     league = League(name, args.fee, args.cash)
 
     if args.replay:
@@ -208,7 +222,7 @@ def main():
         nxt = lambda ts: float(opens[opens.index > ts].iloc[0]) if (opens.index > ts).any() else float(candles.loc[ts, "close"])
         n = league.handle(candles, nxt)
         price = float(candles["close"].iloc[-1])
-        print(f"Replayed {n} candles to {candles.index[-1]:%Y-%m-%d %H:%M} UTC. BTC ${price:,.2f}\n{league.board(price)}")
+        print(f"Replayed {n} candles to {candles.index[-1]:%Y-%m-%d %H:%M} UTC. {coin()} ${price:,.2f}\n{league.board(price)}")
         return
 
     if args.once:
@@ -216,14 +230,14 @@ def main():
         candles = closed_candles(args.candle, league.warm)
         if not resumed:
             league.start_fresh(candles)
-            print(f"New {args.candle} league started at {league.last:%Y-%m-%d %H:%M} UTC. Bots trade from the next candle.")
+            print(f"New {name} league started at {league.last:%Y-%m-%d %H:%M} UTC. Bots trade from the next candle.")
             return
         price = fetch_price()
         n = league.handle(candles, fill_at(candles, price))
-        print(f"{args.candle} league | BTC ${price:,.2f} | {n} new candle(s)\n{league.board(price)}")
+        print(f"{name} league | {coin()} ${price:,.2f} | {n} new candle(s)\n{league.board(price)}")
         return
 
-    print(f"Bot tournament, {args.candle} league, paper money only. Ctrl+C to stop.")
+    print(f"Bot tournament, {name} league ({PRODUCT}), paper money only. Ctrl+C to stop.")
     resumed = league.load()
     length = SIZES[args.candle][2]
     while True:
@@ -241,7 +255,7 @@ def main():
             price = fetch_price()
             n = league.handle(candles, fill_at(candles, price))
             if n:
-                print(f"\n{datetime.now():%b %d %H:%M} | BTC ${price:,.2f} | {n} new candle(s)\n{league.board(price)}")
+                print(f"\n{datetime.now():%b %d %H:%M} | {coin()} ${price:,.2f} | {n} new candle(s)\n{league.board(price)}")
         except KeyboardInterrupt:
             print("\nStopped. Everything is saved; run the same command to carry on.")
             sys.exit(0)

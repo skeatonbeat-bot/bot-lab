@@ -83,7 +83,9 @@ globalThis.fetch = async (url) => {
   if (url.includes("/products/types/CLI")) return json(cliList);
   if (url.includes("/products/abc-123")) return json(cliProd);
   if (url.includes("gasprices.aaa.com")) return text(aaaHtml);
-  if (url.includes("raw.githubusercontent.com") && url.includes("equity_4h")) return text(equityCsv);
+  if (url.includes("raw.githubusercontent.com") && url.endsWith("equity_4h.csv")) return text(equityCsv);
+  if (url.includes("raw.githubusercontent.com") && url.endsWith("equity_4h_SOL.csv"))
+    return text(equityCsv.replace("btc_price", "sol_price"));
   if (url.includes("raw.githubusercontent.com")) return new Response("404", { status: 404 });
   throw new Error("unmocked " + url);
 };
@@ -141,7 +143,10 @@ assert.ok(r.content[0].text.includes("30 contracts") && r.content[0].text.includ
 r = await run("edge_calculator", { price_cents: 82, my_probability: 0.8 });
 assert.ok(r.content[0].text.includes("no edge"));
 r = await run("bot_leaderboard", {});
-assert.ok(r.content[0].text.includes("Trend Rider: $101.20") && r.content[0].text.includes("15min league: no data yet"));
+assert.ok(r.content[0].text.includes("Trend Rider: $101.20") && r.content[0].text.includes("15min league, BTC: no data yet"));
+assert.ok(r.content[0].text.includes("4h league, SOL, as of") && r.content[0].text.includes("4h league, ETH: no data yet"));
+r = await run("bot_leaderboard", { league: "4h", coin: "sol" });
+assert.ok(r.content[0].text.includes("4h league, SOL") && !r.content[0].text.includes("BTC"));
 r = await run("weather_forecast", {});
 assert.ok(r.isError);
 const bad = await call("/mcp/secret123", { jsonrpc: "2.0", id: 9, method: "tools/call", params: { name: "nope" } });

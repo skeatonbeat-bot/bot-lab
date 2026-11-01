@@ -358,22 +358,32 @@ const TOOLS = {
   },
 
   bot_leaderboard: {
-    description: "Latest standings of the paper-trading bot tournament, read from the GitHub repo's live/ folder.",
-    inputSchema: { type: "object", properties: { league: { type: "string", description: "4h or 15min (default both)" } } },
+    description: "Latest standings of the paper-trading bot tournament (BTC, ETH, SOL, DOGE, XRP), read from the GitHub repo's live/ folder.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        league: { type: "string", description: "4h or 15min (default both)" },
+        coin: { type: "string", description: "BTC, ETH, SOL, DOGE or XRP (default all)" },
+      },
+    },
     async run(a, env) {
       const repo = env.GITHUB_REPO || "skeatonbeat-bot/bot-lab";
       const leagues = a.league ? [a.league] : ["4h", "15min"];
+      const coins = a.coin ? [a.coin.toUpperCase().replace(/-USD$/, "")] : ["BTC", "ETH", "SOL", "DOGE", "XRP"];
       const out = [];
       for (const lg of leagues) {
-        try {
-          const csv = await getText(`https://raw.githubusercontent.com/${repo}/main/live/equity_${lg}.csv`);
-          const lines = csv.trim().split("\n");
-          const head = lines[0].split(","), last = lines[lines.length - 1].split(",");
-          const bots = head.slice(2).map((name, i) => ({ name, eq: num(last[i + 2]) })).sort((x, y) => y.eq - x.eq);
-          out.push(`${lg} league as of ${last[0]} (BTC $${last[1]}), ${lines.length - 1} candles:`);
-          bots.forEach((b, i) => out.push(`  ${i + 1}. ${b.name}: $${b.eq.toFixed(2)} (${(b.eq - 100).toFixed(1)}%)`));
-        } catch (e) {
-          out.push(`${lg} league: no data yet (${e.message})`);
+        for (const coin of coins) {
+          const file = coin === "BTC" ? lg : `${lg}_${coin}`; // BTC keeps the original file names
+          try {
+            const csv = await getText(`https://raw.githubusercontent.com/${repo}/main/live/equity_${file}.csv`);
+            const lines = csv.trim().split("\n");
+            const head = lines[0].split(","), last = lines[lines.length - 1].split(",");
+            const bots = head.slice(2).map((name, i) => ({ name, eq: num(last[i + 2]) })).sort((x, y) => y.eq - x.eq);
+            out.push(`${lg} league, ${coin}, as of ${last[0]} (${coin} $${last[1]}), ${lines.length - 1} candles:`);
+            bots.forEach((b, i) => out.push(`  ${i + 1}. ${b.name}: $${b.eq.toFixed(2)} (${(b.eq - 100).toFixed(1)}%)`));
+          } catch (e) {
+            out.push(`${lg} league, ${coin}: no data yet (${e.message})`);
+          }
         }
       }
       return out.join("\n");

@@ -5,8 +5,13 @@ prediction markets? Two parts live here.
 
 ## 1. Bot tournament (paper money)
 
-Five bitcoin bots, $100 of pretend money each, two leagues:
+Five bots, $100 of pretend money each, two leagues:
 the Speed League decides every 15 minutes, the Slow League every 4 hours.
+Each league runs separately on five coins: bitcoin plus the more volatile
+ETH, SOL, DOGE and XRP (Coinbase prices). Bitcoin results keep their original
+files (`live/equity_4h.csv`); other coins add the coin (`live/equity_4h_SOL.csv`).
+Change the list with `COINS` in the workflow, or run one by hand with
+`--product SOL-USD`.
 
 | Bot | Rule |
 |---|---|

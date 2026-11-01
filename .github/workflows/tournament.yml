@@ -12,6 +12,10 @@ concurrency:
   group: tournament
   cancel-in-progress: false
 
+env:
+  # Coinbase pairs to run. BTC first; the rest are the more volatile coins.
+  COINS: "BTC-USD ETH-USD SOL-USD DOGE-USD XRP-USD"
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -24,10 +28,12 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Slow League (4-hour candles)
-        run: python paper_live.py --candle 4h --once
+        run: |
+          for p in $COINS; do python paper_live.py --candle 4h --product $p --once || echo "::warning::4h $p failed"; done
         continue-on-error: true
       - name: Speed League (15-minute candles)
-        run: python paper_live.py --candle 15min --once
+        run: |
+          for p in $COINS; do python paper_live.py --candle 15min --product $p --once || echo "::warning::15min $p failed"; done
         continue-on-error: true
       - name: Save results
         if: always()
