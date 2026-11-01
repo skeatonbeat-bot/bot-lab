@@ -53,6 +53,32 @@ jobs:
           git add live/
           git diff --cached --quiet || (git commit -m "Tournament update $(date -u +%Y-%m-%dT%H:%MZ)" && git push)
 
+  # The Weather League: worldwide daily-high temperature markets on Polymarket.
+  # It skips itself if its last cycle was under 25 minutes ago, so it really runs
+  # about every 30 minutes (keeps the free weather APIs well under their limits).
+  weather:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Weather League (forecast + live METAR vs Polymarket)
+        run: python weather_live.py || echo "::warning::weather league failed"
+        continue-on-error: true
+      - name: Save results
+        if: always()
+        run: |
+          git config user.name "tournament-bot"
+          git config user.email "tournament-bot@users.noreply.github.com"
+          git add live/weather
+          git diff --cached --quiet && exit 0
+          git commit -m "Weather league update $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push && break; sleep 5; done
+
   # The 5-minute league watches Polymarket's live order books for most of each
   # 15-minute slot, so it runs beside the other leagues as its own job.
   five_minute:

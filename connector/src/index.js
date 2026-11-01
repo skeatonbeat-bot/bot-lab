@@ -235,8 +235,17 @@ const TOOLS = {
     },
     async run(a) {
       const end = new Date(Date.now() + (a.hours ?? 168) * 3.6e6).toISOString();
-      const d = await getJSON(`${GAMMA}/markets?${qs({ active: true, closed: false, end_date_max: end, end_date_min: new Date().toISOString(), order: "volume24hr", ascending: false, limit: 500 })}`);
-      let rows = (Array.isArray(d) ? d : d.markets || []).map((m) => {
+      // The busiest 500 markets crowd out small ones (city weather markets, for one), so
+      // when searching for words, look deeper: up to 4 pages of 500.
+      const pages = a.text ? 4 : 1;
+      let all = [];
+      for (let pg = 0; pg < pages; pg++) {
+        const d = await getJSON(`${GAMMA}/markets?${qs({ active: true, closed: false, end_date_max: end, end_date_min: new Date().toISOString(), order: "volume24hr", ascending: false, limit: 500, offset: pg * 500 })}`);
+        const batch = Array.isArray(d) ? d : d.markets || [];
+        all = all.concat(batch);
+        if (batch.length < 500) break;
+      }
+      let rows = all.map((m) => {
         let outs = [], px = [];
         try { outs = JSON.parse(m.outcomes || "[]"); px = JSON.parse(m.outcomePrices || "[]"); } catch {}
         return {

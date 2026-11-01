@@ -65,6 +65,36 @@ First backtest (Jan 2025 to Oct 2026, bitcoin -25%): every Speed League
 challenger retired; in the Slow League, Breakout finished at $101 against $75
 for holding. Details in `results/`.
 
+### The Weather League (Polymarket daily highs, worldwide)
+
+Polymarket runs "Highest temperature in <city> on <date>?" markets for dozens of
+cities (London, Seoul, Tokyo, NYC, Buenos Aires...). Each one settles on routine
+METAR reports from one airport (named in the rules, e.g. EGLC, KLGA): the remarks
+reading in tenths of °C when there is one, the highest over the local day,
+converted to °F where needed and rounded half up. `weather_live.py` reads that
+same feed live, so it knows the settlement value so far at every moment.
+
+Every ~30 minutes it pulls Open-Meteo ensembles (ECMWF + GFS + ICON, about 120
+forecasts) at each station and samples the final reading: tomorrow from the
+ensemble plus noise; today with what's already been observed as a floor and the
+hours ahead shifted by how far the latest real reading is running off the
+forecast. That gives a probability per bracket, compared with the live order book
+(after the 5% weather taker fee).
+
+| Bot | Rule |
+|---|---|
+| Favorite | Same day from 9am local, buys the market's own favorite. The one to beat. |
+| Forecaster | The day before, takes the biggest edge (Yes or No) of 7¢+. |
+| Nowcaster | Same day 8am-5pm, biggest edge of 7¢+ using live readings. |
+| Strict Nowcast | Same, 15¢+ only. |
+| Late Closer | After 3pm local, 5¢+ edge on a side the model gives 80%+. |
+
+$100 each, 2% per bet, one bet per bot per event, retire at $60. Files in
+`live/weather/`: `bets.csv`, `equity.csv`, `forecasts_YYYY-MM.csv` (model vs market
+every cycle) and `outcomes.csv` (our METAR reading vs Polymarket's result, plus the
+day-ahead forecast error that becomes each station's learned bias). Cities: edit
+`CITY_SLUGS` in `wx/markets.py`. Tests: `python -m unittest tests/test_weather.py`.
+
 ## 2. Edge Finder connector
 
 `connector/` is a small read-only MCP server that gives Claude live data for
