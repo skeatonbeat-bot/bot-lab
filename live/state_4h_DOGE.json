@@ -1,20 +1,20 @@
 {
- "last": "2026-10-31 20:00:00+00:00",
+ "last": "2026-11-01 00:00:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
    "start_cash": 100.0,
-   "cash": 100.0,
-   "units": 0.0,
+   "cash": 0.0,
+   "units": 1315.0274631049797,
    "meta": {},
-   "fees_paid": 0.0,
-   "day": null,
+   "fees_paid": 0.6,
+   "day": "2026-11-01",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10000,
-   "open_trip_equity": null,
-   "open_trip_opened": null
+   "candles_seen": 10001,
+   "open_trip_equity": 100.0,
+   "open_trip_opened": "2026-11-01 00:00:00+00:00"
   },
   {
    "name": "Trend Rider",
@@ -23,11 +23,11 @@
    "units": 0.0,
    "meta": {},
    "fees_paid": 0.0,
-   "day": null,
+   "day": "2026-11-01",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10000,
+   "candles_seen": 10001,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -38,11 +38,11 @@
    "units": 0.0,
    "meta": {},
    "fees_paid": 0.0,
-   "day": null,
+   "day": "2026-11-01",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10000,
+   "candles_seen": 10001,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -53,28 +53,28 @@
    "units": 0.0,
    "meta": {},
    "fees_paid": 0.0,
-   "day": null,
+   "day": "2026-11-01",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10000,
+   "candles_seen": 10001,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
   {
    "name": "Grid",
    "start_cash": 100.0,
-   "cash": 100.0,
-   "units": 0.0,
+   "cash": 25.0,
+   "units": 986.2705973287348,
    "meta": {},
-   "fees_paid": 0.0,
-   "day": null,
+   "fees_paid": 0.45,
+   "day": "2026-11-01",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10000,
-   "open_trip_equity": null,
-   "open_trip_opened": null
+   "candles_seen": 10001,
+   "open_trip_equity": 100.0,
+   "open_trip_opened": "2026-11-01 00:00:00+00:00"
   }
  ]
 }
