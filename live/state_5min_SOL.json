@@ -1,69 +1,69 @@
 {
  "pending": [
   {
-   "start": 1793545200,
-   "slug": "sol-updown-5m-1793545200",
+   "start": 1793546700,
+   "slug": "sol-updown-5m-1793546700",
    "bot": "Coin Flip",
    "up": true,
    "sec": 6,
-   "ask": 0.46,
-   "stake": 2.102754615608889,
-   "shares": 4.404707733769783,
-   "s0": 94.85
+   "ask": 0.17,
+   "stake": 2.1859602029070504,
+   "shares": 12.152527576660997,
+   "s0": 94.86
   },
   {
-   "start": 1793545200,
-   "slug": "sol-updown-5m-1793545200",
+   "start": 1793546700,
+   "slug": "sol-updown-5m-1793546700",
    "bot": "Favorite 4m",
    "up": true,
    "sec": 242,
-   "ask": 0.85,
-   "stake": 2.004135495972636,
-   "shares": 2.333306745027373,
-   "s0": 94.85
+   "ask": 0.8,
+   "stake": 2.021244926457091,
+   "shares": 2.4916727397153484,
+   "s0": 94.86
   },
   {
-   "start": 1793545200,
-   "slug": "sol-updown-5m-1793545200",
+   "start": 1793546700,
+   "slug": "sol-updown-5m-1793546700",
    "bot": "Follow Move 4m",
    "up": true,
    "sec": 242,
-   "ask": 0.85,
-   "stake": 2.0,
-   "shares": 2.3284920103617894,
-   "s0": 94.85
+   "ask": 0.8,
+   "stake": 2.0065698402072356,
+   "shares": 2.4735821501568487,
+   "s0": 94.86
   },
   {
-   "start": 1793545500,
-   "slug": "sol-updown-5m-1793545500",
+   "start": 1793547000,
+   "slug": "sol-updown-5m-1793547000",
    "bot": "Coin Flip",
    "up": true,
    "sec": 6,
-   "ask": 0.33,
-   "stake": 2.0617976206532003,
-   "shares": 5.967973615184802,
-   "s0": 94.82
+   "ask": 0.22,
+   "stake": 2.1859602029070504,
+   "shares": 9.421754921758575,
+   "s0": 94.83
   }
  ],
  "bots": {
   "Coin Flip": {
-   "cash": 103.08988103266,
+   "cash": 107.11204994244545,
    "retired": false
   },
   "Favorite 3m": {
-   "cash": 100.64440516968043,
+   "cash": 100.9493696728283,
    "retired": false
   },
   "Favorite 4m": {
-   "cash": 100.2067747986318,
+   "cash": 101.16120691545662,
    "retired": false
   },
   "Favorite 4.5m": {
-   "cash": 100.0,
+   "cash": 100.38130107146642,
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 100.0,
+   "cash": 100.42673410753922,
    "retired": false
   }
  }
