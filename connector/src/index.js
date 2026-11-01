@@ -471,14 +471,42 @@ function authorized(request, env, url) {
   return fromPath === key || fromHeader === key;
 }
 
+// GitHub's own 15-minute schedule is best-effort and often skips hours, so
+// Cloudflare's cron (see wrangler.toml) starts the tournament workflow instead.
+// Needs a GITHUB_TOKEN secret: a fine-grained token for this repo only, with
+// "Actions: Read and write" permission. Nothing else.
+export async function startTournament(env) {
+  if (!env.GITHUB_TOKEN) return "skipped: GITHUB_TOKEN not set";
+  const repo = env.GITHUB_REPO || "skeatonbeat-bot/bot-lab";
+  const r = await fetch(`https://api.github.com/repos/${repo}/actions/workflows/tournament.yml/dispatches`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "User-Agent": UA,
+    },
+    body: JSON.stringify({ ref: "main" }),
+  });
+  if (r.status !== 204) throw new Error(`GitHub said ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  return "started";
+}
+
 export default {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(startTournament(env).then((m) => console.log("tournament:", m)));
+  },
+
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/" || url.pathname === "/health")
       return new Response(
-        env.CONNECTOR_KEY
+        (env.CONNECTOR_KEY
           ? "edge-finder is running. Key is set. Connect Claude to /mcp/<your key>."
-          : "edge-finder is running, but CONNECTOR_KEY is NOT set yet. Add it under Settings > Variables and Secrets.",
+          : "edge-finder is running, but CONNECTOR_KEY is NOT set yet. Add it under Settings > Variables and Secrets.") +
+          (env.GITHUB_TOKEN
+            ? "\nTournament timer: on (starts the GitHub workflow every 15 minutes)."
+            : "\nTournament timer: off. Add a GITHUB_TOKEN secret to turn it on."),
         { status: 200 }
       );
     if (!url.pathname.startsWith("/mcp")) return new Response("Not found", { status: 404 });

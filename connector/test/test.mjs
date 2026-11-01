@@ -1,7 +1,7 @@
 // Offline test: fake the outside APIs, then talk to the worker the way Claude does.
 // Run: node connector/test/test.mjs
 import assert from "node:assert/strict";
-import worker from "../src/index.js";
+import worker, { startTournament } from "../src/index.js";
 
 const now = Date.now();
 const iso = (h) => new Date(now + h * 3.6e6).toISOString();
@@ -63,7 +63,8 @@ const aaaHtml = `<p>Price as of 10/31/26</p><h3>National average gas prices</h3>
 const equityCsv = "time,btc_price,Benchmark,Trend Rider\n2026-10-31 16:00:00+00:00,77300,100.1,99.5\n2026-10-31 20:00:00+00:00,77498,100.4,101.2\n";
 
 const seen = [];
-globalThis.fetch = async (url) => {
+const dispatches = [];
+globalThis.fetch = async (url, opts) => {
   url = String(url);
   seen.push(url);
   const json = (o) => new Response(JSON.stringify(o), { status: 200, headers: { "Content-Type": "application/json" } });
@@ -87,6 +88,7 @@ globalThis.fetch = async (url) => {
   if (url.includes("raw.githubusercontent.com") && url.endsWith("equity_4h_SOL.csv"))
     return text(equityCsv.replace("btc_price", "sol_price"));
   if (url.includes("raw.githubusercontent.com")) return new Response("404", { status: 404 });
+  if (url.includes("/actions/workflows/tournament.yml/dispatches")) { dispatches.push(opts); return new Response(null, { status: 204 }); }
   throw new Error("unmocked " + url);
 };
 
@@ -151,4 +153,18 @@ r = await run("weather_forecast", {});
 assert.ok(r.isError);
 const bad = await call("/mcp/secret123", { jsonrpc: "2.0", id: 9, method: "tools/call", params: { name: "nope" } });
 assert.ok(bad.body.error);
+
+// tournament timer
+assert.equal(await startTournament({}), "skipped: GITHUB_TOKEN not set");
+assert.equal(await startTournament({ GITHUB_TOKEN: "t0k" }), "started");
+assert.equal(dispatches.length, 1);
+assert.equal(dispatches[0].method, "POST");
+assert.equal(dispatches[0].headers.Authorization, "Bearer t0k");
+assert.deepEqual(JSON.parse(dispatches[0].body), { ref: "main" });
+let waited;
+await worker.scheduled({}, { GITHUB_TOKEN: "t0k" }, { waitUntil: (p) => (waited = p) });
+await waited;
+assert.equal(dispatches.length, 2);
+const h = await worker.fetch(new Request("https://x.dev/health"), { CONNECTOR_KEY: "k" });
+assert.ok((await h.text()).includes("Tournament timer: off"));
 console.log("\nALL TESTS PASSED");

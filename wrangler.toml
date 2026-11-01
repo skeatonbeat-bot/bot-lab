@@ -5,8 +5,12 @@ main = "connector/src/index.js"
 compatibility_date = "2025-09-01"
 workers_dev = true
 
+# Start the bot tournament on GitHub every 15 minutes (GitHub's own schedule is unreliable).
+[triggers]
+crons = ["*/15 * * * *"]
+
 [vars]
 GITHUB_REPO = "skeatonbeat-bot/bot-lab"
 
-# CONNECTOR_KEY is a secret: set it in the Cloudflare dashboard
+# CONNECTOR_KEY and GITHUB_TOKEN are secrets: set them in the Cloudflare dashboard
 # (Worker > Settings > Variables and Secrets), never in this file.

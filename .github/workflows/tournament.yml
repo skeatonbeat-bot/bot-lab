@@ -2,7 +2,9 @@ name: Bot tournament (paper money)
 
 on:
   schedule:
-    - cron: "*/15 * * * *"   # every 15 minutes (GitHub may run it a few minutes late)
+    - cron: "*/15 * * * *"   # backup only: GitHub often skips these for hours
+  # The reliable 15-minute start comes from the connector's Cloudflare cron
+  # (wrangler.toml), which calls workflow_dispatch below.
   workflow_dispatch: {}       # lets you run it by hand from the Actions tab
 
 permissions:

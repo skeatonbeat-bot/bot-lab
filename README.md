@@ -65,4 +65,20 @@ after-fees edge calculator; and the tournament leaderboard. It never trades.
    - Authentication: **No sign in**
 6. In a chat, **+ → Connectors →** turn on Edge Finder.
 
+### Tournament timer (keeps the bots on time)
+
+GitHub's own 15-minute schedule often skips runs for hours, so the connector
+also starts the tournament workflow every 15 minutes from Cloudflare. To turn
+it on:
+
+1. GitHub → your avatar → **Settings → Developer settings → Personal access
+   tokens → Fine-grained tokens → Generate new token**.
+   - Repository access: **Only select repositories →** `bot-lab`
+   - Permissions → Repository → **Actions: Read and write** (nothing else)
+   - Pick an expiration and generate; copy the token.
+2. Cloudflare → the connector Worker → **Settings → Variables and Secrets →
+   Add**: type **Secret**, name `GITHUB_TOKEN`, paste the token. Save.
+3. Open `/health`; it should say **Tournament timer: on**. Runs then show up
+   under the repo's **Actions** tab as "workflow_dispatch" every 15 minutes.
+
 Tests: `node connector/test/test.mjs` (offline, fakes the outside APIs).
