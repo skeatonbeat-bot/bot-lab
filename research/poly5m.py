@@ -105,6 +105,24 @@ def history_windows(files):
     return pd.concat(rows, ignore_index=True)
 
 
+_probed = []
+
+
+def gamma_market(slug):
+    """A market by slug, closed or not (Gamma hides closed markets unless asked)."""
+    for extra in ({"closed": "true"}, {}):
+        try:
+            ms = get("https://gamma-api.polymarket.com/markets", {"slug": slug, **extra})
+        except Exception as e:
+            ms, err = None, e
+        if not _probed:
+            _probed.append(1)
+            print(f"  probe {slug} {extra}: {json.dumps(ms)[:600] if ms is not None else err}")
+        if ms:
+            return ms
+    return None
+
+
 def recent_windows(days):
     """Recent closed windows straight from Polymarket, with minute prices of the Up token."""
     end = int(time.time()) // 300 * 300 - 600
@@ -113,10 +131,7 @@ def recent_windows(days):
 
     def one(job):
         coin, s = job
-        try:
-            ms = get("https://gamma-api.polymarket.com/markets", {"slug": f"{coin}-updown-5m-{s}"})
-        except Exception:
-            return None
+        ms = gamma_market(f"{coin}-updown-5m-{s}")
         if not ms:
             return None
         mk = ms[0]

@@ -84,7 +84,9 @@ def coinbase_minutes(product, t0, t1):
 
 def window(coin, start):
     """Outcome and the Up price by minute for one finished window, or None if not settled."""
-    ms = get("https://gamma-api.polymarket.com/markets", {"slug": f"{coin.lower()}-updown-5m-{start}"})
+    slug = f"{coin.lower()}-updown-5m-{start}"
+    ms = get("https://gamma-api.polymarket.com/markets", {"slug": slug, "closed": "true"}) or \
+        get("https://gamma-api.polymarket.com/markets", {"slug": slug})
     if not ms:
         return None
     m = ms[0]
