@@ -3,6 +3,11 @@ name: Research (Polymarket 5-minute history)
 on:
   workflow_dispatch:
     inputs:
+      job:
+        description: "Which study: poly5m (history + strategies) or spikes (runaways and collapses)"
+        type: choice
+        options: [poly5m, spikes]
+        default: poly5m
       recent_days:
         description: "Recent days to pull from Polymarket"
         default: "2"
@@ -29,14 +34,18 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt pyarrow
+      - name: Runaways and collapses
+        if: ${{ inputs.job == 'spikes' }}
+        run: python research/spikes.py
       - name: Pull history and test strategies
+        if: ${{ inputs.job != 'spikes' }}
         run: python research/poly5m.py --recent-days ${{ inputs.recent_days }} ${{ inputs.skip_history && '--skip-history' || '' }}
       - name: Save results
         if: always()
         run: |
           git config user.name "research-bot"
           git config user.email "research-bot@users.noreply.github.com"
-          git add results/poly5m/ || true
+          git add results/ || true
           git diff --cached --quiet && exit 0
           git commit -m "Research: Polymarket 5-minute results $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3 4 5; do git pull --rebase -q && git push && break; sleep 5; done
