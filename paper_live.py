@@ -2,6 +2,7 @@
 
     python paper_live.py --candle 4h          # the Slow League
     python paper_live.py --candle 15min       # the Speed League (run in a second window)
+    python paper_live.py --candle 30min       # also 1h: the leagues in between
     python paper_live.py --candle 4h --product SOL-USD   # same bots, on another coin
 
 It reads public Coinbase prices (no account or API key needed), lets every
@@ -88,8 +89,9 @@ def fetch_price():
 
 
 SIZES = {"15min": (900, "15min", pd.Timedelta("15min")),
-         "1h": (3600, "1h", pd.Timedelta("1h")),
-         "4h": (3600, "4h", pd.Timedelta("4h"))}  # Coinbase has no 4h candles, so 1h ones are rolled up
+         "30min": (900, "30min", pd.Timedelta("30min")),  # Coinbase has no 30min or 4h candles,
+         "1h": (3600, "1h", pd.Timedelta("1h")),          # so smaller ones are rolled up
+         "4h": (3600, "4h", pd.Timedelta("4h"))}
 
 
 def closed_candles(candle, need, now=None):

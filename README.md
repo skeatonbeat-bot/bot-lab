@@ -5,8 +5,9 @@ prediction markets? Two parts live here.
 
 ## 1. Bot tournament (paper money)
 
-Five bots, $100 of pretend money each, two leagues:
-the Speed League decides every 15 minutes, the Slow League every 4 hours.
+Five bots, $100 of pretend money each, four leagues that differ only in how
+often the bots decide: every 15 minutes (Speed), 30 minutes (Half-Hour),
+1 hour (Hourly) and 4 hours (Slow).
 Each league runs separately on five coins: bitcoin plus the more volatile
 ETH, SOL, DOGE and XRP (Coinbase prices). Bitcoin results keep their original
 files (`live/equity_4h.csv`); other coins add the coin (`live/equity_4h_SOL.csv`).
@@ -24,7 +25,7 @@ Change the list with `COINS` in the workflow, or run one by hand with
 Every bot except the Benchmark pays a 0.6% fee per buy or sell, stops for the
 day after a 10% loss, and retires at $60.
 
-**It runs itself.** `.github/workflows/tournament.yml` runs both leagues every
+**It runs itself.** `.github/workflows/tournament.yml` runs all leagues every
 15 minutes on GitHub's servers and saves results to `live/`. Watch it under
 the repo's **Actions** tab; run it by hand with **Run workflow**.
 

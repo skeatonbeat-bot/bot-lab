@@ -362,13 +362,13 @@ const TOOLS = {
     inputSchema: {
       type: "object",
       properties: {
-        league: { type: "string", description: "4h or 15min (default both)" },
+        league: { type: "string", description: "4h, 1h, 30min or 15min (default all)" },
         coin: { type: "string", description: "BTC, ETH, SOL, DOGE or XRP (default all)" },
       },
     },
     async run(a, env) {
       const repo = env.GITHUB_REPO || "skeatonbeat-bot/bot-lab";
-      const leagues = a.league ? [a.league] : ["4h", "15min"];
+      const leagues = a.league ? [a.league] : ["4h", "1h", "30min", "15min"];
       const coins = a.coin ? [a.coin.toUpperCase().replace(/-USD$/, "")] : ["BTC", "ETH", "SOL", "DOGE", "XRP"];
       const out = [];
       for (const lg of leagues) {

@@ -19,7 +19,7 @@ env:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 14
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,6 +30,14 @@ jobs:
       - name: Slow League (4-hour candles)
         run: |
           for p in $COINS; do python paper_live.py --candle 4h --product $p --once || echo "::warning::4h $p failed"; done
+        continue-on-error: true
+      - name: Hourly League (1-hour candles)
+        run: |
+          for p in $COINS; do python paper_live.py --candle 1h --product $p --once || echo "::warning::1h $p failed"; done
+        continue-on-error: true
+      - name: Half-Hour League (30-minute candles)
+        run: |
+          for p in $COINS; do python paper_live.py --candle 30min --product $p --once || echo "::warning::30min $p failed"; done
         continue-on-error: true
       - name: Speed League (15-minute candles)
         run: |
