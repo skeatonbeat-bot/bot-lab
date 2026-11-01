@@ -108,7 +108,7 @@ def history_windows(files):
 def recent_windows(days):
     """Recent closed windows straight from Polymarket, with minute prices of the Up token."""
     end = int(time.time()) // 300 * 300 - 600
-    starts = list(range(end - days * 86400, end, 300))
+    starts = list(range(end - int(days * 86400), end, 300))
     jobs = [(coin, s) for coin in COINS for s in starts]
 
     def one(job):
@@ -324,9 +324,12 @@ def main():
         sets["Spring 2026 history"] = prep(add_spot(history_windows(files)))
     if a.recent_days > 0:
         print("Recent (Polymarket)...")
-        r = recent_windows(a.recent_days)
-        if len(r):
-            sets["Last days"] = prep(add_spot(r))
+        try:
+            r = recent_windows(a.recent_days)
+            if len(r):
+                sets["Last days"] = prep(add_spot(r))
+        except Exception as e:  # keep the history results even if the recent pull fails
+            print(f"::warning::recent pull failed: {e}")
 
     md = ["# Polymarket 5-minute Up or Down: trends and strategy tests", "",
           f"_Generated {pd.Timestamp.now(tz='UTC'):%Y-%m-%d %H:%M} UTC by research/poly5m.py._ "
