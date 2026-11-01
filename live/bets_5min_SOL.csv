@@ -98,3 +98,5 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-01 20:00,sol-updown-5m-1793563200,Favorite 3m,Up,180,0.88,2.06,lost,-2.06,101.06
 2026-11-01 20:05,sol-updown-5m-1793563500,Coin Flip,Up,8,0.8,1.83,won,0.42,91.72
 2026-11-01 20:05,sol-updown-5m-1793563500,Favorite 3m,Up,180,0.85,2.06,won,0.34,101.4
+2026-11-01 20:10,sol-updown-5m-1793563800,Coin Flip,Up,8,0.29,1.83,lost,-1.83,89.89
+2026-11-01 20:15,sol-updown-5m-1793564100,Favorite 3m,Down,183,0.92,2.03,won,0.16,101.57
