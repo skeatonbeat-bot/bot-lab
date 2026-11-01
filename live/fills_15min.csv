@@ -6,3 +6,4 @@ time,bot,side,price,dollars,fee,reason,equity_after
 2026-10-31 23:45:00+00:00,Trend Rider,buy,77423.98,98.56,0.5913,signal,97.92
 2026-11-01 05:45:00+00:00,Breakout,buy,77764.99,100.0,0.6,signal,99.35
 2026-11-01 18:45:00+00:00,Trend Rider,sell,77753.22,98.28,0.5897,signal,97.69
+2026-11-01 19:00:00+00:00,Breakout,sell,77596.76,99.09,0.5945,signal,98.49
