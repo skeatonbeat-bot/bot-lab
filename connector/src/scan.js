@@ -322,11 +322,11 @@ export function makeScanTools(h) {
   // ---------- crypto pricing ----------
 
   const COINS = {
-    bitcoin: { cg: "bitcoin", cb: "BTC-USD", series: ["KXBTCD", "KXBTC"], words: /\b(bitcoin|btc)\b/i },
-    ethereum: { cg: "ethereum", cb: "ETH-USD", series: ["KXETHD", "KXETH"], words: /\b(ethereum|eth)\b/i },
-    solana: { cg: "solana", cb: "SOL-USD", series: ["KXSOLD", "KXSOL"], words: /\b(solana|sol)\b/i },
-    xrp: { cg: "ripple", cb: "XRP-USD", series: ["KXXRPD", "KXXRP"], words: /\bxrp\b/i },
-    dogecoin: { cg: "dogecoin", cb: "DOGE-USD", series: ["KXDOGED", "KXDOGE"], words: /\b(dogecoin|doge)\b/i },
+    bitcoin: { cg: "bitcoin", cb: "BTC-USD", poly: "btc", series: ["KXBTCD", "KXBTC", "KXBTC15M"], words: /\b(bitcoin|btc)\b/i },
+    ethereum: { cg: "ethereum", cb: "ETH-USD", poly: "eth", series: ["KXETHD", "KXETH", "KXETH15M"], words: /\b(ethereum|eth)\b/i },
+    solana: { cg: "solana", cb: "SOL-USD", poly: "sol", series: ["KXSOLD", "KXSOL", "KXSOL15M"], words: /\b(solana|sol)\b/i },
+    xrp: { cg: "ripple", cb: "XRP-USD", poly: "xrp", series: ["KXXRPD", "KXXRP", "KXXRP15M"], words: /\bxrp\b/i },
+    dogecoin: { cg: "dogecoin", cb: "DOGE-USD", poly: "doge", series: ["KXDOGED", "KXDOGE", "KXDOGE15M"], words: /\b(dogecoin|doge)\b/i },
   };
   const COIN_ALIAS = { btc: "bitcoin", eth: "ethereum", sol: "solana", doge: "dogecoin", ripple: "xrp" };
 
@@ -376,7 +376,39 @@ export function makeScanTools(h) {
     const mean = rets.reduce((a, b) => a + b, 0) / rets.length;
     const sd = Math.sqrt(rets.reduce((a, b) => a + (b - mean) ** 2, 0) / (rets.length - 1));
     const sigma = sd * Math.sqrt(24 * 365);
-    return { spot, sigma, source, n: rets.length };
+    // short-window volatility from the last 2 hours of 1-minute Coinbase candles,
+    // used for markets settling within the hour (a quiet hour moves far less than the weekly average)
+    let sigmaShort = null, nShort = 0, minutes = [];
+    try {
+      const m = await getJSON(`${COINBASE}/products/${c.cb}/candles?${qs({ granularity: 60 })}`);
+      minutes = m.map((x) => ({ t: num(x[0]), open: num(x[3]), close: num(x[4]) })).filter((x) => x.close > 0).sort((a, b) => a.t - b.t);
+      const closes = minutes.slice(-121).map((x) => x.close);
+      const r = [];
+      for (let i = 1; i < closes.length; i++) r.push(Math.log(closes[i] / closes[i - 1]));
+      if (r.length >= 30) {
+        const sq = r.reduce((a, b) => a + b * b, 0) / r.length; // zero-mean: drift over minutes is noise
+        sigmaShort = Math.max(Math.sqrt(sq * 525600), 0.05);
+        nShort = r.length;
+      }
+    } catch { /* keep the weekly figure */ }
+    return { spot, sigma, sigmaShort, nShort, minutes, source, n: rets.length };
+  }
+
+  // volatility for a market `hours` away: the last 2 hours for anything within the hour,
+  // the weekly figure from 6 hours out, blended in between
+  function sigmaFor(sv, hours, override) {
+    if (override) return override;
+    if (!sv.sigmaShort) return sv.sigma;
+    if (hours <= 1) return sv.sigmaShort;
+    if (hours >= 6) return sv.sigma;
+    const w = (hours - 1) / 5;
+    return sv.sigmaShort * (1 - w) + sv.sigma * w;
+  }
+
+  // the coin's price when a window began, from Coinbase 1-minute opens (null if not in the last 5 hours)
+  function priceAt(sv, unixSec) {
+    const hit = sv.minutes.find((x) => x.t === unixSec);
+    return hit ? hit.open : null;
   }
 
   function parsePolyCrypto(q) {
@@ -450,7 +482,7 @@ export function makeScanTools(h) {
 
     crypto_fair_value: {
       description:
-        "Prices every open Kalshi and Polymarket crypto price market (above / below / between / reach / dip) off the live spot price and the last 7 days' volatility from CoinGecko (Coinbase as backup), using a simple lognormal model. Shows the model's chance, each market's quotes, and the edge after Kalshi fees. The model ignores fat tails and the exact settlement index (Kalshi: CF Benchmarks 60-second average; Polymarket: usually a Binance 1-minute close), so treat small edges as noise.",
+        "Prices every open Kalshi and Polymarket crypto price market (above / below / between / reach / dip) plus Polymarket's 5- and 15-minute Up or Down windows and Kalshi's 15-minute markets, off the live spot price, using a simple lognormal model. Volatility: the last 2 hours of 1-minute moves for markets within the hour, the last 7 days of hourly moves from 6 hours out, blended between. Shows the model's chance, each market's quotes, and the edge after Kalshi fees. The model ignores fat tails and the exact settlement index (Kalshi: CF Benchmarks 60-second average; Polymarket: usually a Binance 1-minute close), so treat small edges as noise.",
       inputSchema: {
         type: "object",
         properties: {
@@ -471,11 +503,10 @@ export function makeScanTools(h) {
           Promise.all(c.series.map((s) => getJSON(`${KALSHI}/events?${qs({ series_ticker: s, status: "open", with_nested_markets: true, limit: 50 })}`).catch(() => ({ events: [] })))),
           polyOpen(hours, 2).catch(() => []),
         ]);
-        const sigma = a.vol ?? sv.sigma;
         const rows = [];
         const push = (venue, ticker, label, hrs, spec, bid, ask, noAsk, fee) => {
           if (hrs <= 0 || hrs > hours || bid === null || ask === null) return;
-          const p = modelProb(spec, sv.spot, sigma, hrs);
+          const p = modelProb(spec, sv.spot, sigmaFor(sv, hrs, a.vol), hrs);
           if (p === null) return;
           const pc = p * 100;
           const nA = noAsk ?? 100 - bid;
@@ -503,9 +534,32 @@ export function makeScanTools(h) {
           if (!spec) continue;
           push("Polymarket", p.slug, p.question.slice(0, 70), hoursUntil(p.ends), spec, p.bid0, p.ask0, p.bid0 === null ? null : 100 - p.bid0, false);
         }
+        // Polymarket's 5- and 15-minute "Up or Down" windows: Up wins if the price ends at or above where the window began
+        const nowSec = Math.floor(Date.now() / 1000);
+        const windows = [];
+        for (const [tag, len] of [["5m", 300], ["15m", 900]]) {
+          const cur = Math.floor(nowSec / len) * len;
+          for (const start of [cur, cur + len]) windows.push({ slug: `${c.poly}-updown-${tag}-${start}`, start, len });
+        }
+        const ud = await Promise.all(windows.map((w) => getJSON(`${GAMMA}/markets?${qs({ slug: w.slug })}`).then((d) => ({ w, m: (d || [])[0] })).catch(() => ({ w }))));
+        for (const { w, m } of ud) {
+          if (!m) continue;
+          const p = polyRow(m);
+          if ((p.outcomes[0] || "").toLowerCase() !== "up") continue;
+          const started = w.start <= nowSec;
+          const k = started ? priceAt(sv, w.start) : sv.spot;
+          if (!k) continue;
+          // not started yet: the window's own move is all that matters, so price it over its full length
+          const hrs = started ? hoursUntil(p.ends) : w.len / 3600;
+          const label = `${p.question.slice(0, 52)} · Up from ${fmtUsd(k)}${started ? "" : " (not started)"}`;
+          push("Polymarket", p.slug, label, hrs, { kind: "above", k: k * (1 - 1e-9) }, p.bid0, p.ask0, p.bid0 === null ? null : 100 - p.bid0, false);
+        }
         const shown = rows.filter((r) => r.edge >= (a.min_edge ?? 4)).sort((x, y) => y.edge - x.edge).slice(0, a.limit ?? 30);
         return [
-          `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(sigma * 100).toFixed(0)}% a year${a.vol ? " (your override)" : ` from ${sv.n} hourly moves over 7 days`}.`,
+          a.vol
+            ? `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(a.vol * 100).toFixed(0)}% a year (your override).`
+            : `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(sv.sigma * 100).toFixed(0)}% a year from ${sv.n} hourly moves over 7 days` +
+              (sv.sigmaShort ? `, ${(sv.sigmaShort * 100).toFixed(0)}% from the last ${sv.nShort} minutes (used for markets within the hour, blended out to 6h).` : " (short-window volatility unavailable, weekly figure used for everything)."),
           `Priced ${rows.length} markets settling within ${hours}h; ${shown.length} show an edge of ${a.min_edge ?? 4}¢ or more (Kalshi edges are after fees).`,
           table(shown, ["edge", "side", "model", "venue", "market", "ticker", "bid_ask", "settles_in"]),
           "Model = lognormal, no drift, recent volatility. Crypto has fat tails, so the model tends to underprice far-out strikes and overprice near ones; prefer edges that survive a ±25% change in vol (pass `vol`).",

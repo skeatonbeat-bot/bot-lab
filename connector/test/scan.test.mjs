@@ -65,6 +65,15 @@ const btcRange = { events: [{ title: "BTC price range on Nov 1, 2026 at 5pm EST?
 // 7 days of hourly prices with ~0.4% hourly moves (about 37% a year)
 const chart = { prices: Array.from({ length: 169 }, (_, i) => [now - (168 - i) * 3.6e6, 77800 * Math.exp(0.004 * Math.sin(i * 1.7) * (i % 2 ? 1 : -1))]) };
 
+// 5 hours of 1-minute prices, quiet: ~0.02% a minute (about 15% a year), ending at 77,800
+const curStart = Math.floor(now / 1000 / 300) * 300;
+const minutes = Array.from({ length: 300 }, (_, i) => {
+  const t = Math.floor(now / 60000) * 60 - (299 - i) * 60;
+  const p = (t >= curStart ? 77700 : 77750) * Math.exp(0.00005 * (i % 2 ? 1 : -1));
+  return [t, p, p, p, p, 1];
+}).reverse();
+const upDown = { question: "Bitcoin Up or Down - November 1, 8:00AM-8:05AM ET", outcomes: '["Up","Down"]', outcomePrices: '["0.5","0.5"]', bestBid: 0.49, bestAsk: 0.51, endDate: new Date((curStart + 300) * 1000).toISOString(), slug: `btc-updown-5m-${curStart}` };
+
 let coingeckoDown = false;
 const seen = [];
 globalThis.fetch = async (url) => {
@@ -78,12 +87,14 @@ globalThis.fetch = async (url) => {
   }
   if (url.includes("api.exchange.coinbase.com")) {
     if (url.endsWith("/ticker")) return json({ price: "77790.00" });
+    if (url.includes("/candles") && url.includes("granularity=60")) return json(minutes);
     if (url.includes("/candles")) return json(chart.prices.slice().reverse().map(([t, p]) => [t / 1000, p, p, p, p, 1]));
   }
   if (url.includes("kalshi.com") && url.includes("/events?") && url.includes("series_ticker=KXBTCD&")) return json(btcEvents);
   if (url.includes("kalshi.com") && url.includes("/events?") && url.includes("series_ticker=KXBTC&")) return json(btcRange);
   if (url.includes("kalshi.com") && url.includes("/events?")) return json({ events: [] });
   if (url.includes("kalshi.com") && url.includes("/markets?")) return json({ markets: kalshiMarkets, cursor: "" });
+  if (url.includes("gamma-api.polymarket.com/markets?") && url.includes("updown")) return json(url.includes(`slug=${upDown.slug}`) ? [upDown] : []);
   if (url.includes("gamma-api.polymarket.com/markets?") && url.includes("slug=")) return json(gammaMarkets.filter((m) => url.includes(`slug=${m.slug}`)).map((m) => ({ ...m, description: "Resolves Yes if NOAA reports a high of 60-61°F in Central Park.", liquidityNum: 12000 })));
   if (url.includes("gamma-api.polymarket.com/markets?")) return json(url.includes("offset=0") ? gammaMarkets : []);
   throw new Error("unmocked " + url);
@@ -123,6 +134,10 @@ assert.ok(t.includes("spot $77,800 (CoinGecko)"));
 assert.ok(t.includes("KXBTCD-26NOV0117-T77999.99") && t.includes("KXBTC-26NOV0117-B77750") && t.includes("btc-above-78k-nov1") && t.includes("btc-dip-74k"));
 const vol = Number(/volatility (\d+)%/.exec(t)[1]);
 assert.ok(vol > 10 && vol < 200, `sane volatility, got ${vol}%`);
+const short = Number(/, (\d+)% from the last (\d+) minutes/.exec(t)[1]);
+assert.ok(short > 5 && short < 30 && short < vol, `quiet last 2 hours gives a lower short-window volatility, got ${short}%`);
+// 5-minute window started at 77,700 (Coinbase 1-min open), spot now 77,800, Up at 51 -> Up looks cheap
+assert.ok(new RegExp(`YES at 51¢[^\\n]*Polymarket[^\\n]*Up from \\$77,70[^\\n]*btc-updown-5m-${curStart}`).test(t), "prices the live 5-minute Up or Down window off its start price");
 coingeckoDown = true;
 t = await run("crypto_fair_value", { coin: "bitcoin", min_edge: 0 });
 assert.ok(t.includes("spot $77,790 (Coinbase"), "falls back to Coinbase when CoinGecko fails");
