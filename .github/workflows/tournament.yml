@@ -45,9 +45,6 @@ jobs:
         run: |
           for p in $COINS; do python paper_live.py --candle 15min --product $p --once || echo "::warning::15min $p failed"; done
         continue-on-error: true
-      - name: 5-Minute League (Polymarket Up or Down bets)
-        run: python poly5m_live.py || echo "::warning::5min league failed"
-        continue-on-error: true
       - name: Save results
         if: always()
         run: |
@@ -55,3 +52,28 @@ jobs:
           git config user.email "tournament-bot@users.noreply.github.com"
           git add live/
           git diff --cached --quiet || (git commit -m "Tournament update $(date -u +%Y-%m-%dT%H:%MZ)" && git push)
+
+  # The 5-minute league watches Polymarket's live order books for most of each
+  # 15-minute slot, so it runs beside the other leagues as its own job.
+  five_minute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: 5-Minute League (live Polymarket Up or Down quotes)
+        run: python poly5m_live.py --minutes 11.5 || echo "::warning::5min league failed"
+        continue-on-error: true
+      - name: Save results
+        if: always()
+        run: |
+          git config user.name "tournament-bot"
+          git config user.email "tournament-bot@users.noreply.github.com"
+          git add live/state_5min* live/bets_5min* live/equity_5min*
+          git diff --cached --quiet && exit 0
+          git commit -m "5-minute league update $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push && break; sleep 5; done

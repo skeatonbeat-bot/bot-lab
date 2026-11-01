@@ -369,7 +369,7 @@ const TOOLS = {
   },
 
   bot_leaderboard: {
-    description: "Latest standings of the paper-trading bot tournament (BTC, ETH, SOL, DOGE, XRP), read from the GitHub repo's live/ folder. Leagues 4h/1h/30min/15min trade the coin itself; the 5min league makes paper bets on Polymarket's 5-minute Up or Down markets (bots: Coin Flip, Momentum, Late Favorite, Model Edge, BTC Leader).",
+    description: "Latest standings of the paper-trading bot tournament (BTC, ETH, SOL, DOGE, XRP), read from the GitHub repo's live/ folder. Leagues 4h/1h/30min/15min trade the coin itself; the 5min league makes paper bets on Polymarket's 5-minute Up or Down markets on live order-book quotes (bots: Coin Flip, Favorite 3m, Favorite 4m, Favorite 4.5m, Follow Move 4m).",
     inputSchema: {
       type: "object",
       properties: {

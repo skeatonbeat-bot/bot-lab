@@ -29,21 +29,27 @@ day after a 10% loss, and retires at $60.
 
 Polymarket opens a market every 5 minutes per coin: Up wins if the price ends the
 window at or above where it started. `poly5m_live.py` gives five bots $100 each and
-makes paper bets on every window, buying at Polymarket's price + 1¢ and paying the
-crypto taker fee (7% x p x (1-p) per share). Each bet risks 2% of the bot's money.
+watches Polymarket's **live order books** for ~11 of every 15 minutes (its own job in
+the tournament workflow). At a bot's decision moment it buys at the real ask and pays
+the crypto taker fee (7% x p x (1-p) per share); each bet risks 2% of the bot's money.
+Bets settle from Polymarket's own result.
 
-| Bot | Rule |
-|---|---|
-| Coin Flip | Always Up at the open. The one to beat. |
-| Momentum | Bets the last window's direction again. |
-| Late Favorite | At 4 minutes in, buys whichever side costs 70-92¢. |
-| Model Edge | At 3 minutes in, prices the window from the move so far and 2-hour volatility; bets when that beats the price by 5¢ after fees. |
-| BTC Leader | For ETH/SOL/XRP/DOGE: at 2 minutes in, follows bitcoin's move when the coin's own price hasn't caught up. |
+The roster comes from the spring 2026 history (`results/poly5m/summary.md`): across
+78,000 windows the only thing that beat the fee was buying the late favorite.
 
-It replays each finished window using only what was known at the decision time,
-so it runs fine on the 15-minute schedule. Files: `live/*5min*`.
+| Bot | Rule | Spring 2026 history |
+|---|---|---|
+| Coin Flip | Always Up at the open. The one to beat. | -7.8% per bet |
+| Favorite 3m | At 3:00, buys whichever side costs 70-92¢. | +1.1% |
+| Favorite 4m | Same at 4:00. | +1.8% |
+| Favorite 4.5m | Same at 4:30. | +3.1% |
+| Follow Move 4m | At 4:00, buys the side the coin has moved toward since the open. | +1.1% |
+
+Why live quotes: Polymarket's minute price history is often minutes old, so
+replaying it lets a bot "buy" an old price after the move already happened and
+shows fake profits. Files: `live/state_5min*`, `bets_5min*`, `equity_5min*`.
 History and strategy tests: `research/poly5m.py` (run it from Actions:
-**Research (Polymarket 5-minute history)**), results in `results/poly5m/summary.md`.
+**Research (Polymarket 5-minute history)**).
 
 **It runs itself.** `.github/workflows/tournament.yml` runs all leagues every
 15 minutes on GitHub's servers and saves results to `live/`. Watch it under

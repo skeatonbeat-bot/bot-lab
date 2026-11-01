@@ -1,30 +1,39 @@
-"""The 5-minute league: paper bets on Polymarket's 5-minute "Up or Down" markets.
+"""The 5-minute league: paper bets on Polymarket's 5-minute "Up or Down" markets,
+decided on LIVE order-book quotes.
 
-    python poly5m_live.py                 # all coins, settles every finished window since the last run
-    python poly5m_live.py --coin ETH      # one coin
+    python poly5m_live.py --minutes 12      # watch the markets for 12 minutes (what the workflow does)
+    python poly5m_live.py --settle-only     # just settle finished bets
 
 Every 5 minutes Polymarket opens a market per coin: Up wins if the price at the end
 of the window is at or above the price at the start. Five bots get $100 of pretend
-money each and decide every window. A bot may only use what it could have known at
-its decision time: the coin's Coinbase 1-minute prices and Polymarket's price for Up
-at that minute. It "buys" at that price plus 1 cent (Polymarket's minute history is
-a mid price, not a quote), pays the crypto taker fee (7% x p x (1-p) per share), and
-wins $1 a share if its side is right.
+money each. While this runs it reads the real best bid/ask for Up and Down every few
+seconds; when a bot's decision moment arrives it "buys" at the real ask, pays the
+crypto taker fee (7% x p x (1-p) per share), and wins $1 a share if its side is right.
+Bets settle from Polymarket's own result once the window closes.
 
-It runs after the windows close (the tournament workflow calls it every 15 minutes),
-replaying each finished window with only the information available at the time.
-Nothing real is bought or sold.
+Why live quotes: Polymarket's minute price history is often minutes old, so replaying
+it after the fact lets a bot "buy" at a stale price after the move already happened
+and shows fake profits. Only quotes seen at the moment count here.
+
+The roster comes from the spring 2026 history (results/poly5m/summary.md), where the
+only thing that beat the fee was buying the late favorite:
+
+  Coin Flip        always Up at the open (the one to beat)
+  Favorite 3m      at 3:00 buys whichever side costs 70-92c
+  Favorite 4m      same at 4:00
+  Favorite 4.5m    same at 4:30
+  Follow Move 4m   at 4:00 buys the side the coin has moved toward since the open
 
 Files in live/ (BTC keeps the plain name, other coins add theirs):
-  state_5min[_COIN].json   bankrolls and the last window handled
+  state_5min[_COIN].json   bankrolls and bets waiting to settle
   bets_5min[_COIN].csv     every pretend bet and how it settled
-  equity_5min[_COIN].csv   each bot's money after every window
+  equity_5min[_COIN].csv   each bot's money after every settled window
+Nothing real is bought or sold.
 """
 
 import argparse
 import csv
 import json
-import math
 import time
 from pathlib import Path
 
@@ -33,248 +42,278 @@ import requests
 OUT = Path("live")
 COINS = {"BTC": "BTC-USD", "ETH": "ETH-USD", "SOL": "SOL-USD", "XRP": "XRP-USD", "DOGE": "DOGE-USD"}
 FEE_RATE = 0.07
-SPREAD = 0.01        # assumed half-spread over the minute mid
 STAKE_FRAC = 0.02    # each bet risks 2% of the bot's money...
 MIN_STAKE = 1.0      # ...but at least $1
 RETIRE_AT = 60.0
-MAX_BACKLOG = 36     # windows (3 hours) to catch up after a gap; older ones are skipped
+POLL = 4             # seconds between quote checks
+STALE = 12           # a quote older than this many seconds doesn't count
+GAMMA = "https://gamma-api.polymarket.com/markets"
+CLOB = "https://clob.polymarket.com"
 S = requests.Session()
 S.headers["User-Agent"] = "bot-lab/1.0"
 
 
-def get(url, params=None, tries=4):
+def get(url, params=None, tries=3, timeout=8):
     for i in range(tries):
         try:
-            r = S.get(url, params=params, timeout=20)
+            r = S.get(url, params=params, timeout=timeout)
             if r.status_code == 429:
-                time.sleep(2 + 2 * i)
+                time.sleep(1 + i)
                 continue
             r.raise_for_status()
             return r.json()
         except Exception:
             if i == tries - 1:
                 raise
-            time.sleep(2 + 2 * i)
+            time.sleep(1 + i)
 
 
 def fee(p):
     return FEE_RATE * p * (1 - p)
 
 
-def ncdf(x):
-    return 0.5 * (1 + math.erf(x / math.sqrt(2)))
+# ---------- the bots: (decision second, rule) ----------
+# A rule sees q = {"up_bid","up_ask","down_bid","down_ask"} (0-1), the coin's open price s0
+# and its live price now; it returns True (Up), False (Down) or None (no bet).
+
+def favorite(q, s0, now):
+    mid = (q["up_bid"] + q["up_ask"]) / 2
+    if 0.70 <= mid <= 0.92:
+        return True
+    if 0.08 <= mid <= 0.30:
+        return False
+    return None
 
 
-# ---------- data for one window ----------
-
-def coinbase_minutes(product, t0, t1):
-    out = {}
-    s = t0
-    while s < t1:
-        e = min(s + 300 * 60, t1)
-        page = get(f"https://api.exchange.coinbase.com/products/{product}/candles",
-                   {"granularity": 60, "start": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(s)),
-                    "end": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(e))})
-        for t, lo, hi, op, cl, v in page or []:
-            out[int(t)] = (float(op), float(cl))
-        s = e
-        time.sleep(0.2)
-    return out
-
-
-def window(coin, start):
-    """Outcome and the Up price by minute for one finished window, or None if not settled."""
-    slug = f"{coin.lower()}-updown-5m-{start}"
-    ms = get("https://gamma-api.polymarket.com/markets", {"slug": slug, "closed": "true"}) or \
-        get("https://gamma-api.polymarket.com/markets", {"slug": slug})
-    if not ms:
+def follow_move(q, s0, now):
+    if not s0 or not now or now == s0:
         return None
-    m = ms[0]
+    return now > s0
+
+
+BOTS = {
+    "Coin Flip": (5, lambda q, s0, now: True),
+    "Favorite 3m": (180, favorite),
+    "Favorite 4m": (240, favorite),
+    "Favorite 4.5m": (270, favorite),
+    "Follow Move 4m": (240, follow_move),
+}
+
+
+# ---------- market data ----------
+
+def market(coin, start, closed=False):
+    slug = f"{coin.lower()}-updown-5m-{start}"
+    params = {"slug": slug, **({"closed": "true"} if closed else {})}
+    ms = get(GAMMA, params)
+    if not ms and closed:
+        ms = get(GAMMA, {"slug": slug})
+    return ms[0] if ms else None
+
+
+def tokens(m):
+    outs = [o.lower() for o in json.loads(m.get("outcomes") or "[]")]
+    toks = json.loads(m.get("clobTokenIds") or "[]")
+    if "up" not in outs or "down" not in outs or len(toks) < 2:
+        return None
+    return toks[outs.index("up")], toks[outs.index("down")]
+
+
+def best(token):
+    b = get(f"{CLOB}/book", {"token_id": token}, tries=2)
+    bids = [float(x["price"]) for x in b.get("bids", [])]
+    asks = [float(x["price"]) for x in b.get("asks", [])]
+    return (max(bids) if bids else None), (min(asks) if asks else None)
+
+
+def spot(product):
+    return float(get(f"https://api.exchange.coinbase.com/products/{product}/ticker")["price"])
+
+
+def result(coin, start):
+    """True if Up won, False if Down, None if not settled yet."""
+    m = market(coin, start, closed=True)
+    if not m:
+        return None
     outs = [o.lower() for o in json.loads(m.get("outcomes") or "[]")]
     px = [float(x) for x in json.loads(m.get("outcomePrices") or "[]")]
-    toks = json.loads(m.get("clobTokenIds") or "[]")
-    if "up" not in outs or len(px) < 2 or max(px) < 0.99 or not toks:
+    if "up" not in outs or len(px) < 2 or max(px) < 0.99:
         return None
-    i = outs.index("up")
-    try:
-        h = get("https://clob.polymarket.com/prices-history",
-                {"market": toks[i], "startTs": start - 60, "endTs": start + 300, "fidelity": 1})
-        hist = sorted((int(x["t"]), float(x["p"])) for x in h.get("history", []))
-    except Exception:
-        hist = []
-    return {"up": px[i] > 0.5, "hist": hist, "slug": m.get("slug")}
+    return px[outs.index("up")] > 0.5
 
 
-def up_price_at(hist, t):
-    seen = [p for tt, p in hist if tt <= t]
-    return seen[-1] if seen else None
+# ---------- state ----------
 
-
-# ---------- the bots ----------
-# Each returns (side, seconds_in) or None. side True = Up.
-# `x` holds what's known: open price s0, closes by minute, last window's result,
-# 2-hour minute volatility, BTC's move so far (for the other coins), and the Up price by minute.
-
-def coin_flip(x):
-    return True, 5                                   # benchmark: always Up at the open
-
-
-def momentum(x):
-    return (x["prev_up"], 5) if x["prev_up"] is not None else None
-
-
-def late_favorite(x):
-    p = x["up_at"](240)
-    if p is None:
-        return None
-    if 0.70 <= p <= 0.92:
-        return True, 240
-    if 0.08 <= p <= 0.30:
-        return False, 240
-    return None
-
-
-def model_edge(x, off=180, need=0.05):
-    s, s0, v = x["close_at"](off), x["s0"], x["vol"]
-    p = x["up_at"](off)
-    if None in (s, s0, v, p) or v <= 0:
-        return None
-    mp = ncdf(math.log(s / s0) / (v * math.sqrt((300 - off) / 60)))
-    ua, da = p + SPREAD, 1 - p + SPREAD
-    if mp - ua - fee(ua) >= need:
-        return True, off
-    if (1 - mp) - da - fee(da) >= need:
-        return False, off
-    return None
-
-
-def btc_leader(x, off=120):
-    m, p = x["btc_move"](off), x["up_at"](off)
-    if m is None or p is None:
-        return None
-    if m > 0.0004 and p < 0.60:
-        return True, off
-    if m < -0.0004 and p > 0.40:
-        return False, off
-    return None
-
-
-BOTS = {"Coin Flip": coin_flip, "Momentum": momentum, "Late Favorite": late_favorite,
-        "Model Edge": model_edge, "BTC Leader": btc_leader}
-
-
-# ---------- the league ----------
-
-def names(coin):
+def paths(coin):
     tag = "5min" if coin == "BTC" else f"5min_{coin}"
     return OUT / f"state_{tag}.json", OUT / f"bets_{tag}.csv", OUT / f"equity_{tag}.csv"
 
 
-def run_coin(coin, now, btc_cache):
-    state_p, bets_p, eq_p = names(coin)
-    last_closed = (now - 30) // 300 * 300 - 300       # newest window that has finished (+30s to settle)
-    if state_p.exists():
-        st = json.loads(state_p.read_text())
-    else:
-        st = {"last": last_closed, "prev_up": None, "bots": {b: {"cash": 100.0, "retired": False} for b in BOTS}}
-        OUT.mkdir(exist_ok=True)
-        state_p.write_text(json.dumps(st, indent=1))
-        print(f"{coin}: new 5-minute league, bets from the next window")
+def load(coin):
+    p = paths(coin)[0]
+    st = json.loads(p.read_text()) if p.exists() else {}
+    if "pending" not in st:  # new league, or one from the old replay version: start clean
+        st = {"pending": [], "bots": {}}
+    for b in BOTS:
+        st["bots"].setdefault(b, {"cash": 100.0, "retired": False})
+    st["bots"] = {k: v for k, v in st["bots"].items() if k in BOTS}
+    return st
+
+
+def save(coin, st):
+    OUT.mkdir(exist_ok=True)
+    p = paths(coin)[0]
+    tmp = p.with_suffix(".tmp")
+    tmp.write_text(json.dumps(st, indent=1))
+    tmp.replace(p)
+
+
+def append(path, rows, header):
+    if not rows:
         return
-    starts = [s for s in range(st["last"] + 300, last_closed + 1, 300)][-MAX_BACKLOG:]
-    if not starts:
-        print(f"{coin}: nothing new")
-        return
-    mins = coinbase_minutes(COINS[coin], starts[0] - 2 * 3600 - 60, starts[-1] + 300)
-    if coin != "BTC" and not btc_cache:
-        btc_cache.update(coinbase_minutes(COINS["BTC"], starts[0] - 60, starts[-1] + 300))
+    new = not path.exists()
+    with path.open("a", newline="") as fh:
+        w = csv.writer(fh)
+        if new:
+            w.writerow(header)
+        w.writerows(rows)
 
-    bet_rows, eq_rows = [], []
-    for start in starts:
-        w = window(coin, start)
-        if w is None:
-            print(f"{coin} {start}: not settled yet, will retry")
-            break
-        s0 = mins.get(start, (None,))[0]
-        lr = [math.log(mins[t][1] / mins[t - 60][1]) for t in range(start - 7200, start - 60 + 1, 60)
-              if t in mins and t - 60 in mins]
-        vol = math.sqrt(sum(r * r for r in lr) / len(lr)) if len(lr) >= 60 else None
-        b0 = btc_cache.get(start, (None,))[0] if coin != "BTC" else None
 
-        def close_at(off, m=mins):
-            return m.get(start + off - 60, (None, None))[1]
-
-        def btc_move(off):
-            if coin == "BTC" or not b0:
-                return None
-            c = btc_cache.get(start + off - 60, (None, None))[1]
-            return math.log(c / b0) if c else None
-
-        x = {"s0": s0, "vol": vol, "prev_up": st["prev_up"], "close_at": close_at, "btc_move": btc_move,
-             "up_at": lambda off: up_price_at(w["hist"], start + off)}
-        for name, fn in BOTS.items():
-            b = st["bots"].setdefault(name, {"cash": 100.0, "retired": False})
-            if b["retired"]:
-                continue
-            pick = fn(x)
-            if pick is None:
-                continue
-            side, off = pick
-            p_up = x["up_at"](off)
-            if p_up is None:
-                p_up = 0.5 if off <= 5 else None   # no trade printed yet at the open: a fair coin
-            if p_up is None:
-                continue
-            price = min(0.99, (p_up if side else 1 - p_up) + SPREAD)
-            stake = max(MIN_STAKE, STAKE_FRAC * b["cash"])
-            if stake > b["cash"]:
-                continue
-            shares = stake / (price + fee(price))
-            won = side == w["up"]
-            pnl = (shares if won else 0.0) - stake
+def settle(coin, st, now):
+    """Settle every pending bet whose window has closed and resolved."""
+    _, bets_p, eq_p = paths(coin)
+    by_window = {}
+    for bet in st["pending"]:
+        by_window.setdefault(bet["start"], []).append(bet)
+    keep, bet_rows, eq_rows = [], [], []
+    for start in sorted(by_window):
+        bets = by_window[start]
+        if now < start + 330:
+            keep += bets
+            continue
+        try:
+            up = result(coin, start)
+        except Exception:
+            up = None
+        if up is None:
+            if now > start + 6 * 3600:
+                continue  # never resolved: drop (stake was never taken)
+            keep += bets
+            continue
+        for bet in bets:
+            b = st["bots"][bet["bot"]]
+            won = bet["up"] == up
+            pnl = (bet["shares"] if won else 0.0) - bet["stake"]
             b["cash"] += pnl
             if b["cash"] <= RETIRE_AT:
                 b["retired"] = True
-            bet_rows.append({"window": time.strftime("%Y-%m-%d %H:%M", time.gmtime(start)), "slug": w["slug"], "bot": name,
-                             "side": "Up" if side else "Down", "seconds_in": off, "price": round(price, 3),
-                             "stake": round(stake, 2), "result": "won" if won else "lost", "pnl": round(pnl, 2),
-                             "cash_after": round(b["cash"], 2)})
-        st["prev_up"] = w["up"]
-        st["last"] = start
-        eq_rows.append([time.strftime("%Y-%m-%d %H:%M:%S+00:00", time.gmtime(start)), round(s0, 6) if s0 else ""] +
+            bet_rows.append([time.strftime("%Y-%m-%d %H:%M", time.gmtime(start)), bet["slug"], bet["bot"],
+                             "Up" if bet["up"] else "Down", bet["sec"], bet["ask"], round(bet["stake"], 2),
+                             "won" if won else "lost", round(pnl, 2), round(b["cash"], 2)])
+        eq_rows.append([time.strftime("%Y-%m-%d %H:%M:%S+00:00", time.gmtime(start)), bets[0].get("s0") or ""] +
                        [round(st["bots"][n]["cash"], 2) for n in BOTS])
+    st["pending"] = keep
+    append(bets_p, bet_rows, ["window", "slug", "bot", "side", "seconds_in", "ask", "stake", "result", "pnl", "cash_after"])
+    append(eq_p, eq_rows, ["time", f"{coin.lower()}_price"] + list(BOTS))
+    return len(bet_rows)
 
-    if bet_rows:
-        head = not bets_p.exists()
-        with bets_p.open("a", newline="") as fh:
-            wr = csv.DictWriter(fh, fieldnames=list(bet_rows[0]))
-            if head:
-                wr.writeheader()
-            wr.writerows(bet_rows)
-    if eq_rows:
-        head = not eq_p.exists()
-        with eq_p.open("a", newline="") as fh:
-            wr = csv.writer(fh)
-            if head:
-                wr.writerow(["time", f"{coin.lower()}_price"] + list(BOTS))
-            wr.writerows(eq_rows)
-    state_p.write_text(json.dumps(st, indent=1))
-    board = sorted(((v["cash"], k) for k, v in st["bots"].items()), reverse=True)
-    print(f"{coin}: settled {len(eq_rows)} window(s), {len(bet_rows)} bet(s) | " +
-          " | ".join(f"{k} ${c:.2f}" for c, k in board))
+
+# ---------- watching live ----------
+
+def watch(coins, minutes):
+    states = {c: load(c) for c in coins}
+    stop = time.time() + minutes * 60
+    seen = {}     # (coin, start) -> {"toks":..., "s0":..., "done": set(bot)}
+    while time.time() < stop:
+        t = time.time()
+        start = int(t) // 300 * 300
+        sec = t - start
+        for coin in coins:
+            key = (coin, start)
+            w = seen.get(key)
+            if w is None:
+                try:
+                    m = market(coin, start)
+                    tk = tokens(m) if m else None
+                except Exception:
+                    tk = None
+                w = seen[key] = {"toks": tk, "slug": f"{coin.lower()}-updown-5m-{start}",
+                                 # the open price only counts if we saw it in the first 20 seconds
+                                 "s0": None, "done": set(), "late": sec > 20}
+            if not w["toks"]:
+                continue
+            due = [n for n, (at, _) in BOTS.items() if n not in w["done"] and at <= sec < at + 25]
+            need_s0 = w["s0"] is None and not w["late"] and sec <= 20
+            if not due and not need_s0:
+                continue
+            try:
+                px = spot(COINS[coin])
+            except Exception:
+                continue
+            if need_s0:
+                w["s0"] = px
+            if not due:
+                continue
+            try:
+                qt = time.time()
+                ub, ua = best(w["toks"][0])
+                db, da = best(w["toks"][1])
+            except Exception:
+                continue
+            if None in (ub, ua, db, da) or time.time() - qt > STALE:
+                continue
+            q = {"up_bid": ub, "up_ask": ua, "down_bid": db, "down_ask": da}
+            st = states[coin]
+            for n in due:
+                w["done"].add(n)
+                b = st["bots"][n]
+                if b["retired"]:
+                    continue
+                side = BOTS[n][1](q, w["s0"], px)
+                if side is None:
+                    continue
+                ask = ua if side else da
+                if not 0.01 < ask < 0.99:
+                    continue
+                stake = max(MIN_STAKE, STAKE_FRAC * b["cash"])
+                committed = sum(x["stake"] for x in st["pending"] if x["bot"] == n)
+                if stake > b["cash"] - committed:
+                    continue
+                st["pending"].append({"start": start, "slug": w["slug"], "bot": n, "up": side, "sec": int(sec),
+                                      "ask": ask, "stake": stake, "shares": stake / (ask + fee(ask)),
+                                      "s0": w["s0"]})
+                print(f"{coin} {time.strftime('%H:%M:%S', time.gmtime())} {n}: {'Up' if side else 'Down'} at {ask:.2f}")
+            save(coin, st)
+        # settle once a minute, and forget windows we're done with
+        if int(t) % 60 < POLL:
+            for coin in coins:
+                if settle(coin, states[coin], int(t)):
+                    save(coin, states[coin])
+            for k in [k for k in seen if k[1] < start - 300]:
+                del seen[k]
+        time.sleep(max(0.5, POLL - (time.time() - t)))
+    for coin in coins:
+        settle(coin, states[coin], int(time.time()))
+        save(coin, states[coin])
+        board = sorted(((v["cash"], k) for k, v in states[coin]["bots"].items()), reverse=True)
+        print(f"{coin}: {len(states[coin]['pending'])} bet(s) waiting | " + " | ".join(f"{k} ${c:.2f}" for c, k in board))
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--coin", help="BTC, ETH, SOL, XRP or DOGE (default all)")
+    ap.add_argument("--minutes", type=float, default=12, help="how long to watch live quotes")
+    ap.add_argument("--settle-only", action="store_true")
     a = ap.parse_args()
-    now = int(time.time())
-    btc_cache = {}
-    for coin in ([a.coin.upper()] if a.coin else list(COINS)):
-        try:
-            run_coin(coin, now, btc_cache)
-        except Exception as e:
-            print(f"::warning::5min {coin} failed: {e}")
+    coins = [a.coin.upper()] if a.coin else list(COINS)
+    if a.settle_only:
+        for c in coins:
+            st = load(c)
+            n = settle(c, st, int(time.time()))
+            save(c, st)
+            print(f"{c}: settled {n} bet(s)")
+        return
+    watch(coins, a.minutes)
 
 
 if __name__ == "__main__":
