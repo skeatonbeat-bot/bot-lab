@@ -248,7 +248,9 @@ def watch(coins, minutes):
                 continue
             try:
                 px = spot(COINS[coin])
-            except Exception:
+            except Exception as e:
+                if due:
+                    print(f"{coin} {int(sec)}s: price check failed ({str(e)[:80]}), retrying")
                 continue
             if need_s0:
                 w["s0"] = px
@@ -258,9 +260,11 @@ def watch(coins, minutes):
                 qt = time.time()
                 ub, ua = best(w["toks"][0])
                 db, da = best(w["toks"][1])
-            except Exception:
+            except Exception as e:
+                print(f"{coin} {int(sec)}s: order book failed ({str(e)[:80]}), retrying")
                 continue
             if None in (ub, ua, db, da) or time.time() - qt > STALE:
+                print(f"{coin} {int(sec)}s: book incomplete or slow (up {ub}/{ua}, down {db}/{da}), retrying")
                 continue
             q = {"up_bid": ub, "up_ask": ua, "down_bid": db, "down_ask": da}
             st = states[coin]
@@ -271,6 +275,7 @@ def watch(coins, minutes):
                     continue
                 side = BOTS[n][1](q, w["s0"], px)
                 if side is None:
+                    print(f"{coin} {int(sec)}s {n}: no bet (Up {ub:.2f}/{ua:.2f}, open {w['s0']}, now {px})")
                     continue
                 ask = ua if side else da
                 if not 0.01 < ask < 0.99:
