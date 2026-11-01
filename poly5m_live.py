@@ -73,11 +73,12 @@ def fee(p):
 
 
 # ---------- the bots: (decision second, rule) ----------
-# A rule sees q = {"up_bid","up_ask","down_bid","down_ask"} (0-1), the coin's open price s0
+# A rule sees q = {"up_mid","up_bid","up_ask","down_bid","down_ask"} (0-1, None if that
+# side of the book is empty), the coin's open price s0
 # and its live price now; it returns True (Up), False (Down) or None (no bet).
 
 def favorite(q, s0, now):
-    mid = (q["up_bid"] + q["up_ask"]) / 2
+    mid = q["up_mid"]
     if 0.70 <= mid <= 0.92:
         return True
     if 0.08 <= mid <= 0.30:
@@ -263,10 +264,15 @@ def watch(coins, minutes):
             except Exception as e:
                 print(f"{coin} {int(sec)}s: order book failed ({str(e)[:80]}), retrying")
                 continue
-            if None in (ub, ua, db, da) or time.time() - qt > STALE:
-                print(f"{coin} {int(sec)}s: book incomplete or slow (up {ub}/{ua}, down {db}/{da}), retrying")
+            if time.time() - qt > STALE:
                 continue
-            q = {"up_bid": ub, "up_ask": ua, "down_bid": db, "down_ask": da}
+            # Late in a window the book is often one-sided (the winner at 99c, nobody selling).
+            # Read the Up price from whichever quotes exist; a bot can only buy a side that has an ask.
+            ups = [x for x in (ub, ua, None if da is None else 1 - da, None if db is None else 1 - db) if x is not None]
+            if not ups:
+                continue
+            up_mid = (ub + ua) / 2 if ub is not None and ua is not None else sum(ups) / len(ups)
+            q = {"up_bid": ub, "up_ask": ua, "down_bid": db, "down_ask": da, "up_mid": up_mid}
             st = states[coin]
             for n in due:
                 w["done"].add(n)
@@ -275,10 +281,11 @@ def watch(coins, minutes):
                     continue
                 side = BOTS[n][1](q, w["s0"], px)
                 if side is None:
-                    print(f"{coin} {int(sec)}s {n}: no bet (Up {ub:.2f}/{ua:.2f}, open {w['s0']}, now {px})")
+                    print(f"{coin} {int(sec)}s {n}: no bet (Up ~{up_mid:.2f}{'' if w['s0'] else ', joined mid-window'})")
                     continue
                 ask = ua if side else da
-                if not 0.01 < ask < 0.99:
+                if ask is None or not 0.01 < ask < 0.99:
+                    print(f"{coin} {int(sec)}s {n}: wanted {'Up' if side else 'Down'} but no seller below 99c")
                     continue
                 stake = max(MIN_STAKE, STAKE_FRAC * b["cash"])
                 committed = sum(x["stake"] for x in st["pending"] if x["bot"] == n)
