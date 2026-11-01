@@ -6,7 +6,7 @@ on:
       job:
         description: "Which study: poly5m (history + strategies) or spikes (runaways and collapses)"
         type: choice
-        options: [poly5m, spikes]
+        options: [poly5m, spikes, jumpdrift]
         default: poly5m
       recent_days:
         description: "Recent days to pull from Polymarket"
@@ -37,8 +37,11 @@ jobs:
       - name: Runaways and collapses
         if: ${{ inputs.job == 'spikes' }}
         run: python research/spikes.py
+      - name: Jump vs drift
+        if: ${{ inputs.job == 'jumpdrift' }}
+        run: python research/jump_vs_drift.py
       - name: Pull history and test strategies
-        if: ${{ inputs.job != 'spikes' }}
+        if: ${{ inputs.job == 'poly5m' }}
         run: python research/poly5m.py --recent-days ${{ inputs.recent_days }} ${{ inputs.skip_history && '--skip-history' || '' }}
       - name: Save results
         if: always()
