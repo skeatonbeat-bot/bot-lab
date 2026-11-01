@@ -48,6 +48,18 @@ settlement rules; Polymarket reference prices; National Weather Service
 forecasts, observations and daily climate reports; AAA gas prices; an
 after-fees edge calculator; and the tournament leaderboard. It never trades.
 
+Wide scans (connector 1.1):
+
+| Tool | What it finds |
+|---|---|
+| `mismatch_scan` | Kalshi markets matched to the Polymarket market asking the same question, with the gap after fees; plus each venue's own brackets that don't add to 100 and ladders priced out of order |
+| `crypto_fair_value` | Every Kalshi and Polymarket crypto price market priced off CoinGecko spot and 7-day volatility (Coinbase as backup) |
+| `polymarket_market` | One Polymarket market's full rules, to confirm a match |
+
+Matching is by wording, numbers and dates, so every pair is a lead to check
+against both venues' rules. CoinGecko works without a key; an optional
+`COINGECKO_API_KEY` secret (free demo key) raises its rate limit.
+
 ### Deploy (about 10 minutes, free)
 
 1. Sign up at https://dash.cloudflare.com (free plan).

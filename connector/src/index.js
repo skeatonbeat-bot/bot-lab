@@ -9,6 +9,8 @@
  * CONNECTOR_KEY is a secret you set in Cloudflare, so nobody else can use it.
  */
 
+import { makeScanTools } from "./scan.js";
+
 const KALSHI = "https://api.elections.kalshi.com/trade-api/v2";
 const GAMMA = "https://gamma-api.polymarket.com";
 const NWS = "https://api.weather.gov";
@@ -136,12 +138,21 @@ const TOOLS = {
     async run(a) {
       const hours = a.hours ?? 72;
       const maxTs = Math.floor(Date.now() / 1000 + hours * 3600);
-      const base = { status: "open", max_close_ts: maxTs, limit: 1000, cursor: a.cursor };
-      const data = await getJSON(`${KALSHI}/markets?${qs({ ...base, mve_filter: "exclude" })}`).catch(() =>
-        getJSON(`${KALSHI}/markets?${qs(base)}`)
-      );
+      // Kalshi returns 1000 markets a page in no useful order, so read up to 3 pages before sorting
+      const all = [];
+      let cursor = a.cursor;
+      for (let i = 0; i < (a.cursor ? 1 : 3); i++) {
+        const base = { status: "open", max_close_ts: maxTs, limit: 1000, cursor };
+        const page = await getJSON(`${KALSHI}/markets?${qs({ ...base, mve_filter: "exclude" })}`).catch(() =>
+          getJSON(`${KALSHI}/markets?${qs(base)}`)
+        );
+        all.push(...(page.markets || []));
+        cursor = page.cursor;
+        if (!cursor) break;
+      }
+      const data = { cursor };
       const sportsy = /KXMVE|NFL|NBA|NHL|MLB|NCAA|SOCCER|EPL|UFC|GAME|MATCH|PGA|ATP|WTA|MLS|LALIGA|SERIEA|BUNDES|F1/i;
-      let rows = (data.markets || []).map(compactKalshi);
+      let rows = all.map(compactKalshi);
       if (a.exclude_sports !== false) rows = rows.filter((r) => !sportsy.test(r.ticker) && !sportsy.test(r.event || ""));
       if (a.text) {
         const t = a.text.toLowerCase().split(/\s+/);
@@ -243,7 +254,7 @@ const TOOLS = {
         rows = rows.filter((r) => t.every((w) => (r.question || "").toLowerCase().includes(w)));
       }
       rows = rows.slice(0, a.limit ?? 40);
-      return table(rows, ["question", "prices", "bid", "ask", "vol_24h", "ends"]);
+      return table(rows, ["question", "prices", "bid", "ask", "vol_24h", "ends", "slug"]);
     },
   },
 
@@ -391,6 +402,12 @@ const TOOLS = {
   },
 };
 
+// Wide scans: cross-venue matching, each venue's own consistency, crypto fair value.
+Object.assign(
+  TOOLS,
+  makeScanTools({ getJSON, qs, cents, num, compactKalshi, kalshiFee, ladderCheck, table, hoursUntil, KALSHI, GAMMA })
+);
+
 // Weather stations used by Kalshi/Polymarket city markets. `obs` = observation
 // station, `cli` = NWS Daily Climate Report location code.
 const STATIONS = {
@@ -433,9 +450,9 @@ async function handleRpc(msg, env) {
       return rpcResult(id, {
         protocolVersion: params?.protocolVersion || PROTOCOL,
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: "edge-finder", version: "1.0.0" },
+        serverInfo: { name: "edge-finder", version: "1.1.0" },
         instructions:
-          "Read-only market research tools for Kalshi and Polymarket plus the public data they settle on (NWS weather, AAA gas). Prices are in cents. Nothing here places trades.",
+          "Read-only market research tools for Kalshi and Polymarket plus the public data they settle on (NWS weather, AAA gas, CoinGecko crypto prices). Prices are in cents. Start wide with mismatch_scan (cross-venue gaps and each venue's own inconsistencies) and crypto_fair_value, then confirm any lead with kalshi_market and polymarket_market (rules, times, depth). Matches are candidates, never sure things. Nothing here places trades.",
       });
     case "ping":
       return rpcResult(id, {});
