@@ -34,3 +34,10 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-denver-on-november-1-2026,KDEN,2026-11-01,66-67°F,NO,0.054,0.0868,33.9639,1.92,0.808,0.751,today,13,loss,0.0,2026-11-02T08:15+00:00
 2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-denver-on-november-1-2026,KDEN,2026-11-01,66-67°F,NO,0.054,0.0868,33.9639,1.92,0.808,0.751,today,13,loss,0.0,2026-11-02T08:15+00:00
 2026-11-02T02:37+00:00,Late Closer,highest-temperature-in-denver-on-november-1-2026,KDEN,2026-11-01,58-59°F,YES,0.001,0.0793,1588.1659,1.67,0.828,0.827,today,19,loss,0.0,2026-11-02T08:15+00:00
+2026-11-01T20:46+00:00,Favorite,highest-temperature-in-san-francisco-on-november-1-2026,KSFO,2026-11-01,64-65°F,YES,0.61,0.036,3.0269,1.88,0.67,0.048,today,12,win,3.0269,2026-11-02T09:42+00:00
+2026-11-01T20:46+00:00,Favorite,highest-temperature-in-seattle-on-november-1-2026,KSEA,2026-11-01,50-51°F,YES,0.67,0.0299,2.7086,1.84,0.7,0.019,today,12,loss,0.0,2026-11-02T09:42+00:00
+2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-seattle-on-november-1-2026,KSEA,2026-11-01,50-51°F,NO,0.46,0.0475,3.8268,1.81,0.79,0.318,today,12,win,3.8268,2026-11-02T09:42+00:00
+2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-seattle-on-november-1-2026,KSEA,2026-11-01,50-51°F,NO,0.46,0.0475,3.8268,1.81,0.79,0.318,today,12,win,3.8268,2026-11-02T09:42+00:00
+2026-11-01T21:15+00:00,Nowcaster,highest-temperature-in-san-francisco-on-november-1-2026,KSFO,2026-11-01,66-67°F,YES,0.098,0.072,16.281,1.67,0.461,0.358,today,13,loss,0.0,2026-11-02T09:42+00:00
+2026-11-01T21:15+00:00,Strict Nowcast,highest-temperature-in-san-francisco-on-november-1-2026,KSFO,2026-11-01,66-67°F,YES,0.098,0.0734,16.6133,1.7,0.461,0.358,today,13,loss,0.0,2026-11-02T09:42+00:00
+2026-11-02T05:45+00:00,Late Closer,highest-temperature-in-san-francisco-on-november-1-2026,KSFO,2026-11-01,62-63°F,YES,0.001,0.0717,1435.5755,1.51,0.991,0.99,today,21,loss,0.0,2026-11-02T09:42+00:00
