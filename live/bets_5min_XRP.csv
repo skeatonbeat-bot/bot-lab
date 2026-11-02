@@ -325,3 +325,6 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-02 15:35,xrp-updown-5m-1793633700,Favorite 4m,Down,242,0.92,1.99,won,0.16,99.74
 2026-11-02 15:35,xrp-updown-5m-1793633700,Follow Move 4m,Up,242,0.09,1.86,lost,-1.86,90.96
 2026-11-02 15:40,xrp-updown-5m-1793634000,Coin Flip,Up,6,0.65,1.52,won,0.76,75.39
+2026-11-02 15:50,xrp-updown-5m-1793634600,Coin Flip,Up,7,0.43,1.49,lost,-1.49,73.9
+2026-11-02 15:55,xrp-updown-5m-1793634900,Coin Flip,Up,7,0.56,1.51,lost,-1.51,72.39
+2026-11-02 16:00,xrp-updown-5m-1793635200,Favorite 3m,Up,183,0.92,1.8,won,0.15,89.9
