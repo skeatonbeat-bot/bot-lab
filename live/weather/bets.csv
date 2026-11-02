@@ -19,3 +19,15 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T22:15+00:00,Strict Nowcast,highest-temperature-in-austin-on-november-1-2026,KAUS,2026-11-01,86-87°F,YES,0.043,0.0746,36.268,1.63,0.301,0.256,today,16,loss,0.0,2026-11-02T07:16+00:00
 2026-11-02T02:37+00:00,Late Closer,highest-temperature-in-chicago-on-november-1-2026,KORD,2026-11-01,62-63°F,YES,0.001,0.0809,1620.5775,1.7,0.924,0.923,today,20,loss,0.0,2026-11-02T07:16+00:00
 2026-11-02T04:45+00:00,Late Closer,highest-temperature-in-austin-on-november-1-2026,KAUS,2026-11-01,84-85°F,NO,0.001,0.0732,1464.873,1.54,0.997,0.996,today,22,loss,0.0,2026-11-02T07:16+00:00
+2026-11-01T20:46+00:00,Favorite,highest-temperature-in-dallas-on-november-1-2026,KDAL,2026-11-01,78-79°F,YES,0.82,0.0175,2.3689,1.96,0.81,-0.017,today,14,win,2.3689,2026-11-02T07:46+00:00
+2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-dallas-on-november-1-2026,KDAL,2026-11-01,78-79°F,NO,0.35,0.0617,5.4237,1.96,0.881,0.519,today,14,loss,0.0,2026-11-02T07:46+00:00
+2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-dallas-on-november-1-2026,KDAL,2026-11-01,78-79°F,NO,0.35,0.0617,5.4237,1.96,0.881,0.519,today,14,loss,0.0,2026-11-02T07:46+00:00
+2026-11-01T20:46+00:00,Favorite,highest-temperature-in-houston-on-november-1-2026,KHOU,2026-11-01,86-87°F,YES,0.91,0.0086,2.1013,1.92,0.839,-0.075,today,14,win,2.1013,2026-11-02T07:46+00:00
+2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-houston-on-november-1-2026,KHOU,2026-11-01,86-87°F,NO,0.209,0.0716,8.664,1.88,0.818,0.601,today,14,loss,0.0,2026-11-02T07:46+00:00
+2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-mexico-city-on-november-1-2026,MMMX,2026-11-01,25°C,NO,0.78,0.0205,2.3871,1.88,0.922,0.134,today,14,win,2.3871,2026-11-02T07:46+00:00
+2026-11-01T21:15+00:00,Late Closer,highest-temperature-in-dallas-on-november-1-2026,KDAL,2026-11-01,78-79°F,NO,0.16,0.0774,11.5211,1.92,0.88,0.713,today,15,loss,0.0,2026-11-02T07:46+00:00
+2026-11-01T21:15+00:00,Favorite,highest-temperature-in-mexico-city-on-november-1-2026,MMMX,2026-11-01,24°C,YES,0.669,0.0288,2.6051,1.77,0.674,-0.006,today,15,win,2.6051,2026-11-02T07:46+00:00
+2026-11-01T21:15+00:00,Strict Nowcast,highest-temperature-in-mexico-city-on-november-1-2026,MMMX,2026-11-01,24°C,NO,0.602,0.0339,2.8279,1.74,0.911,0.297,today,15,loss,0.0,2026-11-02T07:46+00:00
+2026-11-01T21:15+00:00,Late Closer,highest-temperature-in-mexico-city-on-november-1-2026,MMMX,2026-11-01,24°C,NO,0.602,0.0367,3.0659,1.88,0.911,0.297,today,15,loss,0.0,2026-11-02T07:46+00:00
+2026-11-01T22:45+00:00,Nowcaster,highest-temperature-in-houston-on-november-1-2026,KHOU,2026-11-01,88-89°F,YES,0.009,0.0756,169.5396,1.6,0.265,0.255,today,16,loss,0.0,2026-11-02T07:46+00:00
+2026-11-02T03:45+00:00,Late Closer,highest-temperature-in-houston-on-november-1-2026,KHOU,2026-11-01,86-87°F,NO,0.001,0.0762,1525.2745,1.6,0.997,0.996,today,21,loss,0.0,2026-11-02T07:46+00:00

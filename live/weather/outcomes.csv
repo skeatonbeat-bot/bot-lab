@@ -364,3 +364,6 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-01,highest-temperature-in-karachi-on-november-1-2026,OPKC,C,,,35°C,,,,
 2026-11-01,highest-temperature-in-lucknow-on-november-1-2026,VILK,C,,,27°C,,,,
 2026-11-01,highest-temperature-in-wellington-on-november-1-2026,NZWN,C,,,16°C,,,,
+2026-11-01,highest-temperature-in-dallas-on-november-1-2026,KDAL,F,74,74-75°F,78-79°F,False,,23.3,
+2026-11-01,highest-temperature-in-houston-on-november-1-2026,KHOU,F,79,78-79°F,86-87°F,False,,26.1,
+2026-11-01,highest-temperature-in-mexico-city-on-november-1-2026,MMMX,C,19,19°C,24°C,False,,19.0,
