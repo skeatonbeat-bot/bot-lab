@@ -1,68 +1,35 @@
 {
  "pending": [
   {
-   "start": 1793645400,
-   "slug": "eth-updown-5m-1793645400",
+   "start": 1793646300,
+   "slug": "eth-updown-5m-1793646300",
    "bot": "Coin Flip",
    "up": true,
-   "sec": 7,
-   "ask": 0.45,
-   "stake": 1.7463518040229835,
-   "shares": 3.736910723849534,
-   "s0": 2249.47
+   "sec": 8,
+   "ask": 0.42,
+   "stake": 1.7240749899377525,
+   "shares": 3.9447822912096333,
+   "s0": 2247.73
   },
   {
-   "start": 1793645400,
-   "slug": "eth-updown-5m-1793645400",
-   "bot": "Favorite 3m",
-   "up": false,
-   "sec": 183,
-   "ask": 0.79,
-   "stake": 1.9920414520917795,
-   "shares": 2.4850413504917954,
-   "s0": 2249.47
-  },
-  {
-   "start": 1793645400,
-   "slug": "eth-updown-5m-1793645400",
-   "bot": "Follow Move 4m",
-   "up": true,
-   "sec": 243,
-   "ask": 0.46,
-   "stake": 2.007787171746781,
-   "shares": 4.205776374242295,
-   "s0": 2249.47
-  },
-  {
-   "start": 1793645400,
-   "slug": "eth-updown-5m-1793645400",
-   "bot": "Favorite 4.5m",
-   "up": false,
-   "sec": 271,
-   "ask": 0.84,
-   "stake": 2.004997020092083,
-   "shares": 2.360464017400452,
-   "s0": 2249.47
-  },
-  {
-   "start": 1793645700,
-   "slug": "eth-updown-5m-1793645700",
+   "start": 1793646600,
+   "slug": "eth-updown-5m-1793646600",
    "bot": "Coin Flip",
    "up": true,
-   "sec": 7,
-   "ask": 0.72,
-   "stake": 1.7463518040229835,
-   "shares": 2.378862903784414,
-   "s0": 2250.01
+   "sec": 8,
+   "ask": 0.65,
+   "stake": 1.7240749899377525,
+   "shares": 2.5889927393291323,
+   "s0": 2244.99
   }
  ],
  "bots": {
   "Coin Flip": {
-   "cash": 87.31759020114917,
+   "cash": 86.20374949688762,
    "retired": false
   },
   "Favorite 3m": {
-   "cash": 99.60207260458897,
+   "cash": 100.09507250298898,
    "retired": false
   },
   "Favorite 4m": {
@@ -70,11 +37,11 @@
    "retired": false
   },
   "Favorite 4.5m": {
-   "cash": 100.24985100460414,
+   "cash": 100.60531800191251,
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 100.38935858733903,
+   "cash": 98.38157141559225,
    "retired": false
   }
  }
