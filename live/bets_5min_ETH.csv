@@ -228,3 +228,7 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-02 06:35,eth-updown-5m-1793601300,Favorite 4.5m,Down,271,0.75,1.97,won,0.61,98.96
 2026-11-02 06:40,eth-updown-5m-1793601600,Coin Flip,Up,7,0.4,2.36,lost,-2.36,113.28
 2026-11-02 06:50,eth-updown-5m-1793602200,Coin Flip,Up,6,0.34,2.27,lost,-2.27,111.01
+2026-11-02 06:55,eth-updown-5m-1793602500,Coin Flip,Up,6,0.46,2.27,won,2.48,113.49
+2026-11-02 07:05,eth-updown-5m-1793603100,Coin Flip,Up,5,0.37,2.27,lost,-2.27,111.22
+2026-11-02 07:05,eth-updown-5m-1793603100,Favorite 4m,Down,241,0.92,1.79,won,0.14,89.6
+2026-11-02 07:05,eth-updown-5m-1793603100,Follow Move 4m,Up,241,0.09,2.01,lost,-2.01,98.6
