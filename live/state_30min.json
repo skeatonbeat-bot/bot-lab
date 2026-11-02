@@ -1,5 +1,5 @@
 {
- "last": "2026-11-02 06:00:00+00:00",
+ "last": "2026-11-02 06:30:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -12,7 +12,7 @@
    "day_start_equity": 100.07472456607213,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10059,
+   "candles_seen": 10060,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   },
@@ -27,7 +27,7 @@
    "day_start_equity": 96.3371320801154,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10059,
+   "candles_seen": 10060,
    "open_trip_equity": 96.97444388647833,
    "open_trip_opened": "2026-11-01 23:00:00+00:00"
   },
@@ -42,7 +42,7 @@
    "day_start_equity": 99.36525461883882,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10059,
+   "candles_seen": 10060,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 08:30:00+00:00"
   },
@@ -57,7 +57,7 @@
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10059,
+   "candles_seen": 10060,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -72,7 +72,7 @@
    "day_start_equity": 100.0560434245541,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10059,
+   "candles_seen": 10060,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   }
