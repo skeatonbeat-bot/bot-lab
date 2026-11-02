@@ -4,3 +4,11 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T21:15+00:00,Late Closer,highest-temperature-in-tel-aviv-on-november-1-2026,LLBG,2026-11-01,27°C,NO,0.005,0.0874,351.462,1.84,0.997,0.992,today,23,loss,0.0,2026-11-01T23:21+00:00
 2026-11-01T22:15+00:00,Late Closer,highest-temperature-in-paris-on-november-1-2026,LFPB,2026-11-01,12°C,YES,0.001,0.086,1721.8359,1.81,0.997,0.996,today,23,loss,0.0,2026-11-01T23:21+00:00
 2026-11-02T00:00+00:00,Late Closer,highest-temperature-in-buenos-aires-on-november-1-2026,SAEZ,2026-11-01,21°C,YES,0.001,0.0843,1687.3984,1.77,0.996,0.995,today,21,loss,0.0,2026-11-02T03:45+00:00
+2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-miami-on-november-1-2026,KMIA,2026-11-01,78-79°F,YES,0.001,0.0878,1756.9754,1.84,0.229,0.228,today,15,loss,0.0,2026-11-02T06:15+00:00
+2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-miami-on-november-1-2026,KMIA,2026-11-01,78-79°F,YES,0.001,0.0878,1756.9754,1.84,0.229,0.228,today,15,loss,0.0,2026-11-02T06:15+00:00
+2026-11-01T21:15+00:00,Nowcaster,highest-temperature-in-atlanta-on-november-1-2026,KATL,2026-11-01,64-65°F,YES,0.054,0.0784,30.7007,1.74,0.198,0.141,today,16,loss,0.0,2026-11-02T06:15+00:00
+2026-11-01T21:45+00:00,Nowcaster,highest-temperature-in-nyc-on-november-1-2026,KLGA,2026-11-01,62-63°F,YES,0.004,0.0775,389.1564,1.63,0.318,0.314,today,16,loss,0.0,2026-11-02T06:15+00:00
+2026-11-01T21:45+00:00,Strict Nowcast,highest-temperature-in-nyc-on-november-1-2026,KLGA,2026-11-01,62-63°F,YES,0.004,0.0791,397.0984,1.67,0.318,0.314,today,16,loss,0.0,2026-11-02T06:15+00:00
+2026-11-02T00:00+00:00,Late Closer,highest-temperature-in-miami-on-november-1-2026,KMIA,2026-11-01,78-79°F,YES,0.001,0.0826,1653.6505,1.74,0.858,0.857,today,19,loss,0.0,2026-11-02T06:15+00:00
+2026-11-02T03:45+00:00,Late Closer,highest-temperature-in-atlanta-on-november-1-2026,KATL,2026-11-01,60-61°F,YES,0.001,0.0777,1556.4026,1.63,0.88,0.879,today,22,loss,0.0,2026-11-02T06:15+00:00
+2026-11-02T04:16+00:00,Late Closer,highest-temperature-in-nyc-on-november-1-2026,KLGA,2026-11-01,58-59°F,YES,0.001,0.0747,1494.7683,1.57,0.997,0.996,today,23,loss,0.0,2026-11-02T06:15+00:00
