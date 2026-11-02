@@ -113,3 +113,12 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T07:16+00:00,Favorite,highest-temperature-in-tel-aviv-on-november-2-2026,LLBG,2026-11-02,32°C,YES,0.59,0.0252,2.0872,1.26,0.59,-0.012,today,9,loss,0.0,2026-11-02T23:00+00:00
 2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-helsinki-on-november-2-2026,EFHK,2026-11-02,8°C,YES,0.001,0.0551,1103.9894,1.16,0.92,0.919,today,19,loss,0.0,2026-11-02T23:00+00:00
 2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-tel-aviv-on-november-2-2026,LLBG,2026-11-02,26°C or below,YES,0.001,0.0509,1018.2847,1.07,0.995,0.994,today,19,loss,0.0,2026-11-02T23:00+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-madrid-on-november-2-2026,LEMD,2026-11-02,21°C,NO,0.57,0.0293,2.3877,1.39,0.93,0.347,future,21,win,2.3877,2026-11-02T23:30+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-paris-on-november-2-2026,LFPB,2026-11-02,11°C,NO,0.5,0.03,2.403,1.23,0.713,0.2,future,21,win,2.403,2026-11-02T23:30+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-warsaw-on-november-2-2026,EPWA,2026-11-02,8°C,NO,0.46,0.0263,2.1168,1.0,0.676,0.204,future,21,loss,0.0,2026-11-02T23:30+00:00
+2026-11-02T08:15+00:00,Favorite,highest-temperature-in-madrid-on-november-2-2026,LEMD,2026-11-02,20°C,YES,0.59,0.0279,2.3069,1.39,0.6,-0.002,today,9,win,2.3069,2026-11-02T23:30+00:00
+2026-11-02T08:15+00:00,Favorite,highest-temperature-in-paris-on-november-2-2026,LFPB,2026-11-02,11°C,YES,0.7,0.0201,1.9158,1.36,0.71,-0.0,today,9,loss,0.0,2026-11-02T23:30+00:00
+2026-11-02T08:15+00:00,Favorite,highest-temperature-in-warsaw-on-november-2-2026,EPWA,2026-11-02,8°C,YES,0.67,0.0217,1.9586,1.33,0.72,0.039,today,9,win,1.9586,2026-11-02T23:30+00:00
+2026-11-02T15:15+00:00,Late Closer,highest-temperature-in-madrid-on-november-2-2026,LEMD,2026-11-02,20°C,NO,0.43,0.0341,2.7847,1.23,0.855,0.412,today,16,loss,0.0,2026-11-02T23:30+00:00
+2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-paris-on-november-2-2026,LFPB,2026-11-02,12°C,NO,0.002,0.0519,519.5577,1.09,0.913,0.911,today,18,loss,0.0,2026-11-02T23:30+00:00
+2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-warsaw-on-november-2-2026,EPWA,2026-11-02,8°C,NO,0.002,0.0498,498.9832,1.05,0.871,0.869,today,18,loss,0.0,2026-11-02T23:30+00:00
