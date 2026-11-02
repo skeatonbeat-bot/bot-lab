@@ -31,3 +31,6 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T21:15+00:00,Late Closer,highest-temperature-in-mexico-city-on-november-1-2026,MMMX,2026-11-01,24°C,NO,0.602,0.0367,3.0659,1.88,0.911,0.297,today,15,loss,0.0,2026-11-02T07:46+00:00
 2026-11-01T22:45+00:00,Nowcaster,highest-temperature-in-houston-on-november-1-2026,KHOU,2026-11-01,88-89°F,YES,0.009,0.0756,169.5396,1.6,0.265,0.255,today,16,loss,0.0,2026-11-02T07:46+00:00
 2026-11-02T03:45+00:00,Late Closer,highest-temperature-in-houston-on-november-1-2026,KHOU,2026-11-01,86-87°F,NO,0.001,0.0762,1525.2745,1.6,0.997,0.996,today,21,loss,0.0,2026-11-02T07:46+00:00
+2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-denver-on-november-1-2026,KDEN,2026-11-01,66-67°F,NO,0.054,0.0868,33.9639,1.92,0.808,0.751,today,13,loss,0.0,2026-11-02T08:15+00:00
+2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-denver-on-november-1-2026,KDEN,2026-11-01,66-67°F,NO,0.054,0.0868,33.9639,1.92,0.808,0.751,today,13,loss,0.0,2026-11-02T08:15+00:00
+2026-11-02T02:37+00:00,Late Closer,highest-temperature-in-denver-on-november-1-2026,KDEN,2026-11-01,58-59°F,YES,0.001,0.0793,1588.1659,1.67,0.828,0.827,today,19,loss,0.0,2026-11-02T08:15+00:00
