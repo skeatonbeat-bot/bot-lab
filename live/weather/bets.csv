@@ -83,3 +83,7 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T12:45+00:00,Late Closer,highest-temperature-in-singapore-on-november-2-2026,WSSS,2026-11-02,29°C,YES,0.001,0.0623,1246.2591,1.31,0.997,0.996,today,20,loss,0.0,2026-11-02T16:46+00:00
 2026-11-02T13:16+00:00,Late Closer,highest-temperature-in-shanghai-on-november-2-2026,ZSPD,2026-11-02,20°C,YES,0.001,0.061,1221.3339,1.28,0.997,0.996,today,21,loss,0.0,2026-11-02T16:46+00:00
 2026-11-02T14:46+00:00,Late Closer,highest-temperature-in-beijing-on-november-2-2026,ZBAA,2026-11-02,16°C,YES,0.001,0.0598,1196.9072,1.26,0.997,0.996,today,22,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T02:37+00:00,Nowcaster,highest-temperature-in-lucknow-on-november-2-2026,VILK,2026-11-02,29°C,NO,0.38,0.0386,3.2731,1.28,0.645,0.254,today,8,win,3.2731,2026-11-02T19:16+00:00
+2026-11-02T02:37+00:00,Strict Nowcast,highest-temperature-in-lucknow-on-november-2-2026,VILK,2026-11-02,29°C,NO,0.38,0.0393,3.3399,1.31,0.645,0.254,today,8,win,3.3399,2026-11-02T19:16+00:00
+2026-11-02T03:45+00:00,Favorite,highest-temperature-in-lucknow-on-november-2-2026,VILK,2026-11-02,29°C,YES,0.68,0.0223,2.0534,1.42,0.68,-0.011,today,9,loss,0.0,2026-11-02T19:16+00:00
+2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-lucknow-on-november-2-2026,VILK,2026-11-02,30°C,NO,0.003,0.0529,353.4575,1.11,0.997,0.994,today,22,loss,0.0,2026-11-02T19:16+00:00
