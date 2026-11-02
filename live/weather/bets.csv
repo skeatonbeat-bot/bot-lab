@@ -52,3 +52,34 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T00:00+00:00,Favorite,highest-temperature-in-tokyo-on-november-2-2026,RJTT,2026-11-02,19°C,YES,0.39,0.0504,4.2338,1.7,0.48,0.078,today,9,win,4.2338,2026-11-02T15:45+00:00
 2026-11-02T06:15+00:00,Late Closer,highest-temperature-in-seoul-on-november-2-2026,RKSI,2026-11-02,15°C,NO,0.061,0.0662,23.1294,1.48,0.977,0.913,today,15,loss,0.0,2026-11-02T15:45+00:00
 2026-11-02T08:15+00:00,Late Closer,highest-temperature-in-tokyo-on-november-2-2026,RJTT,2026-11-02,19°C,NO,0.001,0.0648,1297.6466,1.36,0.997,0.996,today,17,loss,0.0,2026-11-02T15:45+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-beijing-on-november-2-2026,ZBAA,2026-11-02,18°C,NO,0.54,0.0339,2.7285,1.51,0.997,0.445,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Strict Nowcast,highest-temperature-in-beijing-on-november-2-2026,ZBAA,2026-11-02,18°C,NO,0.54,0.0346,2.7842,1.54,0.997,0.445,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-chongqing-on-november-2-2026,ZUCK,2026-11-02,18°C,NO,0.57,0.0311,2.5369,1.48,0.826,0.244,today,8,win,2.5369,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Strict Nowcast,highest-temperature-in-chongqing-on-november-2-2026,ZUCK,2026-11-02,18°C,NO,0.57,0.0317,2.5887,1.51,0.826,0.244,today,8,win,2.5887,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-kuala-lumpur-on-november-2-2026,WMKK,2026-11-02,33°C,NO,0.55,0.0319,2.5741,1.45,0.876,0.313,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Strict Nowcast,highest-temperature-in-kuala-lumpur-on-november-2-2026,WMKK,2026-11-02,33°C,NO,0.55,0.0325,2.6266,1.48,0.876,0.313,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-manila-on-november-2-2026,RPLL,2026-11-02,34°C,NO,0.46,0.0373,3.0029,1.42,0.8,0.328,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Strict Nowcast,highest-temperature-in-manila-on-november-2-2026,RPLL,2026-11-02,34°C,NO,0.46,0.0381,3.0642,1.45,0.8,0.328,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-shanghai-on-november-2-2026,ZSPD,2026-11-02,21°C,NO,0.38,0.0418,3.5486,1.39,0.849,0.457,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Strict Nowcast,highest-temperature-in-shanghai-on-november-2-2026,ZSPD,2026-11-02,21°C,NO,0.38,0.0427,3.621,1.42,0.849,0.457,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-shenzhen-on-november-2-2026,ZGSZ,2026-11-02,31°C,NO,0.47,0.0352,2.824,1.36,0.62,0.137,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-singapore-on-november-2-2026,WSSS,2026-11-02,33°C,NO,0.55,0.0294,2.3742,1.34,0.754,0.192,today,8,win,2.3742,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Strict Nowcast,highest-temperature-in-singapore-on-november-2-2026,WSSS,2026-11-02,33°C,NO,0.55,0.0306,2.4721,1.39,0.754,0.192,today,8,win,2.4721,2026-11-02T16:46+00:00
+2026-11-02T00:00+00:00,Nowcaster,highest-temperature-in-taipei-on-november-2-2026,RCSS,2026-11-02,29°C,NO,0.69,0.02,1.8674,1.31,0.794,0.094,today,8,win,1.8674,2026-11-02T16:46+00:00
+2026-11-02T00:30+00:00,Strict Nowcast,highest-temperature-in-shenzhen-on-november-2-2026,ZGSZ,2026-11-02,31°C,NO,0.47,0.0352,2.824,1.36,0.875,0.393,today,8,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-beijing-on-november-2-2026,ZBAA,2026-11-02,18°C,YES,0.53,0.0383,3.074,1.67,0.56,0.018,today,9,win,3.074,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-chongqing-on-november-2-2026,ZUCK,2026-11-02,18°C,YES,0.45,0.0437,3.5342,1.63,0.45,-0.012,today,9,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-kuala-lumpur-on-november-2-2026,WMKK,2026-11-02,33°C,YES,0.47,0.0413,3.3194,1.6,0.5,0.018,today,9,win,3.3194,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-manila-on-november-2-2026,RPLL,2026-11-02,34°C,YES,0.62,0.0293,2.4841,1.57,0.62,-0.012,today,9,win,2.4841,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-shanghai-on-november-2-2026,ZSPD,2026-11-02,21°C,YES,0.67,0.025,2.2583,1.54,0.65,-0.031,today,9,win,2.2583,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-shenzhen-on-november-2-2026,ZGSZ,2026-11-02,31°C,YES,0.56,0.0324,2.6336,1.51,0.56,-0.012,today,9,win,2.6336,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-singapore-on-november-2-2026,WSSS,2026-11-02,32°C,YES,0.5,0.036,2.8822,1.48,0.49,-0.023,today,9,win,2.8822,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Favorite,highest-temperature-in-taipei-on-november-2-2026,RCSS,2026-11-02,30°C,YES,0.54,0.0325,2.6205,1.45,0.49,-0.062,today,9,win,2.6205,2026-11-02T16:46+00:00
+2026-11-02T01:00+00:00,Strict Nowcast,highest-temperature-in-taipei-on-november-2-2026,RCSS,2026-11-02,30°C,NO,0.51,0.0319,2.5555,1.34,0.857,0.334,today,9,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T07:16+00:00,Late Closer,highest-temperature-in-chongqing-on-november-2-2026,ZUCK,2026-11-02,17°C,NO,0.52,0.0339,2.7186,1.45,0.81,0.278,today,15,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T07:16+00:00,Late Closer,highest-temperature-in-shenzhen-on-november-2-2026,ZGSZ,2026-11-02,31°C,NO,0.04,0.065,33.8417,1.42,0.997,0.955,today,15,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T07:46+00:00,Late Closer,highest-temperature-in-manila-on-november-2-2026,RPLL,2026-11-02,34°C,NO,0.02,0.0649,66.2664,1.39,0.875,0.854,today,15,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T11:16+00:00,Late Closer,highest-temperature-in-taipei-on-november-2-2026,RCSS,2026-11-02,30°C,NO,0.002,0.0635,635.8768,1.34,0.997,0.995,today,19,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T12:45+00:00,Late Closer,highest-temperature-in-singapore-on-november-2-2026,WSSS,2026-11-02,29°C,YES,0.001,0.0623,1246.2591,1.31,0.997,0.996,today,20,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T13:16+00:00,Late Closer,highest-temperature-in-shanghai-on-november-2-2026,ZSPD,2026-11-02,20°C,YES,0.001,0.061,1221.3339,1.28,0.997,0.996,today,21,loss,0.0,2026-11-02T16:46+00:00
+2026-11-02T14:46+00:00,Late Closer,highest-temperature-in-beijing-on-november-2-2026,ZBAA,2026-11-02,16°C,YES,0.001,0.0598,1196.9072,1.26,0.997,0.996,today,22,loss,0.0,2026-11-02T16:46+00:00
