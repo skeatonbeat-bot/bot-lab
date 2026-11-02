@@ -41,3 +41,6 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T21:15+00:00,Nowcaster,highest-temperature-in-san-francisco-on-november-1-2026,KSFO,2026-11-01,66-67°F,YES,0.098,0.072,16.281,1.67,0.461,0.358,today,13,loss,0.0,2026-11-02T09:42+00:00
 2026-11-01T21:15+00:00,Strict Nowcast,highest-temperature-in-san-francisco-on-november-1-2026,KSFO,2026-11-01,66-67°F,YES,0.098,0.0734,16.6133,1.7,0.461,0.358,today,13,loss,0.0,2026-11-02T09:42+00:00
 2026-11-02T05:45+00:00,Late Closer,highest-temperature-in-san-francisco-on-november-1-2026,KSFO,2026-11-01,62-63°F,YES,0.001,0.0717,1435.5755,1.51,0.991,0.99,today,21,loss,0.0,2026-11-02T09:42+00:00
+2026-11-01T20:46+00:00,Favorite,highest-temperature-in-wellington-on-november-2-2026,NZWN,2026-11-02,18°C,YES,0.64,0.032,2.7748,1.81,0.63,-0.022,today,9,win,2.7748,2026-11-02T11:46+00:00
+2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-wellington-on-november-2-2026,NZWN,2026-11-02,18°C,NO,0.41,0.0508,4.1974,1.77,0.674,0.252,today,9,loss,0.0,2026-11-02T11:46+00:00
+2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-wellington-on-november-2-2026,NZWN,2026-11-02,18°C,NO,0.41,0.0508,4.1974,1.77,0.674,0.252,today,9,loss,0.0,2026-11-02T11:46+00:00
