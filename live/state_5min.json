@@ -1,20 +1,20 @@
 {
  "pending": [
   {
-   "start": 1793607900,
-   "slug": "btc-updown-5m-1793607900",
+   "start": 1793608800,
+   "slug": "btc-updown-5m-1793608800",
    "bot": "Coin Flip",
    "up": true,
-   "sec": 7,
-   "ask": 0.58,
-   "stake": 1.6185877499083063,
-   "shares": 2.710966130099734,
-   "s0": 78002.24
+   "sec": 5,
+   "ask": 0.68,
+   "stake": 1.608063562513969,
+   "shares": 2.312988416117165,
+   "s0": 78189.0
   }
  ],
  "bots": {
   "Coin Flip": {
-   "cash": 79.31079974550701,
+   "cash": 82.81758760345897,
    "retired": false
   },
   "Favorite 3m": {
