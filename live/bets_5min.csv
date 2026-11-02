@@ -348,3 +348,6 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-02 15:25,btc-updown-5m-1793633100,Coin Flip,Up,8,0.8,1.66,won,0.39,81.8
 2026-11-02 15:35,btc-updown-5m-1793633700,Coin Flip,Up,6,0.36,1.64,lost,-1.64,80.17
 2026-11-02 15:35,btc-updown-5m-1793633700,Follow Move 4m,Down,242,0.98,2.04,won,0.04,101.95
+2026-11-02 15:40,btc-updown-5m-1793634000,Coin Flip,Up,6,0.65,1.64,won,0.82,80.99
+2026-11-02 15:45,btc-updown-5m-1793634300,Favorite 3m,Down,183,0.88,1.8,won,0.23,90.23
+2026-11-02 15:50,btc-updown-5m-1793634600,Coin Flip,Up,7,0.4,1.62,lost,-1.62,79.37
