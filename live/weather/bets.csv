@@ -44,3 +44,11 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T20:46+00:00,Favorite,highest-temperature-in-wellington-on-november-2-2026,NZWN,2026-11-02,18°C,YES,0.64,0.032,2.7748,1.81,0.63,-0.022,today,9,win,2.7748,2026-11-02T11:46+00:00
 2026-11-01T20:46+00:00,Nowcaster,highest-temperature-in-wellington-on-november-2-2026,NZWN,2026-11-02,18°C,NO,0.41,0.0508,4.1974,1.77,0.674,0.252,today,9,loss,0.0,2026-11-02T11:46+00:00
 2026-11-01T20:46+00:00,Strict Nowcast,highest-temperature-in-wellington-on-november-2-2026,NZWN,2026-11-02,18°C,NO,0.41,0.0508,4.1974,1.77,0.674,0.252,today,9,loss,0.0,2026-11-02T11:46+00:00
+2026-11-01T23:21+00:00,Nowcaster,highest-temperature-in-seoul-on-november-2-2026,RKSI,2026-11-02,16°C,YES,0.09,0.0683,16.6792,1.57,0.27,0.176,today,8,loss,0.0,2026-11-02T15:45+00:00
+2026-11-01T23:21+00:00,Strict Nowcast,highest-temperature-in-seoul-on-november-2-2026,RKSI,2026-11-02,16°C,YES,0.09,0.0697,17.0196,1.6,0.27,0.176,today,8,loss,0.0,2026-11-02T15:45+00:00
+2026-11-01T23:21+00:00,Nowcaster,highest-temperature-in-tokyo-on-november-2-2026,RJTT,2026-11-02,19°C,NO,0.5,0.0375,3.0011,1.54,0.811,0.299,today,8,loss,0.0,2026-11-02T15:45+00:00
+2026-11-01T23:21+00:00,Strict Nowcast,highest-temperature-in-tokyo-on-november-2-2026,RJTT,2026-11-02,19°C,NO,0.5,0.0383,3.0623,1.57,0.811,0.299,today,8,loss,0.0,2026-11-02T15:45+00:00
+2026-11-02T00:00+00:00,Favorite,highest-temperature-in-seoul-on-november-2-2026,RKSI,2026-11-02,15°C,YES,0.69,0.0265,2.4779,1.74,0.73,0.029,today,9,win,2.4779,2026-11-02T15:45+00:00
+2026-11-02T00:00+00:00,Favorite,highest-temperature-in-tokyo-on-november-2-2026,RJTT,2026-11-02,19°C,YES,0.39,0.0504,4.2338,1.7,0.48,0.078,today,9,win,4.2338,2026-11-02T15:45+00:00
+2026-11-02T06:15+00:00,Late Closer,highest-temperature-in-seoul-on-november-2-2026,RKSI,2026-11-02,15°C,NO,0.061,0.0662,23.1294,1.48,0.977,0.913,today,15,loss,0.0,2026-11-02T15:45+00:00
+2026-11-02T08:15+00:00,Late Closer,highest-temperature-in-tokyo-on-november-2-2026,RJTT,2026-11-02,19°C,NO,0.001,0.0648,1297.6466,1.36,0.997,0.996,today,17,loss,0.0,2026-11-02T15:45+00:00
