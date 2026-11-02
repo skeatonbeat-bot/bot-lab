@@ -87,3 +87,7 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T02:37+00:00,Strict Nowcast,highest-temperature-in-lucknow-on-november-2-2026,VILK,2026-11-02,29°C,NO,0.38,0.0393,3.3399,1.31,0.645,0.254,today,8,win,3.3399,2026-11-02T19:16+00:00
 2026-11-02T03:45+00:00,Favorite,highest-temperature-in-lucknow-on-november-2-2026,VILK,2026-11-02,29°C,YES,0.68,0.0223,2.0534,1.42,0.68,-0.011,today,9,loss,0.0,2026-11-02T19:16+00:00
 2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-lucknow-on-november-2-2026,VILK,2026-11-02,30°C,NO,0.003,0.0529,353.4575,1.11,0.997,0.994,today,22,loss,0.0,2026-11-02T19:16+00:00
+2026-11-02T03:15+00:00,Nowcaster,highest-temperature-in-karachi-on-november-2-2026,OPKC,2026-11-02,35°C,NO,0.6,0.0246,2.0534,1.26,0.799,0.187,today,8,win,2.0534,2026-11-02T19:46+00:00
+2026-11-02T03:15+00:00,Strict Nowcast,highest-temperature-in-karachi-on-november-2-2026,OPKC,2026-11-02,35°C,NO,0.6,0.0251,2.0953,1.28,0.799,0.187,today,8,win,2.0953,2026-11-02T19:46+00:00
+2026-11-02T04:16+00:00,Favorite,highest-temperature-in-karachi-on-november-2-2026,OPKC,2026-11-02,34°C,YES,0.5,0.0339,2.7127,1.39,0.49,-0.023,today,9,loss,0.0,2026-11-02T19:46+00:00
+2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-karachi-on-november-2-2026,OPKC,2026-11-02,30°C or below,YES,0.001,0.054,1081.9096,1.14,0.997,0.996,today,22,loss,0.0,2026-11-02T19:46+00:00
