@@ -4,3 +4,4 @@ time,bot,side,price,dollars,fee,reason,equity_after
 2026-11-01 22:15:00+00:00,Grid,buy,93.53,25.0,0.15,signal,97.83
 2026-11-01 22:30:00+00:00,Grid,sell,93.73,24.5,0.147,signal,97.88
 2026-11-02 03:30:00+00:00,Trend Rider,buy,95.52,100.0,0.6,signal,99.35
+2026-11-02 05:00:00+00:00,Trend Rider,sell,94.69,98.44,0.5906,signal,97.85
