@@ -976,3 +976,5 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-02,highest-temperature-in-lucknow-on-november-2-2026,VILK,C,25,25°C,30°C,False,,25.0,
 2026-11-01,highest-temperature-in-wellington-on-november-1-2026,NZWN,C,,,16°C,,,,
 2026-11-02,highest-temperature-in-wellington-on-november-2-2026,NZWN,C,,,18°C,,,,
+2026-11-02,highest-temperature-in-ankara-on-november-2-2026,LTAC,C,14,14°C,17°C,False,16.83,14.0,-2.83
+2026-11-02,highest-temperature-in-istanbul-on-november-2-2026,LTFM,C,19,19°C,21°C,False,19.03,19.0,-0.03
