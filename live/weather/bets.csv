@@ -122,3 +122,6 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T15:15+00:00,Late Closer,highest-temperature-in-madrid-on-november-2-2026,LEMD,2026-11-02,20°C,NO,0.43,0.0341,2.7847,1.23,0.855,0.412,today,16,loss,0.0,2026-11-02T23:30+00:00
 2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-paris-on-november-2-2026,LFPB,2026-11-02,12°C,NO,0.002,0.0519,519.5577,1.09,0.913,0.911,today,18,loss,0.0,2026-11-02T23:30+00:00
 2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-warsaw-on-november-2-2026,EPWA,2026-11-02,8°C,NO,0.002,0.0498,498.9832,1.05,0.871,0.869,today,18,loss,0.0,2026-11-02T23:30+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-amsterdam-on-november-2-2026,EHAM,2026-11-02,13°C,NO,0.4,0.0583,4.8544,2.0,0.673,0.261,future,21,win,4.8544,2026-11-03T00:01+00:00
+2026-11-02T08:15+00:00,Favorite,highest-temperature-in-amsterdam-on-november-2-2026,EHAM,2026-11-02,13°C,YES,0.77,0.0161,1.8197,1.42,0.79,0.011,today,9,loss,0.0,2026-11-03T00:01+00:00
+2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-amsterdam-on-november-2-2026,EHAM,2026-11-02,11°C,YES,0.001,0.0574,1149.51,1.21,0.874,0.872,today,18,loss,0.0,2026-11-03T00:01+00:00
