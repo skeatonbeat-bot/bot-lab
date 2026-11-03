@@ -1,31 +1,20 @@
 {
  "pending": [
   {
-   "start": 1793669700,
-   "slug": "eth-updown-5m-1793669700",
+   "start": 1793670900,
+   "slug": "eth-updown-5m-1793670900",
    "bot": "Coin Flip",
    "up": true,
-   "sec": 5,
-   "ask": 0.41,
-   "stake": 1.8195552435294573,
-   "shares": 4.261922230254998,
-   "s0": 2258.02
-  },
-  {
-   "start": 1793670000,
-   "slug": "eth-updown-5m-1793670000",
-   "bot": "Coin Flip",
-   "up": true,
-   "sec": 8,
-   "ask": 0.71,
-   "stake": 1.8195552435294573,
-   "shares": 2.5117650339370736,
-   "s0": 2255.38
+   "sec": 7,
+   "ask": 0.3,
+   "stake": 1.746773033788279,
+   "shares": 5.550597501710452,
+   "s0": 2257.62
   }
  ],
  "bots": {
   "Coin Flip": {
-   "cash": 90.97776217647287,
+   "cash": 88.725733409923,
    "retired": false
   },
   "Favorite 3m": {
