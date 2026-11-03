@@ -109,7 +109,7 @@ Wide scans (connector 1.1):
 | Tool | What it finds |
 |---|---|
 | `mismatch_scan` | Kalshi markets matched to the Polymarket market asking the same question, with the gap after fees; plus each venue's own brackets that don't add to 100 and ladders priced out of order |
-| `crypto_fair_value` | Every Kalshi and Polymarket crypto price market priced off CoinGecko spot and 7-day volatility (Coinbase as backup) |
+| `crypto_fair_value` | Every Kalshi and Polymarket crypto price market priced off CoinGecko spot and 7-day volatility (Coinbase as backup), reshaped by an hour-of-day profile (about 1.5x around the 8-11am ET US open, 0.75x overnight; `hour_profile: false` for flat; refresh with `research/hour_profile.py`) |
 | `polymarket_market` | One Polymarket market's full rules, to confirm a match |
 
 Matching is by wording, numbers and dates, so every pair is a lead to check

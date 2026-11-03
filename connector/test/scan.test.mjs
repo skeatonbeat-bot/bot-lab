@@ -1,7 +1,8 @@
 // Offline tests for the wide scans. Run: node connector/test/scan.test.mjs
 import assert from "node:assert/strict";
 import { TOOLS } from "../src/index.js";
-import { features } from "../src/scan.js";
+import { features, hourProfileFactor, HOUR_PROFILE_ET } from "../src/scan.js";
+import { ladderCheck } from "../src/index.js";
 
 // pin the clock 60 seconds into a 5-minute window so the Up/Down checks don't depend on when tests run
 const realNow = Date.now;
@@ -33,6 +34,12 @@ const kalshiMarkets = [
   // gas ladder with an inversion
   K({ ticker: "KXAAAGASW-26NOV09-4.10", event_ticker: "KXAAAGASW-26NOV09", title: "Gas price this week?", yes_sub_title: "Above 4.10", strike_type: "greater", floor_strike: 4.1, yes_bid: 60, yes_ask: 62, no_ask: 40, close_time: iso(150) }),
   K({ ticker: "KXAAAGASW-26NOV09-4.15", event_ticker: "KXAAAGASW-26NOV09", title: "Gas price this week?", yes_sub_title: "Above 4.15", strike_type: "greater", floor_strike: 4.15, yes_bid: 66, yes_ask: 68, no_ask: 34, close_time: iso(150) }),
+  // college football spread event (live data, Nov 3): two teams' ladders in one event.
+  // "Florida wins by over 1.5" bid 64 vs "Oklahoma wins by over 1.5" ask 32 is NOT an inversion
+  K({ ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA-OKLA2", event_ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA", title: "Oklahoma at Florida spread", yes_sub_title: "Oklahoma wins by over 1.5 points", strike_type: "greater", floor_strike: 1.5, yes_bid: 31, yes_ask: 32, no_ask: 69, close_time: iso(100) }),
+  K({ ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA-OKLA8", event_ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA", title: "Oklahoma at Florida spread", yes_sub_title: "Oklahoma wins by over 7.5 points", strike_type: "greater", floor_strike: 7.5, yes_bid: 18, yes_ask: 20, no_ask: 82, close_time: iso(100) }),
+  K({ ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA-FLA2", event_ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA", title: "Oklahoma at Florida spread", yes_sub_title: "Florida wins by over 1.5 points", strike_type: "greater", floor_strike: 1.5, yes_bid: 64, yes_ask: 65, no_ask: 36, close_time: iso(100) }),
+  K({ ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA-FLA3", event_ticker: "KXNCAAFSPREAD-26NOV07OKLAFLA", title: "Oklahoma at Florida spread", yes_sub_title: "Florida wins by over 2.5 points", strike_type: "greater", floor_strike: 2.5, yes_bid: 61, yes_ask: 62, no_ask: 39, close_time: iso(100) }),
   // House control: Kalshi 88 vs Polymarket ~95
   K({ ticker: "CONTROLH-2026-D", event_ticker: "CONTROLH-2026", title: "Who will control the House?", yes_sub_title: "Democratic Party", yes_bid: 87, yes_ask: 88, no_ask: 13, close_time: iso(160) }),
   // NFL: Kalshi city name vs Polymarket nickname
@@ -125,12 +132,34 @@ assert.ok(/Kalshi YES 30¢ vs Poly 40¢[^\n]*KXHIGHNY-26NOV02-B60\.5[^\n]*CROSS-
 const internal = t.split("KALSHI-INTERNAL")[1];
 assert.ok(internal.includes("KXHIGHNY-26NOV02") && internal.includes("POSSIBLE ARB"), "bracket asks summing to 96 flagged");
 assert.ok(internal.includes("KXAAAGASW-26NOV09") && internal.includes("INVERSION"), "ladder inversion flagged");
+assert.ok(!internal.includes("KXNCAAFSPREAD"), "two teams' spread ladders in one event are not compared with each other");
+
+// ---- ladders inside one event ----
+const L = (ticker, strike, bid, ask) => ({ ticker, yes_sub_title: ticker, strike_type: "greater", floor_strike: strike, yes_bid: bid, yes_ask: ask });
+let lc = ladderCheck([L("X-UK10", 9.5, 90, 92), L("X-TENN10", 9.5, 94, 95), L("X-UK14", 13.5, 82, 83), L("X-TENN14", 13.5, 90, 91)], false);
+assert.ok(!lc.notes.some((n) => n.startsWith("INVERSION")) && /2 sides/.test(lc.notes[0]), "team totals: one ladder per team");
+lc = ladderCheck([L("X-UK10", 9.5, 80, 82), L("X-UK14", 13.5, 85, 86), L("X-TENN10", 9.5, 94, 95)], false);
+assert.ok(lc.notes.length === 1 && lc.notes[0].includes("buy Yes X-UK10, buy No X-UK14"), "a real inversion within one team is still caught");
+lc = ladderCheck([L("KXBTCD-26NOV0317-T76999.99", 76999.99, 50, 52), L("KXBTCD-26NOV0317-T77999.99", 77999.99, 55, 56)], false);
+assert.ok(lc.notes[0].startsWith("INVERSION"), "crypto ladder (T-prefixed strikes) is still one ladder");
 assert.ok(t.includes("Springfield mayor") && t.includes("Yes asks sum to 95¢"), "Polymarket multi-outcome sum flagged");
 
 t = await run("mismatch_scan", { text: "house", sections: "cross" });
 assert.ok(t.includes("CONTROLH") && !t.includes("KXHIGHNY") && !t.includes("KALSHI-INTERNAL"));
 t = await run("mismatch_scan", { min_gap: 50 });
 assert.ok(t.includes("CROSS-VENUE (0)"));
+
+// ---- hour-of-day profile ----
+const mean2 = HOUR_PROFILE_ET.reduce((a, m) => a + m * m, 0) / 24;
+assert.ok(Math.abs(mean2 - 1) < 0.02, `profile averages to the daily figure, got ${mean2}`);
+const etMs = (iso) => Date.parse(iso); // EST = UTC-5 on these dates
+const day = hourProfileFactor(etMs("2026-11-04T05:00:00Z"), etMs("2026-11-05T05:00:00Z"));
+assert.ok(Math.abs(day - 1) < 0.02, `a full day is the plain weekly figure, got ${day}`);
+const open = hourProfileFactor(etMs("2026-11-04T14:00:00Z"), etMs("2026-11-04T16:00:00Z")); // 9-11am ET
+const night = hourProfileFactor(etMs("2026-11-04T06:00:00Z"), etMs("2026-11-04T08:00:00Z")); // 1-3am ET
+assert.ok(open > 1.4 && night < 0.8, `US open busier than overnight, got ${open} vs ${night}`);
+const edt = hourProfileFactor(Date.parse("2026-07-01T14:00:00Z"), Date.parse("2026-07-01T15:00:00Z")); // 10am EDT
+assert.ok(Math.abs(edt - HOUR_PROFILE_ET[10]) < 1e-9, "follows New York daylight saving time");
 
 // ---- crypto_fair_value ----
 t = await run("crypto_fair_value", { coin: "BTC", hours: 48, min_edge: 0 });
@@ -146,7 +175,9 @@ coingeckoDown = true;
 t = await run("crypto_fair_value", { coin: "bitcoin", min_edge: 0 });
 assert.ok(t.includes("spot $77,790 (Coinbase"), "falls back to Coinbase when CoinGecko fails");
 t = await run("crypto_fair_value", { coin: "bitcoin", vol: 0.5, min_edge: 0 });
-assert.ok(t.includes("50% a year (your override)"));
+assert.ok(t.includes("50% a year (your override)") && t.includes("Hour-of-day") === false && t.includes("reshaped by the hour-of-day profile"));
+const flat = await run("crypto_fair_value", { coin: "bitcoin", vol: 0.5, min_edge: 0, hour_profile: false });
+assert.ok(flat.includes(", flat.") && /\| 50% \|/.test(flat), "hour_profile false prices everything at the flat override");
 await assert.rejects(() => TOOLS.crypto_fair_value.run({ coin: "pepe" }, {}), /Unknown coin/);
 
 // ---- polymarket_market ----

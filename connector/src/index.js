@@ -90,6 +90,16 @@ function kalshiFee(priceCents, contracts, rate = 0.07) {
 
 // ---------- ladder / bracket logic ----------
 
+// which ladder a threshold market belongs to inside its event: the letters of the ticker's last
+// segment ("...-OKLA2" -> "OKLA", "...-FLA3" -> "FLA", "...-T77499.99" -> "T", "...-4.10" -> ""),
+// falling back to the option text with its numbers blanked out
+function ladderKey(r) {
+  const seg = String(r.ticker || "").split("-").pop() || "";
+  const letters = seg.replace(/[\d.]+$/, "");
+  if (letters || /^[\d.]+$/.test(seg)) return letters.toUpperCase();
+  return (r.option || "").toLowerCase().replace(/[\d.,]+/g, "#");
+}
+
 function ladderCheck(markets, mutuallyExclusive) {
   const notes = [];
   const rows = markets.map(compactKalshi);
@@ -104,16 +114,29 @@ function ladderCheck(markets, mutuallyExclusive) {
     if (bids.length === rows.length && sumBid > 100)
       notes.push(`Bids sum above 100: the field is collectively overpriced by ${sumBid - 100}¢; No on the richest brackets is worth a look.`);
   } else {
-    // threshold ladder: higher "above X" strikes must be priced lower
-    const above = rows
-      .filter((r) => r.strike !== null && /^greater/i.test(r.strike_type || "greater"))
-      .sort((a, b) => a.strike - b.strike);
-    for (let i = 1; i < above.length; i++) {
-      const lo = above[i - 1], hi = above[i];
-      if (hi.yes_bid !== null && lo.yes_ask !== null && hi.yes_bid > lo.yes_ask)
-        notes.push(`INVERSION: "${hi.option}" bid ${hi.yes_bid}¢ > "${lo.option}" ask ${lo.yes_ask}¢. A higher bar can't be more likely: buy Yes ${lo.ticker}, buy No ${hi.ticker}.`);
+    // threshold ladder: higher "above X" strikes must be priced lower.
+    // One event can hold several ladders (a game's spread event has "Florida wins by over N"
+    // AND "Oklahoma wins by over N"; a team-total event has one ladder per team). Those are
+    // different questions, so strikes are only compared within the same ladder.
+    const groups = new Map();
+    for (const r of rows) {
+      if (r.strike === null || !/^greater/i.test(r.strike_type || "greater")) continue;
+      const k = ladderKey(r);
+      (groups.get(k) || groups.set(k, []).get(k)).push(r);
     }
-    if (!notes.length) notes.push(`Threshold ladder of ${above.length} strikes is in order (no inversions).`);
+    let n = 0;
+    for (const above of groups.values()) {
+      above.sort((a, b) => a.strike - b.strike);
+      n += above.length;
+      for (let i = 1; i < above.length; i++) {
+        const lo = above[i - 1], hi = above[i];
+        if (hi.strike === lo.strike) continue; // same bar: nothing to compare
+        if (hi.yes_bid !== null && lo.yes_ask !== null && hi.yes_bid > lo.yes_ask)
+          notes.push(`INVERSION: "${hi.option}" bid ${hi.yes_bid}¢ > "${lo.option}" ask ${lo.yes_ask}¢. A higher bar can't be more likely: buy Yes ${lo.ticker}, buy No ${hi.ticker}.`);
+      }
+    }
+    if (!notes.length)
+      notes.push(`Threshold ladder${groups.size > 1 ? `s (${groups.size} sides)` : ""} of ${n} strikes ${groups.size > 1 ? "are" : "is"} in order (no inversions).`);
   }
   return { rows, notes };
 }

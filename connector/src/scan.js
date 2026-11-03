@@ -108,6 +108,33 @@ const PRICE_WORDS = /\b(price|above|below|between|range|reach|dip)\b/i;
 
 // ---------- helpers shared by the tools ----------
 
+// ---------- hour-of-day volatility ----------
+// Crypto moves far more around the US open than overnight. Multiplier on volatility for each
+// New York hour (index = hour the 1h candle starts), from BTC+ETH Gemini hourly returns
+// Sep 3 - Nov 3 2026: root of each hour's mean squared return over the all-hours mean,
+// winsorised at the 97.5th percentile, averaged across the two coins, lightly smoothed, and
+// normalised so the 24 hours average out to the plain weekly figure. Peak 8-11am ET (US data
+// releases and the stock open), trough overnight. Refresh with research/hour_profile.py.
+export const HOUR_PROFILE_ET = [0.8, 0.75, 0.72, 0.82, 0.91, 0.83, 0.71, 0.89, 1.27, 1.52, 1.65, 1.46, 1.03, 0.87, 0.9, 0.82, 0.75, 0.81, 0.88, 0.89, 0.98, 1.11, 1.03, 0.86];
+
+const etHourFmt = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", hourCycle: "h23" });
+const etHour = (ms) => Number(etHourFmt.format(ms)) % 24;
+
+// root-mean-square of the profile over [fromMs, toMs]: the factor that turns the all-hours
+// volatility into the volatility of that particular stretch of the day
+export function hourProfileFactor(fromMs, toMs) {
+  const span = toMs - fromMs;
+  if (!(span > 0)) return HOUR_PROFILE_ET[etHour(fromMs)];
+  const steps = Math.min(600, Math.max(1, Math.ceil(span / 300000))); // 5-minute steps, at most 600
+  const dt = span / steps;
+  let sum = 0;
+  for (let i = 0; i < steps; i++) {
+    const m = HOUR_PROFILE_ET[etHour(fromMs + (i + 0.5) * dt)];
+    sum += m * m;
+  }
+  return Math.sqrt(sum / steps);
+}
+
 export function makeScanTools(h) {
   const { getJSON, qs, cents, num, compactKalshi, kalshiFee, ladderCheck, table, hoursUntil, KALSHI, GAMMA } = h;
 
@@ -395,14 +422,22 @@ export function makeScanTools(h) {
   }
 
   // volatility for a market `hours` away: the last 2 hours for anything within the hour,
-  // the weekly figure from 6 hours out, blended in between
-  function sigmaFor(sv, hours, override) {
-    if (override) return override;
-    if (!sv.sigmaShort) return sv.sigma;
-    if (hours <= 1) return sv.sigmaShort;
-    if (hours >= 6) return sv.sigma;
+  // the weekly figure from 6 hours out, blended in between. With the hour-of-day profile on,
+  // each figure is reshaped for the hours the market still has to run: the weekly (all-hours
+  // average) figure by the profile over that window, the last-2-hours figure by how the window
+  // compares with the 2 hours it was measured over (quiet pre-dawn minutes understate a window
+  // that crosses the US open, and the reverse).
+  function sigmaFor(sv, hours, override, profile = true, fromMs = Date.now()) {
+    const toMs = fromMs + hours * 3.6e6;
+    const fwd = profile ? hourProfileFactor(fromMs, toMs) : 1;
+    if (override) return override * fwd;
+    const weekly = sv.sigma * fwd;
+    if (!sv.sigmaShort) return weekly;
+    const short = sv.sigmaShort * (profile ? Math.min(2.5, Math.max(0.5, fwd / hourProfileFactor(Date.now() - 2 * 3.6e6, Date.now()))) : 1);
+    if (hours <= 1) return short;
+    if (hours >= 6) return weekly;
     const w = (hours - 1) / 5;
-    return sv.sigmaShort * (1 - w) + sv.sigma * w;
+    return short * (1 - w) + weekly * w;
   }
 
   // the coin's price when a window began, from Coinbase 1-minute opens (null if not in the last 5 hours)
@@ -482,14 +517,15 @@ export function makeScanTools(h) {
 
     crypto_fair_value: {
       description:
-        "Prices every open Kalshi and Polymarket crypto price market (above / below / between / reach / dip) plus Polymarket's 5- and 15-minute Up or Down windows and Kalshi's 15-minute markets, off the live spot price, using a simple lognormal model. Volatility: the last 2 hours of 1-minute moves for markets within the hour, the last 7 days of hourly moves from 6 hours out, blended between. Shows the model's chance, each market's quotes, and the edge after Kalshi fees. The model ignores fat tails and the exact settlement index (Kalshi: CF Benchmarks 60-second average; Polymarket: usually a Binance 1-minute close), so treat small edges as noise.",
+        "Prices every open Kalshi and Polymarket crypto price market (above / below / between / reach / dip) plus Polymarket's 5- and 15-minute Up or Down windows and Kalshi's 15-minute markets, off the live spot price, using a simple lognormal model. Volatility: the last 2 hours of 1-minute moves for markets within the hour, the last 7 days of hourly moves from 6 hours out, blended between, then reshaped by an hour-of-day profile for the hours each market still has to run (crypto swings about 1.5x the daily average around the 8-11am ET US open and about 0.75x overnight). Shows the model's chance, each market's quotes, and the edge after Kalshi fees. The model ignores fat tails and the exact settlement index (Kalshi: CF Benchmarks 60-second average; Polymarket: usually a Binance 1-minute close), so treat small edges as noise.",
       inputSchema: {
         type: "object",
         properties: {
           coin: { type: "string", description: "bitcoin, ethereum, solana, xrp or dogecoin (default bitcoin)" },
           hours: { type: "number", description: "Markets settling within this many hours (default 48)" },
           min_edge: { type: "number", description: "Smallest edge to show, cents (default 4)" },
-          vol: { type: "number", description: "Override annualised volatility, e.g. 0.45 for 45%" },
+          vol: { type: "number", description: "Override annualised volatility (the all-hours average), e.g. 0.45 for 45%; the hour-of-day profile still applies unless hour_profile is false" },
+          hour_profile: { type: "boolean", description: "Reshape volatility by time of day (default true); false = flat volatility, the old behaviour" },
           limit: { type: "number", description: "Max rows (default 30)" },
         },
       },
@@ -505,18 +541,20 @@ export function makeScanTools(h) {
         ]);
         const rows = [];
         let tooLate = 0;
-        const push = (venue, ticker, label, hrs, spec, bid, ask, noAsk, fee) => {
+        const prof = a.hour_profile !== false;
+        const push = (venue, ticker, label, hrs, spec, bid, ask, noAsk, fee, fromMs) => {
           if (hrs > hours || bid === null || ask === null) return;
           // the last 3 minutes are decided by a settlement average the market can already see; the model can't
           if (hrs < 0.05) { tooLate++; return; }
-          const p = modelProb(spec, sv.spot, sigmaFor(sv, hrs, a.vol), hrs);
+          const sig = sigmaFor(sv, hrs, a.vol, prof, fromMs);
+          const p = modelProb(spec, sv.spot, sig, hrs);
           if (p === null) return;
           const pc = p * 100;
           const nA = noAsk ?? 100 - bid;
           const yesEdge = ask > 0 && ask < 100 ? pc - ask - (fee ? feeC(ask) : 0) : -99;
           const noEdge = nA > 0 && nA < 100 ? 100 - pc - nA - (fee ? feeC(nA) : 0) : -99;
           const edge = Math.round(Math.max(yesEdge, noEdge));
-          rows.push({ edge, side: yesEdge >= noEdge ? `YES at ${ask}¢` : `NO at ${nA}¢`, model: `${pc.toFixed(1)}%`, venue, market: label, ticker, bid_ask: `${bid}/${ask}`, settles_in: `${hrs.toFixed(1)}h` });
+          rows.push({ edge, side: yesEdge >= noEdge ? `YES at ${ask}¢` : `NO at ${nA}¢`, model: `${pc.toFixed(1)}%`, vol: `${Math.round(sig * 100)}%`, venue, market: label, ticker, bid_ask: `${bid}/${ask}`, settles_in: `${hrs.toFixed(1)}h` });
         };
         for (const ev of kalshiEvents.flatMap((d) => d.events || [])) {
           for (const m of ev.markets || []) {
@@ -555,19 +593,20 @@ export function makeScanTools(h) {
           // not started yet: the window's own move is all that matters, so price it over its full length
           const hrs = started ? hoursUntil(p.ends) : w.len / 3600;
           const label = `${p.question.slice(0, 52)} · Up from ${fmtUsd(k)}${started ? "" : " (not started)"}`;
-          push("Polymarket", p.slug, label, hrs, { kind: "above", k: k * (1 - 1e-9) }, p.bid0, p.ask0, p.bid0 === null ? null : 100 - p.bid0, false);
+          push("Polymarket", p.slug, label, hrs, { kind: "above", k: k * (1 - 1e-9) }, p.bid0, p.ask0, p.bid0 === null ? null : 100 - p.bid0, false, started ? undefined : w.start * 1000);
         }
         const shown = rows.filter((r) => r.edge >= (a.min_edge ?? 4)).sort((x, y) => y.edge - x.edge).slice(0, a.limit ?? 30);
         return [
           a.vol
-            ? `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(a.vol * 100).toFixed(0)}% a year (your override).`
+            ? `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(a.vol * 100).toFixed(0)}% a year (your override)` + (prof ? ", reshaped by the hour-of-day profile (vol column)." : ", flat.")
             : `${coin}: spot ${fmtUsd(sv.spot)} (${sv.source}); volatility ${(sv.sigma * 100).toFixed(0)}% a year from ${sv.n} hourly moves over 7 days` +
-              (sv.sigmaShort ? `, ${(sv.sigmaShort * 100).toFixed(0)}% from the last ${sv.nShort} minutes (used for markets within the hour, blended out to 6h).` : " (short-window volatility unavailable, weekly figure used for everything)."),
+              (sv.sigmaShort ? `, ${(sv.sigmaShort * 100).toFixed(0)}% from the last ${sv.nShort} minutes (used for markets within the hour, blended out to 6h).` : " (short-window volatility unavailable, weekly figure used for everything).") +
+              (prof ? ` Hour-of-day profile ON: the vol column is what each market was priced at (now ${HOUR_PROFILE_ET[etHour(Date.now())]}x the daily average this hour).` : " Hour-of-day profile OFF (flat volatility)."),
           `Priced ${rows.length} markets settling within ${hours}h; ${shown.length} show an edge of ${a.min_edge ?? 4}¢ or more (Kalshi edges are after fees).` +
             (tooLate ? ` Skipped ${tooLate} settling within 3 minutes (decided by a settlement average the market already sees).` : ""),
           "Short windows: in Polymarket's 5-minute history this model LOST to the market (-6% to -20% per bet); there the late favorite (70-92¢) was the only edge. Treat Up/Down rows as a sanity check, not a signal.",
-          table(shown, ["edge", "side", "model", "venue", "market", "ticker", "bid_ask", "settles_in"]),
-          "Model = lognormal, no drift, recent volatility. Crypto has fat tails, so the model tends to underprice far-out strikes and overprice near ones; prefer edges that survive a ±25% change in vol (pass `vol`).",
+          table(shown, ["edge", "side", "model", "vol", "venue", "market", "ticker", "bid_ask", "settles_in"]),
+          "Model = lognormal, no drift, recent volatility shaped by time of day. Crypto has fat tails, so the model tends to underprice far-out strikes and overprice near ones; prefer edges that survive a ±25% change in vol (pass `vol`).",
           "Reach/dip markets are priced from now on: if the level was already hit earlier in their window, they're effectively settled, so check before trusting those rows.",
         ].join("\n");
       },
