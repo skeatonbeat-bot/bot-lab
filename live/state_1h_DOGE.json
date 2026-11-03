@@ -1,5 +1,5 @@
 {
- "last": "2026-11-03 14:00:00+00:00",
+ "last": "2026-11-03 15:00:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -12,7 +12,7 @@
    "day_start_equity": 97.6022638237701,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10062,
+   "candles_seen": 10063,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   },
@@ -27,7 +27,7 @@
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10062,
+   "candles_seen": 10063,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -42,40 +42,37 @@
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10062,
+   "candles_seen": 10063,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
   {
    "name": "Dip Hunter",
    "start_cash": 100.0,
-   "cash": 0.0,
-   "units": 1346.9404126570123,
-   "meta": {
-    "entry": 0.07359,
-    "held": 19
-   },
-   "fees_paid": 0.6,
+   "cash": 100.81918493556913,
+   "units": 0.0,
+   "meta": {},
+   "fees_paid": 1.2085665086654072,
    "day": "2026-11-03",
    "day_start_equity": 100.02379504390974,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10062,
-   "open_trip_equity": 100.0,
-   "open_trip_opened": "2026-11-02 19:00:00+00:00"
+   "candles_seen": 10063,
+   "open_trip_equity": null,
+   "open_trip_opened": null
   },
   {
    "name": "Grid",
    "start_cash": 100.0,
-   "cash": 3.552713678800501e-15,
-   "units": 1304.5932918099309,
+   "cash": 24.41237027205095,
+   "units": 978.4449688574482,
    "meta": {},
-   "fees_paid": 1.4867807479079687,
+   "fees_paid": 1.6341391197714552,
    "day": "2026-11-03",
    "day_start_equity": 96.87909784980548,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10062,
+   "candles_seen": 10063,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   }
