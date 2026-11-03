@@ -467,3 +467,5 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-03 12:05,sol-updown-5m-1793707500,Favorite 4m,Up,240,0.92,1.81,won,0.15,90.7
 2026-11-03 12:05,sol-updown-5m-1793707500,Follow Move 4m,Up,240,0.92,2.1,won,0.17,105.22
 2026-11-03 12:45,sol-updown-5m-1793709900,Favorite 3m,Up,182,0.93,2.03,won,0.14,101.48
+2026-11-03 13:05,sol-updown-5m-1793711100,Favorite 3m,Up,182,0.75,2.03,lost,-2.03,99.45
+2026-11-03 13:05,sol-updown-5m-1793711100,Follow Move 4m,Down,242,0.98,2.1,won,0.04,105.26
