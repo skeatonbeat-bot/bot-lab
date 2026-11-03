@@ -1,5 +1,5 @@
 {
- "last": "2026-11-03 11:30:00+00:00",
+ "last": "2026-11-03 12:00:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -12,7 +12,7 @@
    "day_start_equity": 98.60795323778483,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10118,
+   "candles_seen": 10119,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   },
@@ -27,7 +27,7 @@
    "day_start_equity": 95.46241686640937,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10118,
+   "candles_seen": 10119,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -42,7 +42,7 @@
    "day_start_equity": 97.92391811562547,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10118,
+   "candles_seen": 10119,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -57,22 +57,22 @@
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10118,
+   "candles_seen": 10119,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
   {
    "name": "Grid",
    "start_cash": 100.0,
-   "cash": 7.105427357601002e-15,
-   "units": 0.0012807775554274353,
+   "cash": 24.577771036851082,
+   "units": 0.0009605831665705764,
    "meta": {},
-   "fees_paid": 0.8970438562546341,
+   "fees_paid": 1.0454006230766728,
    "day": "2026-11-03",
    "day_start_equity": 98.52362133462216,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10118,
+   "candles_seen": 10119,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   }
