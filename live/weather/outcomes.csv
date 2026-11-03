@@ -1922,3 +1922,5 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-03,highest-temperature-in-lucknow-on-november-3-2026,VILK,C,22,24°C or below,31°C,False,,22.0,
 2026-11-02,highest-temperature-in-wellington-on-november-2-2026,NZWN,C,,,18°C,,,,
 2026-11-03,highest-temperature-in-wellington-on-november-3-2026,NZWN,C,,,19°C,,,,
+2026-11-03,highest-temperature-in-helsinki-on-november-3-2026,EFHK,C,4,4°C,7°C,False,7.15,4.0,-3.15
+2026-11-03,highest-temperature-in-tel-aviv-on-november-3-2026,LLBG,C,24,24°C or below,28°C,False,27.18,24.0,-3.18

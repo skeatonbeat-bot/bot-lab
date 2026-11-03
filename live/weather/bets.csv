@@ -169,3 +169,5 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T21:15+00:00,Forecaster,highest-temperature-in-ankara-on-november-3-2026,LTAC,2026-11-03,18°C,NO,0.56,0.0215,1.7473,1.0,0.713,0.141,future,0,win,1.7473,2026-11-03T21:46+00:00
 2026-11-01T21:15+00:00,Forecaster,highest-temperature-in-moscow-on-november-3-2026,UUWW,2026-11-03,5°C or higher,YES,0.07,0.0444,13.6509,1.0,0.262,0.189,future,0,loss,0.0,2026-11-03T21:46+00:00
 2026-11-01T21:15+00:00,Forecaster,highest-temperature-in-istanbul-on-november-3-2026,LTFM,2026-11-03,17°C,NO,0.59,0.0201,1.6609,1.0,0.766,0.164,future,0,loss,0.0,2026-11-03T22:16+00:00
+2026-11-01T22:15+00:00,Forecaster,highest-temperature-in-helsinki-on-november-3-2026,EFHK,2026-11-03,7°C,NO,0.42,0.0282,2.3139,1.0,0.675,0.243,future,0,loss,0.0,2026-11-03T22:52+00:00
+2026-11-01T22:15+00:00,Forecaster,highest-temperature-in-tel-aviv-on-november-3-2026,LLBG,2026-11-03,28°C,NO,0.45,0.0268,2.1627,1.0,0.712,0.249,future,0,loss,0.0,2026-11-03T22:52+00:00
