@@ -125,3 +125,5 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-amsterdam-on-november-2-2026,EHAM,2026-11-02,13°C,NO,0.4,0.0583,4.8544,2.0,0.673,0.261,future,21,win,4.8544,2026-11-03T00:01+00:00
 2026-11-02T08:15+00:00,Favorite,highest-temperature-in-amsterdam-on-november-2-2026,EHAM,2026-11-02,13°C,YES,0.77,0.0161,1.8197,1.42,0.79,0.011,today,9,loss,0.0,2026-11-03T00:01+00:00
 2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-amsterdam-on-november-2-2026,EHAM,2026-11-02,11°C,YES,0.001,0.0574,1149.51,1.21,0.874,0.872,today,18,loss,0.0,2026-11-03T00:01+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-london-on-november-2-2026,EGLC,2026-11-02,13°C,NO,0.53,0.0339,2.7231,1.48,0.73,0.187,future,20,loss,0.0,2026-11-03T01:00+00:00
+2026-11-02T09:16+00:00,Favorite,highest-temperature-in-london-on-november-2-2026,EGLC,2026-11-02,12°C,YES,0.59,0.0263,2.1712,1.31,0.56,-0.042,today,9,loss,0.0,2026-11-03T01:00+00:00
