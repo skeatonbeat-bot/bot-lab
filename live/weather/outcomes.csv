@@ -1239,3 +1239,4 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-02,highest-temperature-in-karachi-on-november-2-2026,OPKC,C,,,33°C,,,,
 2026-11-02,highest-temperature-in-lucknow-on-november-2-2026,VILK,C,,,30°C,,,,
 2026-11-02,highest-temperature-in-wellington-on-november-2-2026,NZWN,C,,,18°C,,,,
+2026-11-02,highest-temperature-in-nyc-on-november-2-2026,KLGA,F,61,60-61°F,66-67°F,False,18.52,16.1,-2.42

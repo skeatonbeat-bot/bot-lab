@@ -133,3 +133,5 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T12:16+00:00,Favorite,highest-temperature-in-sao-paulo-on-november-2-2026,SBGR,2026-11-02,25°C,YES,0.3,0.0463,4.4097,1.37,0.3,-0.01,today,9,loss,0.0,2026-11-03T03:45+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-toronto-on-november-2-2026,CYYZ,2026-11-02,19°C,NO,0.64,0.0177,1.5349,1.0,0.763,0.111,future,15,win,1.5349,2026-11-03T05:45+00:00
 2026-11-02T14:16+00:00,Favorite,highest-temperature-in-toronto-on-november-2-2026,CYYZ,2026-11-02,19°C,YES,0.46,0.0332,2.6733,1.26,0.45,-0.022,today,9,loss,0.0,2026-11-03T05:45+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-nyc-on-november-2-2026,KLGA,2026-11-02,66-67°F,NO,0.36,0.039,3.3826,1.26,0.685,0.314,future,15,loss,0.0,2026-11-03T06:16+00:00
+2026-11-02T14:16+00:00,Favorite,highest-temperature-in-nyc-on-november-2-2026,KLGA,2026-11-02,66-67°F,YES,0.71,0.0184,1.7891,1.29,0.7,-0.02,today,9,win,1.7891,2026-11-03T06:16+00:00
