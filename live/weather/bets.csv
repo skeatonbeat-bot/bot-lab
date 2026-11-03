@@ -139,3 +139,9 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-miami-on-november-2-2026,KMIA,2026-11-02,80-81°F,NO,0.54,0.0294,2.3687,1.31,0.731,0.178,future,15,win,2.3687,2026-11-03T06:45+00:00
 2026-11-02T14:16+00:00,Favorite,highest-temperature-in-atlanta-on-november-2-2026,KATL,2026-11-02,72-73°F,YES,0.54,0.0302,2.429,1.34,0.54,-0.012,today,9,loss,0.0,2026-11-03T06:45+00:00
 2026-11-02T14:16+00:00,Favorite,highest-temperature-in-miami-on-november-2-2026,KMIA,2026-11-02,84-85°F,YES,0.61,0.0252,2.1145,1.31,0.593,-0.029,today,9,win,2.1145,2026-11-03T06:45+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-austin-on-november-2-2026,KAUS,2026-11-02,84-85°F,NO,0.45,0.0504,4.0711,1.88,0.848,0.385,future,14,loss,0.0,2026-11-03T07:15+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-chicago-on-november-2-2026,KORD,2026-11-02,62-63°F,NO,0.49,0.0441,3.5258,1.77,0.675,0.173,future,14,win,3.5258,2026-11-03T07:15+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-houston-on-november-2-2026,KHOU,2026-11-02,84-85°F,NO,0.43,0.0444,3.6211,1.6,0.726,0.284,future,14,win,3.6211,2026-11-03T07:15+00:00
+2026-11-02T15:15+00:00,Favorite,highest-temperature-in-austin-on-november-2-2026,KAUS,2026-11-02,84-85°F,YES,0.59,0.0249,2.0556,1.24,0.59,-0.012,today,9,win,2.0556,2026-11-03T07:15+00:00
+2026-11-02T15:15+00:00,Favorite,highest-temperature-in-chicago-on-november-2-2026,KORD,2026-11-02,62-63°F,YES,0.55,0.0267,2.1568,1.21,0.55,-0.012,today,9,loss,0.0,2026-11-03T07:15+00:00
+2026-11-02T15:15+00:00,Favorite,highest-temperature-in-houston-on-november-2-2026,KHOU,2026-11-02,86-87°F,YES,0.55,0.0256,2.0713,1.16,0.55,-0.012,today,9,win,2.0713,2026-11-03T07:15+00:00
