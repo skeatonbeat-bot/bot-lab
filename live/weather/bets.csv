@@ -165,3 +165,4 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-singapore-on-november-3-2026,WSSS,2026-11-03,33°C,NO,0.56,0.023,1.8681,1.07,0.845,0.272,future,4,loss,0.0,2026-11-03T16:46+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-taipei-on-november-3-2026,RCSS,2026-11-03,27°C,NO,0.68,0.0165,1.5166,1.05,0.787,0.096,future,4,loss,0.0,2026-11-03T16:46+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-lucknow-on-november-3-2026,VILK,2026-11-03,30°C,NO,0.44,0.0386,3.1364,1.42,0.715,0.262,future,2,win,3.1364,2026-11-03T19:16+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-karachi-on-november-3-2026,OPKC,2026-11-03,36°C,NO,0.52,0.036,2.8885,1.54,0.769,0.237,future,1,loss,0.0,2026-11-03T19:46+00:00
