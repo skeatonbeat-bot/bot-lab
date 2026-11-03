@@ -156,3 +156,11 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-wellington-on-november-3-2026,NZWN,2026-11-03,19°C,NO,0.5,0.0244,1.9512,1.0,0.848,0.335,future,9,loss,0.0,2026-11-03T11:45+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-seoul-on-november-3-2026,RKSI,2026-11-03,17°C,NO,0.51,0.0272,2.1741,1.14,0.805,0.282,future,5,loss,0.0,2026-11-03T15:46+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-tokyo-on-november-3-2026,RJTT,2026-11-03,19°C,NO,0.47,0.026,2.0857,1.01,0.727,0.245,future,5,loss,0.0,2026-11-03T15:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-beijing-on-november-3-2026,ZBAA,2026-11-03,19°C,NO,0.55,0.0406,3.2803,1.84,0.973,0.411,future,4,loss,0.0,2026-11-03T16:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-chongqing-on-november-3-2026,ZUCK,2026-11-03,17°C,NO,0.63,0.0315,2.7059,1.74,0.813,0.172,future,4,win,2.7059,2026-11-03T16:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-kuala-lumpur-on-november-3-2026,WMKK,2026-11-03,33°C,NO,0.53,0.0346,2.7786,1.51,0.903,0.361,future,4,win,2.7786,2026-11-03T16:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-manila-on-november-3-2026,RPLL,2026-11-03,34°C,NO,0.68,0.0215,1.9721,1.36,0.867,0.176,future,4,win,1.9721,2026-11-03T16:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-shanghai-on-november-3-2026,ZSPD,2026-11-03,21°C,NO,0.51,0.0266,2.1306,1.11,0.82,0.298,future,4,loss,0.0,2026-11-03T16:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-shenzhen-on-november-3-2026,ZGSZ,2026-11-03,30°C,NO,0.52,0.0256,2.0488,1.09,0.683,0.15,future,4,win,2.0488,2026-11-03T16:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-singapore-on-november-3-2026,WSSS,2026-11-03,33°C,NO,0.56,0.023,1.8681,1.07,0.845,0.272,future,4,loss,0.0,2026-11-03T16:46+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-taipei-on-november-3-2026,RCSS,2026-11-03,27°C,NO,0.68,0.0165,1.5166,1.05,0.787,0.096,future,4,loss,0.0,2026-11-03T16:46+00:00
