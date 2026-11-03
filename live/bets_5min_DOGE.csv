@@ -714,3 +714,10 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-03 22:55,doge-updown-5m-1793746500,Coin Flip,Up,7,0.8,1.44,won,0.33,72.24
 2026-11-03 23:00,doge-updown-5m-1793746800,Coin Flip,Up,7,0.73,1.44,lost,-1.44,70.8
 2026-11-03 23:15,doge-updown-5m-1793747700,Favorite 3m,Up,181,0.76,1.89,won,0.56,95.28
+2026-11-03 23:20,doge-updown-5m-1793748000,Coin Flip,Up,5,0.62,1.42,won,0.81,71.61
+2026-11-03 23:20,doge-updown-5m-1793748000,Favorite 3m,Up,181,0.71,1.89,won,0.72,96.0
+2026-11-03 23:20,doge-updown-5m-1793748000,Follow Move 4m,Up,241,0.98,2.17,won,0.04,108.35
+2026-11-03 23:25,doge-updown-5m-1793748300,Coin Flip,Up,5,0.43,1.42,lost,-1.42,70.19
+2026-11-03 23:30,doge-updown-5m-1793748600,Favorite 4m,Down,242,0.93,1.67,won,0.12,83.43
+2026-11-03 23:35,doge-updown-5m-1793748900,Coin Flip,Up,6,0.94,1.4,lost,-1.4,68.79
+2026-11-03 23:35,doge-updown-5m-1793748900,Favorite 3m,Up,182,0.73,1.92,lost,-1.92,94.08
