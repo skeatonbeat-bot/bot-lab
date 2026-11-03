@@ -127,3 +127,7 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T17:16+00:00,Late Closer,highest-temperature-in-amsterdam-on-november-2-2026,EHAM,2026-11-02,11°C,YES,0.001,0.0574,1149.51,1.21,0.874,0.872,today,18,loss,0.0,2026-11-03T00:01+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-london-on-november-2-2026,EGLC,2026-11-02,13°C,NO,0.53,0.0339,2.7231,1.48,0.73,0.187,future,20,loss,0.0,2026-11-03T01:00+00:00
 2026-11-02T09:16+00:00,Favorite,highest-temperature-in-london-on-november-2-2026,EGLC,2026-11-02,12°C,YES,0.59,0.0263,2.1712,1.31,0.56,-0.042,today,9,loss,0.0,2026-11-03T01:00+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-buenos-aires-on-november-2-2026,SAEZ,2026-11-02,28°C,NO,0.61,0.0346,2.907,1.81,0.891,0.269,future,17,win,2.907,2026-11-03T03:45+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-sao-paulo-on-november-2-2026,SBGR,2026-11-02,24°C,NO,0.81,0.0111,1.4465,1.18,0.905,0.087,future,17,loss,0.0,2026-11-03T03:45+00:00
+2026-11-02T12:16+00:00,Favorite,highest-temperature-in-buenos-aires-on-november-2-2026,SAEZ,2026-11-02,27°C,YES,0.47,0.0361,2.8959,1.4,0.44,-0.042,today,9,loss,0.0,2026-11-03T03:45+00:00
+2026-11-02T12:16+00:00,Favorite,highest-temperature-in-sao-paulo-on-november-2-2026,SBGR,2026-11-02,25°C,YES,0.3,0.0463,4.4097,1.37,0.3,-0.01,today,9,loss,0.0,2026-11-03T03:45+00:00
