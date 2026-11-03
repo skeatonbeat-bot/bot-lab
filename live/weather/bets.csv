@@ -153,3 +153,4 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-los-angeles-on-november-2-2026,KLAX,2026-11-02,72-73°F,NO,0.39,0.0428,3.6019,1.45,0.632,0.23,future,12,loss,0.0,2026-11-03T09:43+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-san-francisco-on-november-2-2026,KSFO,2026-11-02,64-65°F,NO,0.48,0.0306,2.4507,1.21,0.718,0.226,future,12,loss,0.0,2026-11-03T09:43+00:00
 2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-seattle-on-november-2-2026,KSEA,2026-11-02,52-53°F,NO,0.54,0.0261,2.0983,1.16,0.834,0.281,future,12,win,2.0983,2026-11-03T09:43+00:00
+2026-11-01T20:46+00:00,Forecaster,highest-temperature-in-wellington-on-november-3-2026,NZWN,2026-11-03,19°C,NO,0.5,0.0244,1.9512,1.0,0.848,0.335,future,9,loss,0.0,2026-11-03T11:45+00:00
