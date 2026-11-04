@@ -56,3 +56,5 @@ time,bot,side,price,dollars,fee,reason,equity_after
 2026-11-04 07:30:00+00:00,Dip Hunter,sell,0.07,101.91,0.6115,signal,101.3
 2026-11-04 08:15:00+00:00,Trend Rider,buy,0.08,86.8,0.5208,signal,86.24
 2026-11-04 12:00:00+00:00,Trend Rider,sell,0.07,85.52,0.5131,signal,85.01
+2026-11-04 12:30:00+00:00,Trend Rider,buy,0.07,85.01,0.51,signal,84.46
+2026-11-04 12:45:00+00:00,Trend Rider,sell,0.07,84.35,0.5061,signal,83.84
