@@ -203,3 +203,4 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T16:16+00:00,Forecaster,highest-temperature-in-taipei-on-november-4-2026,RCSS,2026-11-04,31°C,NO,0.58,0.0206,1.6887,1.0,0.83,0.237,future,0,win,1.6887,2026-11-04T16:46+00:00
 2026-11-02T16:46+00:00,Forecaster,highest-temperature-in-chongqing-on-november-4-2026,ZUCK,2026-11-04,19°C,NO,0.72,0.0138,1.3697,1.0,0.841,0.111,future,0,loss,0.0,2026-11-04T16:46+00:00
 2026-11-02T18:45+00:00,Forecaster,highest-temperature-in-lucknow-on-november-4-2026,VILK,2026-11-04,30°C,NO,0.41,0.0287,2.3691,1.0,0.72,0.298,future,0,loss,0.0,2026-11-04T19:00+00:00
+2026-11-02T19:16+00:00,Forecaster,highest-temperature-in-karachi-on-november-4-2026,OPKC,2026-11-04,36°C,NO,0.66,0.0167,1.4898,1.0,0.756,0.085,future,0,loss,0.0,2026-11-04T19:31+00:00
