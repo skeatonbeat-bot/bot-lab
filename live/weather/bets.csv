@@ -179,3 +179,6 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T03:15+00:00,Forecaster,highest-temperature-in-buenos-aires-on-november-3-2026,SAEZ,2026-11-03,22°C,NO,0.72,0.0138,1.3697,1.0,0.806,0.076,future,0,win,1.3697,2026-11-04T03:45+00:00
 2026-11-02T03:15+00:00,Forecaster,highest-temperature-in-sao-paulo-on-november-3-2026,SBGR,2026-11-03,31°C,NO,0.56,0.0215,1.7473,1.0,0.837,0.265,future,0,loss,0.0,2026-11-04T03:45+00:00
 2026-11-02T05:15+00:00,Forecaster,highest-temperature-in-toronto-on-november-3-2026,CYYZ,2026-11-03,20°C,YES,0.09,0.0435,10.6276,1.0,0.261,0.167,future,0,loss,0.0,2026-11-04T05:45+00:00
+2026-11-02T05:15+00:00,Forecaster,highest-temperature-in-atlanta-on-november-3-2026,KATL,2026-11-03,72-73°F,NO,0.58,0.0206,1.6887,1.0,0.706,0.114,future,0,win,1.6887,2026-11-04T06:16+00:00
+2026-11-02T05:15+00:00,Forecaster,highest-temperature-in-miami-on-november-3-2026,KMIA,2026-11-03,84-85°F,NO,0.53,0.023,1.8435,1.0,0.785,0.243,future,0,win,1.8435,2026-11-04T06:16+00:00
+2026-11-02T05:15+00:00,Forecaster,highest-temperature-in-nyc-on-november-3-2026,KLGA,2026-11-03,68-69°F,NO,0.48,0.0253,2.0305,1.0,0.697,0.204,future,0,win,2.0305,2026-11-04T06:16+00:00
