@@ -182,3 +182,6 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T05:15+00:00,Forecaster,highest-temperature-in-atlanta-on-november-3-2026,KATL,2026-11-03,72-73°F,NO,0.58,0.0206,1.6887,1.0,0.706,0.114,future,0,win,1.6887,2026-11-04T06:16+00:00
 2026-11-02T05:15+00:00,Forecaster,highest-temperature-in-miami-on-november-3-2026,KMIA,2026-11-03,84-85°F,NO,0.53,0.023,1.8435,1.0,0.785,0.243,future,0,win,1.8435,2026-11-04T06:16+00:00
 2026-11-02T05:15+00:00,Forecaster,highest-temperature-in-nyc-on-november-3-2026,KLGA,2026-11-03,68-69°F,NO,0.48,0.0253,2.0305,1.0,0.697,0.204,future,0,win,2.0305,2026-11-04T06:16+00:00
+2026-11-02T06:15+00:00,Forecaster,highest-temperature-in-chicago-on-november-3-2026,KORD,2026-11-03,70-71°F,NO,0.57,0.021,1.7175,1.0,0.71,0.127,future,0,loss,0.0,2026-11-04T07:15+00:00
+2026-11-02T06:15+00:00,Forecaster,highest-temperature-in-houston-on-november-3-2026,KHOU,2026-11-03,84-85°F,NO,0.6,0.0196,1.634,1.0,0.795,0.183,future,0,win,1.634,2026-11-04T07:15+00:00
+2026-11-02T06:45+00:00,Forecaster,highest-temperature-in-dallas-on-november-3-2026,KDAL,2026-11-03,74-75°F,NO,0.54,0.0225,1.8102,1.0,0.703,0.151,future,0,win,1.8102,2026-11-04T07:15+00:00
