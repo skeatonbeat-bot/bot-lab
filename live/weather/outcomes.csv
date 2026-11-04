@@ -2758,3 +2758,4 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-04,highest-temperature-in-lucknow-on-november-4-2026,VILK,C,23,24°C or below,30°C,False,,23.0,
 2026-11-03,highest-temperature-in-wellington-on-november-3-2026,NZWN,C,,,19°C,,,,
 2026-11-04,highest-temperature-in-wellington-on-november-4-2026,NZWN,C,,,21°C,,,,
+2026-11-04,highest-temperature-in-moscow-on-november-4-2026,UUWW,C,1,1°C,3°C,False,2.11,1.0,-1.11
