@@ -1,15 +1,15 @@
 {
  "pending": [
   {
-   "start": 1793834400,
-   "slug": "btc-updown-5m-1793834400",
+   "start": 1793835900,
+   "slug": "btc-updown-5m-1793835900",
    "bot": "Follow Move 4m",
    "up": false,
    "sec": 240,
-   "ask": 0.54,
-   "stake": 1.3648245931312613,
-   "shares": 2.4486077797355903,
-   "s0": 80423.27
+   "ask": 0.94,
+   "stake": 1.386500256863348,
+   "shares": 1.4688311822932494,
+   "s0": 80625.62
   }
  ],
  "bots": {
@@ -30,7 +30,7 @@
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 68.24122965656306,
+   "cash": 69.3250128431674,
    "retired": false
   }
  }
