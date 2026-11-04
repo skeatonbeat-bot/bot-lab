@@ -189,3 +189,5 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-02T06:15+00:00,Forecaster,highest-temperature-in-mexico-city-on-november-3-2026,MMMX,2026-11-03,27°C,NO,0.52,0.0234,1.878,1.0,0.785,0.253,future,0,win,1.878,2026-11-04T07:45+00:00
 2026-11-02T07:16+00:00,Forecaster,highest-temperature-in-denver-on-november-3-2026,KDEN,2026-11-03,54-55°F,NO,0.55,0.022,1.7782,1.0,0.701,0.138,future,0,loss,0.0,2026-11-04T08:45+00:00
 2026-11-02T08:15+00:00,Forecaster,highest-temperature-in-seattle-on-november-3-2026,KSEA,2026-11-03,54-55°F,YES,0.15,0.0408,6.3949,1.0,0.296,0.14,future,0,loss,0.0,2026-11-04T09:15+00:00
+2026-11-02T08:15+00:00,Forecaster,highest-temperature-in-los-angeles-on-november-3-2026,KLAX,2026-11-03,72-73°F,NO,0.49,0.0249,1.9901,1.0,0.666,0.164,future,0,loss,0.0,2026-11-04T09:46+00:00
+2026-11-02T08:15+00:00,Forecaster,highest-temperature-in-san-francisco-on-november-3-2026,KSFO,2026-11-03,64-65°F,NO,0.59,0.0201,1.6609,1.0,0.679,0.077,future,0,loss,0.0,2026-11-04T09:46+00:00
