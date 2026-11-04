@@ -1983,3 +1983,4 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-03,highest-temperature-in-lucknow-on-november-3-2026,VILK,C,21,24°C or below,31°C,False,,21.0,
 2026-11-02,highest-temperature-in-wellington-on-november-2-2026,NZWN,C,,,18°C,,,,
 2026-11-03,highest-temperature-in-wellington-on-november-3-2026,NZWN,C,,,19°C,,,,
+2026-11-03,highest-temperature-in-amsterdam-on-november-3-2026,EHAM,C,8,8°C,11°C,False,11.13,8.0,-3.13

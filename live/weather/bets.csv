@@ -174,3 +174,4 @@ time,bot,slug,station,date,bracket,side,price,fee,shares,stake,p_model,edge,mode
 2026-11-01T23:21+00:00,Forecaster,highest-temperature-in-madrid-on-november-3-2026,LEMD,2026-11-03,16°C,NO,0.51,0.0239,1.9139,1.0,0.775,0.253,future,0,win,1.9139,2026-11-03T23:30+00:00
 2026-11-01T23:21+00:00,Forecaster,highest-temperature-in-paris-on-november-3-2026,LFPB,2026-11-03,11°C,NO,0.5,0.0244,1.9512,1.0,0.69,0.178,future,0,win,1.9512,2026-11-03T23:30+00:00
 2026-11-01T23:21+00:00,Forecaster,highest-temperature-in-warsaw-on-november-3-2026,EPWA,2026-11-03,9°C,NO,0.49,0.0249,1.9901,1.0,0.731,0.228,future,0,win,1.9901,2026-11-03T23:30+00:00
+2026-11-01T23:21+00:00,Forecaster,highest-temperature-in-amsterdam-on-november-3-2026,EHAM,2026-11-03,11°C,NO,0.45,0.0268,2.1627,1.0,0.667,0.205,future,0,loss,0.0,2026-11-04T00:00+00:00
