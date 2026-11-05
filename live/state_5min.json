@@ -1,58 +1,24 @@
 {
- "pending": [
-  {
-   "start": 1793866800,
-   "slug": "btc-updown-5m-1793866800",
-   "bot": "Favorite 4m",
-   "up": false,
-   "sec": 241,
-   "ask": 0.86,
-   "stake": 1.4562445106286253,
-   "shares": 1.6768742033060027,
-   "s0": 80493.97
-  },
-  {
-   "start": 1793866800,
-   "slug": "btc-updown-5m-1793866800",
-   "bot": "Follow Move 4m",
-   "up": false,
-   "sec": 241,
-   "ask": 0.86,
-   "stake": 1.3000610691966128,
-   "shares": 1.4970280428505447,
-   "s0": 80493.97
-  },
-  {
-   "start": 1793866800,
-   "slug": "btc-updown-5m-1793866800",
-   "bot": "Favorite 4.5m",
-   "up": false,
-   "sec": 273,
-   "ask": 0.86,
-   "stake": 1.9421801864435317,
-   "shares": 2.2364320202060872,
-   "s0": 80493.97
-  }
- ],
+ "pending": [],
  "bots": {
   "Coin Flip": {
    "cash": 58.588071667329935,
    "retired": true
   },
   "Favorite 3m": {
-   "cash": 71.27048472701811,
+   "cash": 71.78675381519805,
    "retired": false
   },
   "Favorite 4m": {
-   "cash": 72.81222553143127,
+   "cash": 71.35598102080264,
    "retired": false
   },
   "Favorite 4.5m": {
-   "cash": 97.10900932217659,
+   "cash": 95.16682913573305,
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 65.00305345983064,
+   "cash": 63.76537063876206,
    "retired": false
   }
  }
