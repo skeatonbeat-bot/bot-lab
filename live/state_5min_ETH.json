@@ -1,37 +1,48 @@
 {
  "pending": [
   {
-   "start": 1793857800,
-   "slug": "eth-updown-5m-1793857800",
-   "bot": "Favorite 4m",
-   "up": false,
-   "sec": 241,
-   "ask": 0.71,
-   "stake": 1.795352210288031,
-   "shares": 2.478354488790277,
-   "s0": 2418.12
+   "start": 1793858700,
+   "slug": "eth-updown-5m-1793858700",
+   "bot": "Favorite 3m",
+   "up": true,
+   "sec": 182,
+   "ask": 0.83,
+   "stake": 1.565416636226609,
+   "shares": 1.8638641565688894,
+   "s0": 2417.34
   },
   {
-   "start": 1793857800,
-   "slug": "eth-updown-5m-1793857800",
+   "start": 1793858700,
+   "slug": "eth-updown-5m-1793858700",
+   "bot": "Favorite 4m",
+   "up": true,
+   "sec": 242,
+   "ask": 0.73,
+   "stake": 1.809012255858076,
+   "shares": 2.432131691655218,
+   "s0": 2417.34
+  },
+  {
+   "start": 1793858700,
+   "slug": "eth-updown-5m-1793858700",
    "bot": "Follow Move 4m",
    "up": true,
-   "sec": 241,
-   "ask": 0.29,
-   "stake": 1.439747856389369,
-   "shares": 4.729587292229206,
-   "s0": 2418.12
+   "sec": 242,
+   "ask": 0.73,
+   "stake": 1.4109528992615816,
+   "shares": 1.8969596533215134,
+   "s0": 2417.34
   },
   {
-   "start": 1793857800,
-   "slug": "eth-updown-5m-1793857800",
+   "start": 1793858700,
+   "slug": "eth-updown-5m-1793858700",
    "bot": "Favorite 4.5m",
-   "up": false,
-   "sec": 273,
-   "ask": 0.93,
-   "stake": 1.935909028874893,
-   "shares": 2.071472396948386,
-   "s0": 2418.12
+   "up": true,
+   "sec": 270,
+   "ask": 0.73,
+   "stake": 1.938620296236363,
+   "shares": 2.6063835915395774,
+   "s0": 2417.34
   }
  ],
  "bots": {
@@ -40,19 +51,19 @@
    "retired": true
   },
   "Favorite 3m": {
-   "cash": 79.8681957258474,
+   "cash": 78.27083181133045,
    "retired": false
   },
   "Favorite 4m": {
-   "cash": 89.76761051440155,
+   "cash": 90.4506127929038,
    "retired": false
   },
   "Favorite 4.5m": {
-   "cash": 96.79545144374465,
+   "cash": 96.93101481181814,
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 71.98739281946845,
+   "cash": 70.54764496307908,
    "retired": false
   }
  }
