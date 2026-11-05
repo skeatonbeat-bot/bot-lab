@@ -1,5 +1,5 @@
 {
- "last": "2026-11-04 20:00:00+00:00",
+ "last": "2026-11-05 00:00:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -8,11 +8,11 @@
    "units": 1315.0274631049797,
    "meta": {},
    "fees_paid": 0.6,
-   "day": "2026-11-04",
-   "day_start_equity": 96.31261139780871,
+   "day": "2026-11-05",
+   "day_start_equity": 100.99410916646244,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10024,
+   "candles_seen": 10025,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 00:00:00+00:00"
   },
@@ -23,11 +23,11 @@
    "units": 0.0,
    "meta": {},
    "fees_paid": 0.0,
-   "day": "2026-11-04",
+   "day": "2026-11-05",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10024,
+   "candles_seen": 10025,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -38,11 +38,11 @@
    "units": 0.0,
    "meta": {},
    "fees_paid": 0.0,
-   "day": "2026-11-04",
+   "day": "2026-11-05",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10024,
+   "candles_seen": 10025,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -53,11 +53,11 @@
    "units": 0.0,
    "meta": {},
    "fees_paid": 0.0,
-   "day": "2026-11-04",
+   "day": "2026-11-05",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10024,
+   "candles_seen": 10025,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -68,11 +68,11 @@
    "units": 986.2705973287348,
    "meta": {},
    "fees_paid": 0.45,
-   "day": "2026-11-04",
-   "day_start_equity": 97.23445854835653,
+   "day": "2026-11-05",
+   "day_start_equity": 100.74558187484682,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10024,
+   "candles_seen": 10025,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 00:00:00+00:00"
   }
