@@ -1,5 +1,5 @@
 {
- "last": "2026-11-05 14:00:00+00:00",
+ "last": "2026-11-05 14:30:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -12,39 +12,39 @@
    "day_start_equity": 103.65299172227711,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10219,
+   "candles_seen": 10220,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   },
   {
    "name": "Trend Rider",
    "start_cash": 100.0,
-   "cash": 0.0,
-   "units": 74.011704625385,
+   "cash": 93.8547776808658,
+   "units": 0.0,
    "meta": {},
-   "fees_paid": 5.210397680842474,
+   "fees_paid": 5.776925513926171,
    "day": "2026-11-05",
    "day_start_equity": 96.63708272936519,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10219,
-   "open_trip_equity": 93.92415912503142,
-   "open_trip_opened": "2026-11-04 04:00:00+00:00"
+   "candles_seen": 10220,
+   "open_trip_equity": null,
+   "open_trip_opened": null
   },
   {
    "name": "Breakout",
    "start_cash": 100.0,
-   "cash": 0.0,
-   "units": 77.66598251843435,
+   "cash": 98.48879389454743,
+   "units": 0.0,
    "meta": {},
-   "fees_paid": 0.6,
+   "fees_paid": 1.1944997619389182,
    "day": "2026-11-05",
    "day_start_equity": 101.40847337431974,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10219,
-   "open_trip_equity": 100.0,
-   "open_trip_opened": "2026-11-03 12:00:00+00:00"
+   "candles_seen": 10220,
+   "open_trip_equity": null,
+   "open_trip_opened": null
   },
   {
    "name": "Dip Hunter",
@@ -57,22 +57,22 @@
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10219,
+   "candles_seen": 10220,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
   {
    "name": "Grid",
    "start_cash": 100.0,
-   "cash": 75.5923277599791,
-   "units": 19.313419727561833,
+   "cash": 50.12198835011951,
+   "units": 39.13860379284698,
    "meta": {},
-   "fees_paid": 2.581906769282029,
+   "fees_paid": 2.7347288057411863,
    "day": "2026-11-05",
    "day_start_equity": 101.12485372169503,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10219,
+   "candles_seen": 10220,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   }
