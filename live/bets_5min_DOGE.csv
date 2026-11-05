@@ -952,3 +952,6 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-05 16:45,doge-updown-5m-1793897100,Favorite 3m,Up,180,0.81,1.65,won,0.36,83.09
 2026-11-05 16:45,doge-updown-5m-1793897100,Favorite 4m,Up,240,0.93,1.51,won,0.11,75.77
 2026-11-05 17:05,doge-updown-5m-1793898300,Favorite 4m,Down,242,0.87,1.52,won,0.21,75.98
+2026-11-05 17:20,doge-updown-5m-1793899200,Favorite 3m,Down,182,0.83,1.66,won,0.32,83.41
+2026-11-05 17:20,doge-updown-5m-1793899200,Favorite 4m,Down,242,0.92,1.52,won,0.12,76.1
+2026-11-05 17:20,doge-updown-5m-1793899200,Follow Move 4m,Down,242,0.92,1.87,won,0.15,93.61
