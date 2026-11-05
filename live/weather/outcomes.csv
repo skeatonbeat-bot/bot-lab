@@ -3428,3 +3428,11 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-04,highest-temperature-in-lucknow-on-november-4-2026,VILK,C,,,30°C,,,,
 2026-11-04,highest-temperature-in-wellington-on-november-4-2026,NZWN,C,,,21°C,,,,
 2026-11-05,highest-temperature-in-wellington-on-november-5-2026,NZWN,C,17,17°C,22°C,False,,17.0,
+2026-11-05,highest-temperature-in-beijing-on-november-5-2026,ZBAA,C,11,12°C or below,19°C,False,14.74,11.0,-3.74
+2026-11-05,highest-temperature-in-chongqing-on-november-5-2026,ZUCK,C,17,17°C,17°C,True,18.58,17.0,-1.58
+2026-11-05,highest-temperature-in-kuala-lumpur-on-november-5-2026,WMKK,C,25,28°C or below,33°C,False,31.16,25.0,-6.16
+2026-11-05,highest-temperature-in-manila-on-november-5-2026,RPLL,C,30,30°C,34°C,False,31.36,30.0,-1.36
+2026-11-05,highest-temperature-in-shanghai-on-november-5-2026,ZSPD,C,18,18°C,19°C,False,19.43,18.0,-1.43
+2026-11-05,highest-temperature-in-shenzhen-on-november-5-2026,ZGSZ,C,28,28°C,30°C,False,30.56,28.0,-2.56
+2026-11-05,highest-temperature-in-singapore-on-november-5-2026,WSSS,C,26,26°C or below,30°C,False,30.13,26.0,-4.13
+2026-11-05,highest-temperature-in-taipei-on-november-5-2026,RCSS,C,25,25°C or below,32°C,False,28.84,25.0,-3.84
