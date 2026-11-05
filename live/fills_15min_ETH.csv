@@ -52,3 +52,4 @@ time,bot,side,price,dollars,fee,reason,equity_after
 2026-11-05 12:30:00+00:00,Breakout,sell,2390.44,101.65,0.6099,signal,101.04
 2026-11-05 14:45:00+00:00,Dip Hunter,buy,2327.19,100.0,0.6,signal,99.35
 2026-11-05 14:45:00+00:00,Grid,buy,2327.19,25.04,0.1503,signal,96.92
+2026-11-05 15:15:00+00:00,Grid,buy,2279.47,24.56,0.1474,signal,95.77

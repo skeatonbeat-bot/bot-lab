@@ -1,5 +1,5 @@
 {
- "last": "2026-11-05 14:30:00+00:00",
+ "last": "2026-11-05 15:00:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -12,7 +12,7 @@
    "day_start_equity": 99.61045870026865,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10220,
+   "candles_seen": 10221,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   },
@@ -27,24 +27,24 @@
    "day_start_equity": 95.21159496903681,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10220,
+   "candles_seen": 10221,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
   {
    "name": "Breakout",
    "start_cash": 100.0,
-   "cash": 0.0,
-   "units": 1.0404264827477352,
+   "cash": 94.26007839998738,
+   "units": 0.0,
    "meta": {},
-   "fees_paid": 0.6,
+   "fees_paid": 1.1689743162977106,
    "day": "2026-11-05",
    "day_start_equity": 99.6000271934407,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10220,
-   "open_trip_equity": 100.0,
-   "open_trip_opened": "2026-11-04 14:30:00+00:00"
+   "candles_seen": 10221,
+   "open_trip_equity": null,
+   "open_trip_opened": null
   },
   {
    "name": "Dip Hunter",
@@ -53,29 +53,29 @@
    "units": 1.0728976764317628,
    "meta": {
     "entry": 92.93,
-    "held": 0
+    "held": 1
    },
    "fees_paid": 0.6,
    "day": "2026-11-05",
    "day_start_equity": 100.0,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10220,
+   "candles_seen": 10221,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-05 14:30:00+00:00"
   },
   {
    "name": "Grid",
    "start_cash": 100.0,
-   "cash": 24.008294047568125,
-   "units": 0.7542791884793913,
+   "cash": 0.0,
+   "units": 1.015846445023098,
    "meta": {},
-   "fees_paid": 4.215848581695754,
+   "fees_paid": 4.359898345981163,
    "day": "2026-11-05",
    "day_start_equity": 96.26579827766105,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10220,
+   "candles_seen": 10221,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   }
