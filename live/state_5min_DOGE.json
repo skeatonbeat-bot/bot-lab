@@ -1,17 +1,5 @@
 {
- "pending": [
-  {
-   "start": 1793865000,
-   "slug": "doge-updown-5m-1793865000",
-   "bot": "Follow Move 4m",
-   "up": false,
-   "sec": 242,
-   "ask": 0.64,
-   "stake": 2.109441660773773,
-   "shares": 3.214984973623703,
-   "s0": 0.07642
-  }
- ],
+ "pending": [],
  "bots": {
   "Coin Flip": {
    "cash": 59.83480584929358,
@@ -30,7 +18,7 @@
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 105.47208303868865,
+   "cash": 106.57762635153858,
    "retired": false
   }
  }
