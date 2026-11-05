@@ -1,39 +1,16 @@
 {
- "pending": [
-  {
-   "start": 1793918100,
-   "slug": "sol-updown-5m-1793918100",
-   "bot": "Favorite 3m",
-   "up": false,
-   "sec": 183,
-   "ask": 0.85,
-   "stake": 1.921078347433212,
-   "shares": 2.236607791638632,
-   "s0": 89.62
-  },
-  {
-   "start": 1793918100,
-   "slug": "sol-updown-5m-1793918100",
-   "bot": "Follow Move 4m",
-   "up": true,
-   "sec": 243,
-   "ask": 0.65,
-   "stake": 2.0112275474281107,
-   "shares": 3.0202012950829458,
-   "s0": 89.62
-  }
- ],
+ "pending": [],
  "bots": {
   "Coin Flip": {
    "cash": 59.53690160039814,
    "retired": true
   },
   "Favorite 3m": {
-   "cash": 96.0539173716606,
+   "cash": 96.54680777533419,
    "retired": false
   },
   "Favorite 4m": {
-   "cash": 83.49202710514884,
+   "cash": 83.72423486841296,
    "retired": false
   },
   "Favorite 4.5m": {
@@ -41,7 +18,7 @@
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 100.56137737140554,
+   "cash": 96.57914682749788,
    "retired": false
   }
  }
