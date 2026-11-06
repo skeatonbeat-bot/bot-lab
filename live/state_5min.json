@@ -1,39 +1,16 @@
 {
- "pending": [
-  {
-   "start": 1793923500,
-   "slug": "btc-updown-5m-1793923500",
-   "bot": "Favorite 3m",
-   "up": false,
-   "sec": 181,
-   "ask": 0.82,
-   "stake": 1.4899282345406903,
-   "shares": 1.7943765078796077,
-   "s0": 76143.37
-  },
-  {
-   "start": 1793923500,
-   "slug": "btc-updown-5m-1793923500",
-   "bot": "Favorite 4m",
-   "up": false,
-   "sec": 241,
-   "ask": 0.91,
-   "stake": 1.4185956049442667,
-   "shares": 1.5491367079096927,
-   "s0": 76143.37
-  }
- ],
+ "pending": [],
  "bots": {
   "Coin Flip": {
    "cash": 58.588071667329935,
    "retired": true
   },
   "Favorite 3m": {
-   "cash": 74.49641172703451,
+   "cash": 75.10655247794972,
    "retired": false
   },
   "Favorite 4m": {
-   "cash": 70.92978024721333,
+   "cash": 71.06032135017875,
    "retired": false
   },
   "Favorite 4.5m": {
