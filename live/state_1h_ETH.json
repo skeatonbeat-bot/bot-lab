@@ -1,5 +1,5 @@
 {
- "last": "2026-11-05 23:00:00+00:00",
+ "last": "2026-11-06 00:00:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -8,11 +8,11 @@
    "units": 0.04382728745382653,
    "meta": {},
    "fees_paid": 0.6,
-   "day": "2026-11-05",
-   "day_start_equity": 106.02828862692076,
+   "day": "2026-11-06",
+   "day_start_equity": 98.34317377189228,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10119,
+   "candles_seen": 10120,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   },
@@ -23,11 +23,11 @@
    "units": 0.0,
    "meta": {},
    "fees_paid": 3.482319531321882,
-   "day": "2026-11-05",
-   "day_start_equity": 100.20442606357156,
+   "day": "2026-11-06",
+   "day_start_equity": 93.39887510843181,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10119,
+   "candles_seen": 10120,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -38,11 +38,11 @@
    "units": 0.042863877900941504,
    "meta": {},
    "fees_paid": 0.6,
-   "day": "2026-11-05",
-   "day_start_equity": 103.69757933429472,
+   "day": "2026-11-06",
+   "day_start_equity": 96.18139834436462,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10119,
+   "candles_seen": 10120,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-04 08:00:00+00:00"
   },
@@ -53,14 +53,14 @@
    "units": 0.04377302640365393,
    "meta": {
     "entry": 2249.66,
-    "held": 8
+    "held": 9
    },
    "fees_paid": 0.6,
-   "day": "2026-11-05",
-   "day_start_equity": 100.0,
+   "day": "2026-11-06",
+   "day_start_equity": 98.22141848663098,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10119,
+   "candles_seen": 10120,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-05 15:00:00+00:00"
   },
@@ -71,11 +71,11 @@
    "units": 0.032986919749338595,
    "meta": {},
    "fees_paid": 1.7074959585101568,
-   "day": "2026-11-05",
-   "day_start_equity": 103.46323720541865,
+   "day": "2026-11-06",
+   "day_start_equity": 99.03289637713365,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10119,
+   "candles_seen": 10120,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-11-01 01:00:00+00:00"
   }
