@@ -1,37 +1,26 @@
 {
  "pending": [
   {
-   "start": 1793968500,
-   "slug": "eth-updown-5m-1793968500",
+   "start": 1793969400,
+   "slug": "eth-updown-5m-1793969400",
    "bot": "Favorite 3m",
    "up": false,
-   "sec": 182,
-   "ask": 0.79,
-   "stake": 1.6696182533514108,
-   "shares": 2.082823324161922,
-   "s0": 2239.8
+   "sec": 180,
+   "ask": 0.76,
+   "stake": 1.6362258882843825,
+   "shares": 2.1173571994238665,
+   "s0": 2235.2
   },
   {
-   "start": 1793968500,
-   "slug": "eth-updown-5m-1793968500",
-   "bot": "Favorite 4m",
-   "up": true,
-   "sec": 242,
-   "ask": 0.87,
-   "stake": 1.9938898624857948,
-   "shares": 2.271159873297584,
-   "s0": 2239.8
-  },
-  {
-   "start": 1793968500,
-   "slug": "eth-updown-5m-1793968500",
+   "start": 1793969400,
+   "slug": "eth-updown-5m-1793969400",
    "bot": "Follow Move 4m",
-   "up": true,
-   "sec": 242,
-   "ask": 0.87,
-   "stake": 1.4359856192140625,
-   "shares": 1.6356735536663063,
-   "s0": 2239.8
+   "up": false,
+   "sec": 240,
+   "ask": 0.94,
+   "stake": 1.4399793779031074,
+   "shares": 1.525485914375694,
+   "s0": 2235.2
   }
  ],
  "bots": {
@@ -40,11 +29,11 @@
    "retired": true
   },
   "Favorite 3m": {
-   "cash": 83.48091266757054,
+   "cash": 81.81129441421912,
    "retired": false
   },
   "Favorite 4m": {
-   "cash": 99.69449312428974,
+   "cash": 99.97176313510153,
    "retired": false
   },
   "Favorite 4.5m": {
@@ -52,7 +41,7 @@
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 71.79928096070313,
+   "cash": 71.99896889515537,
    "retired": false
   }
  }
