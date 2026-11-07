@@ -1,5 +1,5 @@
 {
- "last": "2026-11-07 11:30:00+00:00",
+ "last": "2026-11-07 12:00:00+00:00",
  "bots": [
   {
    "name": "Benchmark",
@@ -12,24 +12,24 @@
    "day_start_equity": 97.23422408067873,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10631,
+   "candles_seen": 10633,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-10-31 22:00:00+00:00"
   },
   {
    "name": "Trend Rider",
    "start_cash": 100.0,
-   "cash": 0.0,
-   "units": 0.0012111500694681127,
+   "cash": 91.30799977606009,
+   "units": 0.0,
    "meta": {},
-   "fees_paid": 9.751908969834767,
+   "fees_paid": 10.303063898060483,
    "day": "2026-11-07",
    "day_start_equity": 93.96446610906125,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10631,
-   "open_trip_equity": 92.55711447209875,
-   "open_trip_opened": "2026-11-07 11:30:00+00:00"
+   "candles_seen": 10633,
+   "open_trip_equity": null,
+   "open_trip_opened": null
   },
   {
    "name": "Breakout",
@@ -42,7 +42,7 @@
    "day_start_equity": 95.05304828472532,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10631,
+   "candles_seen": 10633,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -57,7 +57,7 @@
    "day_start_equity": 97.04614792174986,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10631,
+   "candles_seen": 10633,
    "open_trip_equity": null,
    "open_trip_opened": null
   },
@@ -72,7 +72,7 @@
    "day_start_equity": 92.42442504223916,
    "locked_day": null,
    "retired": false,
-   "candles_seen": 10631,
+   "candles_seen": 10633,
    "open_trip_equity": 100.0,
    "open_trip_opened": "2026-10-31 22:00:00+00:00"
   }
