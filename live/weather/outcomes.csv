@@ -5193,3 +5193,5 @@ date,slug,station,unit,our_metar_value,our_bracket,official_bracket,match,d1_med
 2026-11-06,highest-temperature-in-lucknow-on-november-6-2026,VILK,C,,,30°C,,,,
 2026-11-06,highest-temperature-in-wellington-on-november-6-2026,NZWN,C,,,19°C,,,,
 2026-11-07,highest-temperature-in-wellington-on-november-7-2026,NZWN,C,17,17°C,21°C,False,,17.0,
+2026-11-07,highest-temperature-in-seoul-on-november-7-2026,RKSI,C,8,8°C,9°C,False,7.36,8.0,0.64
+2026-11-07,highest-temperature-in-tokyo-on-november-7-2026,RJTT,C,17,17°C,20°C,False,18.12,17.0,-1.12
