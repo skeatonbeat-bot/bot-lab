@@ -1297,3 +1297,6 @@ window,slug,bot,side,seconds_in,ask,stake,result,pnl,cash_after
 2026-11-07 05:50,eth-updown-5m-1794030600,Favorite 3m,Up,183,0.91,1.77,won,0.16,88.75
 2026-11-07 05:50,eth-updown-5m-1794030600,Follow Move 4m,Up,243,0.7,1.25,won,0.5,63.15
 2026-11-07 06:05,eth-updown-5m-1794031500,Favorite 3m,Down,181,0.87,1.77,won,0.25,88.99
+2026-11-07 06:45,eth-updown-5m-1794033900,Favorite 3m,Down,182,0.92,1.78,won,0.14,89.14
+2026-11-07 06:50,eth-updown-5m-1794034200,Favorite 3m,Up,182,0.77,1.78,won,0.5,89.63
+2026-11-07 06:50,eth-updown-5m-1794034200,Follow Move 4m,Down,242,0.02,1.26,lost,-1.26,61.89
