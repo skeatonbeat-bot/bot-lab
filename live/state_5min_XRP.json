@@ -1,17 +1,5 @@
 {
- "pending": [
-  {
-   "start": 1794074700,
-   "slug": "xrp-updown-5m-1794074700",
-   "bot": "Follow Move 4m",
-   "up": true,
-   "sec": 242,
-   "ask": 0.97,
-   "stake": 1.5998542277830825,
-   "shares": 1.6458779118316305,
-   "s0": 1.1604
-  }
- ],
+ "pending": [],
  "bots": {
   "Coin Flip": {
    "cash": 59.5696028836724,
@@ -30,7 +18,7 @@
    "retired": false
   },
   "Follow Move 4m": {
-   "cash": 79.99271138915412,
+   "cash": 78.43796037173863,
    "retired": false
   }
  }
